@@ -5,6 +5,7 @@ import github from "../styles/images/github.png";
 import codelogo from "../styles/images/codelogo.png";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
+import { NavLink } from "react-router-dom";
 
 function Footer() {
   const [show, setShow] = useState(false);
@@ -48,7 +49,9 @@ function Footer() {
         </div>
       </div>
       <div className="footerList">
-        <p className="FootText">Privacy & Conditions</p>
+        <NavLink to="/about" className="FootText">
+          More about this web page
+        </NavLink>
       </div>
       <div className="footerList">
         <a

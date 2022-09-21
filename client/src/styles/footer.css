@@ -56,10 +56,9 @@ transform: translateY(-5px);
 }
 
 .FootText{
-font-size: 14px;
+font-size: 12px;
 cursor: pointer;
 text-decoration: underline;
-margin: 0;
 color: white;
 font-weight: bold;
 }

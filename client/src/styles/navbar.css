@@ -9,12 +9,26 @@ gap: 1rem;
 }
 
 .navbarLogo{
-    order: 0;
+    cursor: pointer;
 }
 
 .navbarList{
-    order: 1;
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    align-items: baseline;
+   
+}
+
+.navbarLink {
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+
+}
+
+.active {
+    color: #71C080;
+align-self: flex-start;
+
 }

@@ -3,6 +3,7 @@
     flex-direction: column;
   justify-content: center;
   padding-top: 3rem;
+ 
 
 }
 
@@ -10,12 +11,14 @@
     align-self: center;
     font-size: 70px;
     font-family: Cairo Play ;
+ 
 
 }
 .homeTitleBer{
     align-self: center;
         font-size: 50px;
         font-family: Cairo ;
+        
 }
 
 .homeLearnMore{

@@ -3,12 +3,20 @@
   "version": "1.0.0",
   "description": "mern app to adopt trees",
   "main": "server.js",
+  "start": "server",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "start": "concurrently \"nodemon server.js\" \"cd ../client && npm start\""
   },
+  
   "author": "Alberto Carrillo",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^7.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.1",
     "nodemon": "^2.0.20"
   }
 }
