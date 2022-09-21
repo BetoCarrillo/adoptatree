@@ -1,4 +1,36 @@
 .homeDiv{
     display: flex;
-   
+    flex-direction: column;
+  justify-content: center;
+  padding-top: 3rem;
+
 }
+
+.homeTitle{
+    align-self: center;
+    font-size: 70px;
+    font-family: Cairo Play ;
+
+}
+.homeTitleBer{
+    align-self: center;
+        font-size: 50px;
+        font-family: Cairo ;
+}
+
+.homeLearnMore{
+    padding-top: 3rem;
+    align-self: center;
+}
+
+.homeMyTrees{
+    padding-top: 3rem;
+        align-self: center;
+}
+
+.treeLogo{
+    font-size: 4rem;
+    color:#71C080;
+}
+
+

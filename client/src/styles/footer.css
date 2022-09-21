@@ -1,0 +1,74 @@
+.footerDiv{
+display: flex;
+justify-content: center;
+position: fixed;
+padding: 1rem;
+gap: 1rem;
+flex-direction: column;
+background-color: #71C080;
+left: 0;
+        bottom: 0;
+        right: 0;
+        
+
+}
+
+.footerList{
+display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+}
+
+.githubLogo:hover{
+transform: translateY(-5px);
+}
+
+.LinkLogo:hover {
+    transform: translateY(-5px);
+}
+
+.mailpopover {
+    word-wrap: normal;
+    width: auto;
+    font-size: 12px;
+
+}
+.mailLogo{
+    color: #71C080;
+    background-color: none !important;
+    padding-top: 4.6px;
+    padding-left: 4.5px;
+    font-size: 33px;
+}
+
+.mailDiv{
+    border: black solid 1px;
+    background-color: black;
+    border-radius: 3.9rem;
+    width: 2.6rem;
+    cursor: pointer;
+    height: 2.6rem;
+}
+
+.mailDiv:hover {
+transform: translateY(-5px);
+}
+
+.FootText{
+font-size: 14px;
+cursor: pointer;
+text-decoration: underline;
+margin: 0;
+color: white;
+font-weight: bold;
+}
+
+.FootAcademy{
+cursor: pointer;
+transform: translateY(-5px);
+}
+
+.FootAcademy:hover {
+    transform: translateY(-5px);
+}
