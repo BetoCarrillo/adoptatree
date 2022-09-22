@@ -11,29 +11,35 @@ function NavBar() {
   return (
     <div>
       <div className="navbarDiv">
-        <NavLink to="/home" className="navbarLogo">
-          {" "}
-          <img className="" src={logo} alt="" height={25}></img>
+        <NavLink className="navbarLogo">
+          ADOPT{" "}
+          <span className="material-symbols-outlined treeLogoNavbar animation ">
+            {" "}
+            park
+          </span>{" "}
+          TREE<span className="colorGreen">:</span>
         </NavLink>
         <div className="navbarList">
-          <div>Welcome user &nbsp; | </div>
+          <div>Hi user! &nbsp; | </div>
 
           {!isNavExpanded ? (
             <div className="navbarList">
               <NavLink className="navbarLink" to="/home">
-                Home
+                <span className="material-symbols-outlined">home</span>
               </NavLink>
               <NavLink className="navbarLink" to="/trees">
-                Trees
-              </NavLink>
-              <NavLink className="navbarLink" to="/login">
-                Login
+                <span className="material-symbols-outlined">forest</span>
               </NavLink>
               <NavLink className="navbarLink" to="/about">
-                About
+                <span className="material-symbols-outlined">
+                  contact_support
+                </span>
               </NavLink>
               <NavLink className="navbarLink" to="/profile">
-                <span className="material-symbols-outlined">nature_people</span>
+                <span className="material-symbols-outlined">person</span>
+              </NavLink>
+              <NavLink className="navbarLink" to="/login">
+                <span className="material-symbols-outlined">login</span>
               </NavLink>
             </div>
           ) : (

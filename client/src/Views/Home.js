@@ -1,12 +1,17 @@
 import React from "react";
 import "../styles/home.css";
+import "../App.css";
 import ModalHome from "../Components/ModalHome";
 
 function Home() {
   return (
     <div className="homeDiv">
-      <div className="homeTitle">
-        ADOPT <span className="material-symbols-outlined treeLogo"> park</span>{" "}
+      <div className="homeTitle ">
+        ADOPT{" "}
+        <span className="material-symbols-outlined treeLogo animation ">
+          {" "}
+          park
+        </span>{" "}
         TREE:
       </div>
       <div className="homeTitleBer"> Berlin</div>

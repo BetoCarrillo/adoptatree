@@ -2,12 +2,14 @@
   "name": "server",
   "version": "1.0.0",
   "description": "mern app to adopt trees",
-  "main": "server.js",
-  "start": "server",
+  "main": "server",
+  "start": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "start": "concurrently \"nodemon server.js\" \"cd ../client && npm start\""
+     "start": "concurrently \"nodemon server.js\" \"cd ../client && npm start\"",
+    "server":"nodemon server.js"
+   
   },
   
   "author": "Alberto Carrillo",

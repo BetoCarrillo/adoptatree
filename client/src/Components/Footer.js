@@ -54,14 +54,14 @@ function Footer() {
         </NavLink>
       </div>
       <div className="footerList">
-        <a
+        {/*       <a
           rel="noreferrer"
           target={"_blank"}
           href="https://www.codeacademyberlin.com/"
         >
           {" "}
           <img className="FootAcademy" src={codelogo} alt="" height={30}></img>
-        </a>
+        </a> */}
         <Overlay target={target.current} show={show} placement="top">
           {(props) => (
             <Tooltip className="mailpopover" {...props}>

@@ -3,6 +3,7 @@ display: flex;
 justify-content: center;
 position: fixed;
 padding: 1rem;
+padding-bottom: 0rem;
 gap: 1rem;
 flex-direction: column;
 background-color: #71C080;
@@ -37,8 +38,8 @@ transform: translateY(-5px);
 .mailLogo{
     color: #71C080;
     background-color: none !important;
-    padding-top: 4.6px;
-    padding-left: 4.5px;
+    padding-top: 3.8px;
+    padding-left: 3.5px;
     font-size: 33px;
 }
 
@@ -62,6 +63,12 @@ text-decoration: underline;
 color: white;
 font-weight: bold;
 }
+
+.FootText:hover {
+    color: black;
+}
+
+ 
 
 .FootAcademy{
 cursor: pointer;

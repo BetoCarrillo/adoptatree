@@ -9,20 +9,22 @@ function ModalHome() {
 
   return (
     <div>
-      <Button color="success" type="" onClick={handleShow}>
+      <Button
+        className="learnMoreButton"
+        color="success"
+        type=""
+        onClick={handleShow}
+      >
         Learn More
       </Button>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Header className="modalHeadingDiv">
+          <Modal.Title>What is adopt a tree?</Modal.Title>
         </Modal.Header>
         <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="modalFooterDiv">
           <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            <span className="material-symbols-outlined">cancel</span>
           </Button>
         </Modal.Footer>
       </Modal>

@@ -10,13 +10,20 @@ gap: 1rem;
 
 .navbarLogo{
     cursor: pointer;
+    text-decoration: none;
+    color: black !important;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 0 !important;
+
+  
 }
 
 .navbarList{
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    align-items: baseline;
+  
    
 }
 
@@ -27,8 +34,23 @@ gap: 1rem;
 
 }
 
+.navbarLink:hover {
+    color: #71C080;
+
+}
+
 .active {
     color: #71C080;
 align-self: flex-start;
+padding-top: 0.3rem;
 
+}
+
+.treeLogoNavbar {
+    font-size: 1.5rem;
+    color: #71C080;
+}
+
+.colorGreen{
+    color: #71C080;
 }

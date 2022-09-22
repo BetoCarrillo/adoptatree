@@ -25,6 +25,9 @@
     padding-top: 3rem;
     align-self: center;
 }
+.learnMoreButton{
+    color:#71C080 !important;
+}
 
 .homeMyTrees{
     padding-top: 3rem;
@@ -36,4 +39,11 @@
     color:#71C080;
 }
 
+
+.modalHeadingDiv{
+background-color: #71C080;
+}
+.modalFooterDiv {
+    background-color: #71C080;
+}
 
