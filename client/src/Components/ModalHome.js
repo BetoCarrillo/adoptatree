@@ -17,7 +17,7 @@ function ModalHome() {
       >
         Learn More
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header className="modalHeadingDiv">
           <Modal.Title>What is adopt a tree?</Modal.Title>
         </Modal.Header>
