@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import router from "./routes/treesRoute.js";
+import usersRoute from "./routes/usersRoute.js";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import treesRoute from "./routes/treesRoute.js";
@@ -41,6 +42,7 @@ const startServer = () => {
 const loadRoutes = () => {
   app.use("/trees", router);
   app.use("/api/trees", treesRoute);
+  app.use("/api/users", usersRoute);
 };
 
 (async function controller() {

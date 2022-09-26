@@ -11,7 +11,7 @@ function NavBar() {
   return (
     <div>
       <div className="navbarDiv">
-        <NavLink className="navbarLogo">
+        <NavLink className="navbarLogo" to="/home">
           ADOPT{" "}
           <span className="material-symbols-outlined treeLogoNavbar animation ">
             {" "}

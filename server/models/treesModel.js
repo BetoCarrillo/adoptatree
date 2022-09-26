@@ -25,6 +25,8 @@ const treesSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
+
+  user: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
 });
 
 const treeModel = mongoose.model("tree", treesSchema);
