@@ -5,18 +5,19 @@ function Trees() {
   const { data, loading, error } = useFetch(
     "http://localhost:5002/api/trees/all/"
   );
-  console.log(data);
+  console.log("data", data);
 
   return (
     <div>
-      {/*   {data &&
-        data.data.map((value, i) => {
+      {data &&
+        data.allTrees.map((value, i) => {
           return (
             <div key={i}>
-              <h2>{value}</h2>
+              <h2>{value.name}</h2>
             </div>
           );
-        })} */}
+        })}
+      {data && <p>{data.allTrees[0].name}</p>}
     </div>
   );
 }
