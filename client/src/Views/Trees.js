@@ -3,7 +3,7 @@ import useFetch from "../hooks/useFetch";
 
 function Trees() {
   const { data, loading, error } = useFetch(
-    "http://localhost:5002/api/trees/all/"
+    "http://localhost:5005/api/trees/all/"
   );
   console.log("data", data);
 

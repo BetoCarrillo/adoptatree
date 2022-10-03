@@ -5,9 +5,10 @@ import usersRoute from "./routes/usersRoute.js";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import treesRoute from "./routes/treesRoute.js";
+import { cloudinaryConfig } from "./config/cloudinaryConfig.js";
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 5002;
+const port = process.env.PORT || 5005;
 
 const addMiddlewares = () => {
   app.use(express.json());
@@ -20,8 +21,8 @@ const addMiddlewares = () => {
     origin: "http://localhost:3000",
     credentials: true,
   };
-
   app.use(cors(corsOptions));
+  cloudinaryConfig();
 };
 
 const mongoDBConnection = async () => {
@@ -43,6 +44,7 @@ const loadRoutes = () => {
   app.use("/trees", router);
   app.use("/api/trees", treesRoute);
   app.use("/api/users", usersRoute);
+  app.use("/api/users/signup", usersRoute);
 };
 
 (async function controller() {
