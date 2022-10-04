@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import "../styles/footer.css";
 import linkedin from "../styles/images/linkedin.png";
 import github from "../styles/images/github.png";
-import codelogo from "../styles/images/codelogo.png";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
 import { NavLink } from "react-router-dom";

@@ -44,7 +44,6 @@ const loadRoutes = () => {
   app.use("/trees", router);
   app.use("/api/trees", treesRoute);
   app.use("/api/users", usersRoute);
-  app.use("/api/users/signup", usersRoute);
 };
 
 (async function controller() {

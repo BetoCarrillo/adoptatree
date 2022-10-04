@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../styles/navbar.css";
-import logo from "../styles/images/logo.png";
 import { NavLink } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";

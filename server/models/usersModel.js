@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema({
   userName: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -24,5 +25,5 @@ const userSchema = new mongoose.Schema({
   tree: [{ type: mongoose.Schema.Types.ObjectId, ref: "tree" }],
 });
 
-const usersModel = mongoose.model("user", userSchema);
-export default usersModel;
+const userModel = mongoose.model("user", userSchema);
+export default userModel;

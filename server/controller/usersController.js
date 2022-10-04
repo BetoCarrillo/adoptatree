@@ -21,7 +21,7 @@ const uploadUserPicture = async (req, res) => {
   }
 };
 
-/* const getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
   const allUsers = await usersModel.find({}).populate({ path: "tree" });
   try {
     res.status(200).json({
@@ -34,7 +34,7 @@ const uploadUserPicture = async (req, res) => {
       error: error,
     });
   }
-}; */
+};
 const encryptPassword = async (password) => {
   try {
     const saltRounds = 10;
@@ -49,13 +49,13 @@ const encryptPassword = async (password) => {
 const signUp = async (req, res) => {
   console.log("req.body", req.body);
   try {
-    const existingUser = await userModel.findOne({ email: req.body.email });
+    const existingUser = await usersModel.findOne({ email: req.body.email });
     if (existingUser) {
       res.status(409).json({ msg: "user already exists" });
     } else {
       // good place to use express validator middleware, to validate email/password/any other fields.
       const hashedPassword = await encryptPassword(req.body.password);
-      const newUser = new userModel({
+      const newUser = new usersModel({
         userName: req.body.userName,
         email: req.body.email,
         password: hashedPassword,
@@ -84,4 +84,4 @@ const signUp = async (req, res) => {
   }
 };
 
-export { /* getAllUsers, */ uploadUserPicture, signUp };
+export { getAllUsers, uploadUserPicture, signUp };

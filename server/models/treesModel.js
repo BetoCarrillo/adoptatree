@@ -16,16 +16,14 @@ const treesSchema = new mongoose.Schema({
   likes: {
     type: Number,
   },
-  Date: {
+  date: {
     type: Date,
     default: Date.now,
     max: Date.now + 1,
   },
   img: {
-    data: Buffer,
-    contentType: String,
+    type: Array,
   },
-
   user: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
 });
 
