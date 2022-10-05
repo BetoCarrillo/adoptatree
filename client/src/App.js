@@ -8,8 +8,33 @@ import Login from "./Views/Login";
 import Register from "./Views/Register";
 import Trees from "./Views/Trees";
 import NaN from "./Views/NaN";
+import getToken from "./utils/getToken.js";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const isUserLoggedIn = () => {
+    const token = getToken();
+    if (token) {
+      setUser(true);
+      console.log("user is logged in");
+    }
+    if (!token) {
+      console.log("user is NOT logged in");
+      setUser(false);
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser(false);
+  };
+
+  useEffect(() => {
+    isUserLoggedIn();
+  }, [user]);
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -25,6 +50,7 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
+      <button onClick={logout}>logout</button>
     </div>
   );
 }

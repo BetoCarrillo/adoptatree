@@ -29,9 +29,8 @@ function Register() {
       );
       const result = await response.json();
       console.log("result", result);
-      setNewUser({ ...newUser, avatarPicture: result.imageUrl });  
+      setNewUser({ ...newUser, avatarPicture: result.imageUrl });
     } catch (error) {}
-
   };
 
   const signUp = async () => {
@@ -64,45 +63,43 @@ function Register() {
   return (
     <div>
       <div>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            value={newUser.userName ? newUser.userName : ""}
-            name="userName"
-            onChange={handleChangeHandler}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            value={newUser.email ? newUser.email : ""}
-            onChange={handleChangeHandler}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="text"
-            name="password"
-            id="password"
-            value={newUser.password ? newUser.password : ""}
-            onChange={handleChangeHandler}
-          />
-        </div>
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          value={newUser.userName ? newUser.userName : ""}
+          name="userName"
+          onChange={handleChangeHandler}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">Email</label>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          value={newUser.email ? newUser.email : ""}
+          onChange={handleChangeHandler}
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password</label>
+        <input
+          type="text"
+          name="password"
+          id="password"
+          value={newUser.password ? newUser.password : ""}
+          onChange={handleChangeHandler}
+        />
+      </div>
       <form>
         <input type="file" onChange={attachFileHandler} />
         <button onClick={submitForm}>Upload Picture</button>
-      
-      </form>  
+      </form>
       {newUser.avatarPicture && (
-          <img src={newUser.avatarPicture} alt="userPic" />
-        )}
+        <img src={newUser.avatarPicture} alt="userPic" />
+      )}
       <button onClick={signUp}>Signup</button>
-
     </div>
   );
 }

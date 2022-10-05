@@ -3,10 +3,13 @@ import cors from "cors";
 import router from "./routes/treesRoute.js";
 import usersRoute from "./routes/usersRoute.js";
 import * as dotenv from "dotenv";
+dotenv.config();
 import mongoose from "mongoose";
 import treesRoute from "./routes/treesRoute.js";
 import { cloudinaryConfig } from "./config/cloudinaryConfig.js";
-dotenv.config();
+import passport from "passport";
+import passportConfig from "./config/passportConfig.js";
+
 const app = express();
 const port = process.env.PORT || 5005;
 
@@ -23,6 +26,8 @@ const addMiddlewares = () => {
   };
   app.use(cors(corsOptions));
   cloudinaryConfig();
+  app.use(passport.initialize());
+  passportConfig(passport);
 };
 
 const mongoDBConnection = async () => {

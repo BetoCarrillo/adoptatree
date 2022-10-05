@@ -23,6 +23,7 @@ function Profile() {
     const requestOptions = {
       method: "Post",
       body: formData,
+      enctype: "multipart/form-data",
     };
 
     try {
@@ -109,7 +110,7 @@ function Profile() {
         </div>
         <form>
           <input type="file" onChange={attachFileHandler} />
-          <button onClick={submitForm}>Upload Tree Picture</button>
+          <button onClick={submitForm}>Upload Pictures</button>
         </form>
         {newTree.img && <img src={newTree.img} alt="userTreePic" />}
       </div>

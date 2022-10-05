@@ -1,6 +1,7 @@
 import usersModel from "../models/usersModel.js";
 import { v2 as cloudinary } from "cloudinary";
-import bcrypt from "bcrypt";
+import { encryptPassword, verifyPassword } from "../utils/bcrypt.js";
+import { issueToken } from "../utils/jwt.js";
 
 const uploadUserPicture = async (req, res) => {
   console.log("req.body", req.body);
@@ -33,16 +34,6 @@ const getAllUsers = async (req, res) => {
       msg: "something went wrong",
       error: error,
     });
-  }
-};
-const encryptPassword = async (password) => {
-  try {
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hashPassword = await bcrypt.hash(password, salt);
-    return hashPassword;
-  } catch (error) {
-    console.log("error hashing password", error);
   }
 };
 
@@ -84,4 +75,47 @@ const signUp = async (req, res) => {
   }
 };
 
-export { getAllUsers, uploadUserPicture, signUp };
+const login = async (req, res) => {
+  console.log("req.body", req.body);
+  try {
+    const existingUser = await usersModel.findOne({ email: req.body.email });
+    if (!existingUser) {
+      res.status(401).json({ msg: "user not found" });
+    } else {
+      const verified = await verifyPassword(
+        req.body.password,
+        existingUser.password
+      );
+      if (!verified) {
+        res.status(401).json({ msg: "wrong password" });
+      }
+      if (verified) {
+        console.log("user is logged in");
+        const token = issueToken(existingUser.id);
+        console.log("token", token);
+        res.status(201).json({
+          msg: "user is logged in",
+          user: {
+            userName: existingUser.userName,
+            email: existingUser.email,
+            id: existingUser.id,
+            avatarPicture: existingUser.avatarPicture,
+          },
+          token,
+        });
+      }
+    }
+  } catch (error) {}
+};
+
+const getProfile = async (req, res) => {
+  console.log("req.user", req.user);
+  res.status(201).json({
+    userName: req.user.userName,
+    email: req.user.email,
+    id: req.user.id,
+    avatarPictura: req.user.avatarPicture,
+  });
+};
+
+export { getAllUsers, uploadUserPicture, signUp, login, getProfile };
