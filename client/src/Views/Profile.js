@@ -27,7 +27,7 @@ function Profile() {
 
     try {
       const response = await fetch(
-        "http://localhost:5002/api/trees/imgUpload",
+        "http://localhost:5005/api/trees/imgUpload",
         requestOptions
       );
       const result = await response.json();
@@ -51,7 +51,7 @@ function Profile() {
 
     try {
       const response = await fetch(
-        "http://localhost:5002/api/trees/adopt",
+        "http://localhost:5005/api/trees/adopt",
         requestOptions
       );
       const results = await response.json();
@@ -64,6 +64,7 @@ function Profile() {
   return (
     <div>
       Profile
+      <button onClick={adopt}>adopt</button>
       <div>
         adopt a tree form
         <div>
@@ -112,7 +113,6 @@ function Profile() {
         </form>
         {newTree.img && <img src={newTree.img} alt="userTreePic" />}
       </div>
-      <button onClick={adopt}>adopt</button>
     </div>
   );
 }

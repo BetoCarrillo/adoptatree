@@ -19,7 +19,7 @@ const treesSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now,
-    max: Date.now + 1,
+    max: Date.now,
   },
   img: {
     type: Array,
