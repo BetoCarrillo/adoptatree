@@ -2,6 +2,7 @@ import usersModel from "../models/usersModel.js";
 import { v2 as cloudinary } from "cloudinary";
 import { encryptPassword, verifyPassword } from "../utils/bcrypt.js";
 import { issueToken } from "../utils/jwt.js";
+import { check, validationResult } from "express-validator";
 
 const uploadUserPicture = async (req, res) => {
   console.log("req.body", req.body);
@@ -42,7 +43,9 @@ const signUp = async (req, res) => {
   try {
     const existingUser = await usersModel.findOne({ email: req.body.email });
     if (existingUser) {
-      res.status(409).json({ msg: "user already exists" });
+      res.status(409).json({
+        msg: "user already exists",
+      });
     } else {
       // good place to use express validator middleware, to validate email/password/any other fields.
       const hashedPassword = await encryptPassword(req.body.password);

@@ -8,10 +8,10 @@ function Trees() {
     "http://localhost:5005/api/trees/all/"
   );
 
-  console.log("data", data, data.i);
+  /*  console.log("data", data); */
 
-  let date = new Date(data.allTrees[0].date).toLocaleString();
-  console.log("date", date);
+  /*   let date = new Date(tree.date).toLocaleString();
+  console.log("date", date); */
 
   return (
     <div>
@@ -27,9 +27,12 @@ function Trees() {
                     <Card.Text>
                       Location: {tree.location}
                       <br />
-                      Type: {tree.type} <br />
+                      Type: {tree.type} <br /> {tree.date}
+                      <br />
+                      {tree.user ? <>{tree.user[0].userName}</> : ""}
+                      {console.log(tree.user[0].userName)}
                     </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <Button variant="primary">Comment</Button>
                   </Card.Body>
                 </Card>
               </div>
