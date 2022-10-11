@@ -6,6 +6,7 @@ import ModalHome from "../Components/ModalHome";
 function Home() {
   const [userProfile, setUserProfile] = useState({});
   const [error, setError] = useState(null);
+
   const getProfile = async () => {
     const token = localStorage.getItem("token");
     console.log("token", token);

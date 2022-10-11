@@ -2,6 +2,8 @@ import React from "react";
 import useFetch from "../hooks/useFetch";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import "../styles/trees.css";
+import Accordion from "react-bootstrap/Accordion";
 
 function Trees() {
   const { data, loading, error } = useFetch(
@@ -20,21 +22,31 @@ function Trees() {
           data.allTrees.map((tree, i) => {
             return (
               <div key={i}>
-                <Card style={{ width: "18rem" }}>
-                  <Card.Img variant="top" src={tree.img} height="280rem" />
-                  <Card.Body>
-                    <Card.Title>{tree.name}</Card.Title>
-                    <Card.Text>
-                      Location: {tree.location}
-                      <br />
-                      Type: {tree.type} <br /> {tree.date}
-                      <br />
-                      {tree.user ? <>{tree.user[0].userName}</> : ""}
-                      {console.log(tree.user[0].userName)}
-                    </Card.Text>
-                    <Button variant="primary">Comment</Button>
-                  </Card.Body>
-                </Card>
+                <div className="cardsDiv">
+                  <Card style={{ width: "18rem" }}>
+                    <Card.Img variant="top" src={tree.img} height="280rem" />
+                    <Card.Body>
+                      <Card.Title></Card.Title>
+                      <Card.Text>
+                        {tree.likes ? <>{tree.likes}</> : ""}
+                        <br />
+                        <Accordion flush>
+                          <Accordion.Item eventKey="0">
+                            <Accordion.Header>{tree.name}</Accordion.Header>
+                            <Accordion.Body>
+                              Location: {tree.location}
+                              <br />
+                              Type: {tree.type} <br /> {tree.date}
+                              <br />
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        </Accordion>
+                        {tree.user ? <>{tree.user[0].userName}</> : ""}
+                      </Card.Text>
+                      <Button variant="primary">Add a comment..</Button>
+                    </Card.Body>
+                  </Card>
+                </div>
               </div>
             );
           })

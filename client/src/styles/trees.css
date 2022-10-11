@@ -1,0 +1,46 @@
+.cardsDiv {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    padding-bottom: 5rem;
+
+}
+
+.accordion-button.collapsed::after {
+background-image: url(file:///Users/albertocarrillo/Downloads/more_horiz_FILL0_wght400_GRAD0_opsz48.svg);
+  
+}
+
+.accordion-button:not(.collapsed)::after {
+background-image: url(file:///Users/albertocarrillo/Downloads/remove_FILL0_wght400_GRAD0_opsz48.svg);
+
+}
+
+/* @import url("https://use.fontawesome.com/releases/v5.15.0/css/all.css");
+
+.accordion-button:not(.collapsed)::after {
+    content: "\f067";
+    font-family: "Font Awesome 5 Free";
+    color: red;
+    background-image: none;
+}
+
+.accordion-button.collapsed::after {
+    content: "\f068";
+    color: green;
+    font-weight: 400;
+    font-family: "Font Awesome 5 Free";
+    background-image: none;
+} */
+
+@media screen and (max-width: 700px) { 
+.cardsDiv {
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        padding-bottom: 5rem;
+    }
+
+
+
+}
