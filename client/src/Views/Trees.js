@@ -10,6 +10,7 @@ function Trees() {
     "http://localhost:5005/api/trees/all/"
   );
 
+  const likes = (req, res) => {};
   /*  console.log("data", data); */
 
   /*   let date = new Date(tree.date).toLocaleString();
@@ -28,8 +29,15 @@ function Trees() {
                     <Card.Body>
                       <Card.Title></Card.Title>
                       <Card.Text>
-                        {tree.likes ? <>{tree.likes}</> : ""}
-                        <br />
+                        <div className="likesDiv">
+                          {tree.likes ? <>{tree.likes}</> : ""}
+                          <span
+                            class="material-symbols-outlined"
+                            onClick={likes}
+                          >
+                            favorite
+                          </span>
+                        </div>
                         <Accordion flush>
                           <Accordion.Item eventKey="0">
                             <Accordion.Header>{tree.name}</Accordion.Header>
@@ -41,6 +49,7 @@ function Trees() {
                             </Accordion.Body>
                           </Accordion.Item>
                         </Accordion>
+                        &nbsp; &nbsp; &nbsp;
                         {tree.user ? <>{tree.user[0].userName}</> : ""}
                       </Card.Text>
                       <Button variant="primary">Add a comment..</Button>

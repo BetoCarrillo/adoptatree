@@ -5,7 +5,12 @@
     padding-bottom: 5rem;
 
 }
-
+.likesDiv{
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding-bottom: 5px;
+}
 .accordion-button.collapsed::after {
 background-image: url(file:///Users/albertocarrillo/Downloads/more_horiz_FILL0_wght400_GRAD0_opsz48.svg);
   
@@ -15,6 +20,8 @@ background-image: url(file:///Users/albertocarrillo/Downloads/more_horiz_FILL0_w
 background-image: url(file:///Users/albertocarrillo/Downloads/remove_FILL0_wght400_GRAD0_opsz48.svg);
 
 }
+
+
 
 /* @import url("https://use.fontawesome.com/releases/v5.15.0/css/all.css");
 
