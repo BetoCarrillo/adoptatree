@@ -75,7 +75,9 @@ function Trees() {
                         &nbsp; &nbsp; &nbsp;
                         {tree.user ? <>{tree.user[0].userName}</> : ""}
                       </Card.Text>
-                      <Button variant="primary">Add a comment..</Button>
+                      <Button value={tree} variant="primary">
+                        Add a comment..
+                      </Button>
                     </Card.Body>
                   </Card>
                 </div>
