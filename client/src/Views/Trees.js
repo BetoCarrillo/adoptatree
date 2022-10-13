@@ -10,7 +10,30 @@ function Trees() {
     "http://localhost:5005/api/trees/all/"
   );
 
-  const likes = (req, res) => {};
+  const likes = async (req, res) => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("name", "Bendición");
+
+    var requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:5005/api/trees/likes",
+        requestOptions
+      );
+      const results = await response.json();
+      console.log("results", results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   /*  console.log("data", data); */
 
   /*   let date = new Date(tree.date).toLocaleString();

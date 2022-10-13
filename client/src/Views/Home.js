@@ -54,7 +54,7 @@ function Home() {
       <div className="homeLearnMore">
         <ModalHome />
       </div>
-      <div className="homeMyTrees">My Trees </div>
+      <div className="homeMyTrees">My liked Trees </div>
     </div>
   );
 }

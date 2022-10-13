@@ -8,7 +8,7 @@ import Login from "./Views/Login";
 import Register from "./Views/Register";
 import Trees from "./Views/Trees";
 import NaN from "./Views/NaN";
-import logoutButton from "./Components/logoutButton.js";
+
 import getToken from "./utils/getToken.js";
 import { useEffect, useState } from "react";
 
@@ -49,8 +49,6 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NaN />} />
         </Routes>
-
-        <logoutButton setUser={setUser} />
 
         <Footer />
       </BrowserRouter>

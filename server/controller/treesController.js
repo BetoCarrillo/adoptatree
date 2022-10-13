@@ -133,42 +133,20 @@ const adopt = async (req, res) => {
 };
 
 const likes = async (req, res) => {
-  console.log("req.body?????????", req);
+  console.log("req.body????", req.body.name);
   try {
-    const newLike = new treeModel.findOne({
-      likes: req.body.likes,
-    });
-    try {
-      const likedTree = await newLike.save();
-      res.status(201).json({
-        tree: {
-          likes: likedTree.likes + 1,
-        },
-        msg: "liked",
-      });
-    } catch (error) {
-      res.status(409).json({ message: "error while liking", error: error });
-    }
-  } catch (error) {}
-};
-
-/* const uploadTreePicture = async (req, res) => {
-  console.log("req.body", req.body);
-  try {
-    console.log("req.file :>> ", req.file);
-    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-      folder: "adoptedtrees",
-    });
-    console.log("uploadResult", uploadResult);
-    res.status(200).json({
-      message: "Image upload succesfull",
-      imageUrl: uploadResult.url,
-    });
+    const treeLike = await treeModel.findOneAndUpdate(
+      req.body.name,
+      {
+        $inc: { likes: 1 },
+      },
+      { returnOriginal: false }
+    );
+    console.log("treeLike????", treeLike);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "image couldn't be uploaded", error: error });
+    res.status(409).json({ message: "error while liking", error: error });
+    console.log("error", error);
   }
-}; */
+};
 
 export { uploadTreePicture, getAllTrees, getTreesByType, adopt, likes };

@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 
 const encryptPassword = async (password) => {
+  console.log("password", password);
+  console.log("type password", typeof password);
   try {
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
