@@ -2,11 +2,14 @@ import React, { useContext, useState } from "react";
 import "../styles/home.css";
 import "../App.css";
 import ModalHome from "../Components/ModalHome";
+import { AuthContext } from "../Context/AuthContext";
+import { NavLink } from "react-router-dom";
 /* import { AuthContext } from "../Context/AuthContext.js"; */
 
 function Home() {
   const [userProfile, setUserProfile] = useState({});
   const [error, setError] = useState(null);
+  const { user } = useContext(AuthContext);
   /*   const { user } = useContext(AuthContext); */
 
   const getProfile = async () => {
@@ -56,7 +59,8 @@ function Home() {
       <div className="homeLearnMore">
         <ModalHome />
       </div>
-      <div className="homeMyTrees">My liked Trees </div>
+      <div className="homeMyTrees">My Trees </div>
+      <NavLink to="/adopt">Adopt</NavLink>
     </div>
   );
 }

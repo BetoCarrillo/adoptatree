@@ -3,6 +3,17 @@ import React, { useState } from "react";
 function UserInfo() {
   const [userProfile, setUserProfile] = useState({});
   const [error, setError] = useState(null);
+  const [isShown, setIsShown] = useState(false);
+
+  const handleClick = (event) => {
+    // 👇️ toggle shown state
+
+    setIsShown((current) => !current);
+    getProfile();
+    // 👇️ or simply set it to true
+    // setIsShown(true);
+  };
+
   const getProfile = async () => {
     const token = localStorage.getItem("token");
     console.log("token", token);
@@ -37,16 +48,25 @@ function UserInfo() {
 
   return (
     <div>
-      <h2>User's Profile</h2>
-      <button onClick={getProfile}>View profile info</button>
-      {userProfile && (
+      <h2>Profile</h2>
+      <img src={userProfile.avatarPicture} alt={userProfile.userName} />
+      {!isShown ? (
+        <button onClick={handleClick}>+</button>
+      ) : (
+        <button onClick={handleClick}>-</button>
+      )}
+
+      {isShown && (
         <div>
-          <p>{userProfile.userName}</p>
-          <p>{userProfile.email}</p>
-          <img src={userProfile.avatarPicture} alt={userProfile.userName} />
+          {userProfile && (
+            <div>
+              <p>{userProfile.userName}</p>
+              <p>{userProfile.email}</p>
+            </div>
+          )}
+          {error && <p>you have to login first</p>}
         </div>
       )}
-      {error && <p>you have to login first</p>}
     </div>
   );
 }

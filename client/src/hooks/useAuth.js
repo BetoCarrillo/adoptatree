@@ -1,10 +1,31 @@
-import { useContext } from "react";
-import { AuthContext } from "../Context/AuthContext.js";
-
 function useAuth() {
-  const { user } = useContext(AuthContext);
+  const token = localStorage.getItem("token");
 
-  const isLoggedIn = user !== null ? true : false;
+  const isLoggedIn = async (req, res) => {
+    let myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzNjMjBiYWU1YWJjYmMzZTIyYTAwYjUiLCJpYXQiOjE2NjU3NTg2ODQsImV4cCI6MTY2NjM2MzQ4NH0.8cY2kLlAX5mEU7BJrkzOC8jtrnatCAyMbxQfEDlsWGw"
+    );
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5005/api/users/profile",
+        requestOptions
+      );
+      const results = await response.json();
+      console.log("results", results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   return isLoggedIn;
 }
 

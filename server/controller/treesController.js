@@ -110,6 +110,8 @@ const adopt = async (req, res) => {
         location: req.body.location,
         img: req.body.img,
         date: req.body.date,
+        likes: req.body.likes,
+        user: req.body.user,
       });
       try {
         const savedTree = await newTree.save();
@@ -120,6 +122,8 @@ const adopt = async (req, res) => {
             location: savedTree.location,
             img: savedTree.img,
             date: savedTree.date,
+            likes: savedTree.likes,
+            user: savedTree.user,
           },
           msg: "Tree adopted successfully",
         });

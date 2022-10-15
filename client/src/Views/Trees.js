@@ -91,16 +91,6 @@ function Trees() {
                         <div className="likesDiv">
                           {tree.likes ? <>{tree.likes}</> : ""}
 
-                          {/*     <span
-                            class={
-                              like === true
-                                ? "material-symbols-outlined liked"
-                                : "material-symbols-outlined unliked"
-                            }
-                            onClick={(e) => likes(e, tree)}
-                          >
-                            favorite
-                          </span> */}
                           {like === true ? (
                             <span
                               class="material-symbols-outlined liked"
@@ -129,7 +119,14 @@ function Trees() {
                           </Accordion.Item>
                         </Accordion>
                         &nbsp; &nbsp; &nbsp;
-                        {tree.user ? <>{tree.user[0].userName}</> : ""}
+                        {tree.user ? (
+                          <>
+                            {tree.user[0].name}
+                            {tree.user[0].email}
+                          </>
+                        ) : (
+                          ""
+                        )}
                       </Card.Text>
                       <Button variant="primary">Add a comment..</Button>
                     </Card.Body>

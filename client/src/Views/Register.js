@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
 function Register() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [newUser, setNewUser] = useState({});
   const [error, setError] = useState(null);
   const [passError, setPassError] = useState(null);
+  const redirectLogin = useNavigate();
+  const { user, setUser } = useContext(AuthContext);
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -56,7 +60,7 @@ function Register() {
     } catch (error) {}
   };
 
-  const signUp = async () => {
+  const signUp = async (e) => {
     if (error === null && passError === null) {
       let urlencoded = new URLSearchParams();
       urlencoded.append("userName", newUser.userName);
@@ -81,8 +85,14 @@ function Register() {
         const results = await response.json();
         console.log("results", results);
 
+        console.log("first", results.token);
+
         if (results.msg === "user already exists") {
           alert("email already exists");
+          e.preventDefault();
+        }
+        if (results.msg === "User Registered successfully") {
+          alert("User registered");
         }
       } catch (error) {
         console.log("error fetching", error);

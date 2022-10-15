@@ -47,7 +47,7 @@ const signUp = async (req, res) => {
         msg: "user already exists",
       });
     } else {
-      app.post(
+      /*     app.post(
         "/users",
         body("email").isEmail(),
         body("password").isLength({ min: 4 }),
@@ -55,14 +55,14 @@ const signUp = async (req, res) => {
           const errors = validationResult(req);
           if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
-          }
+          } */
 
-          /*    User.create({
+      /*    User.create({
             username: req.body.username,
             password: req.body.password,
-          }).then((user) => res.json(user)); */
+          }).then((user) => res.json(user)); 
         }
-      );
+      );*/
 
       /*      app.post(
         "/users",

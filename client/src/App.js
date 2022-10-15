@@ -7,10 +7,12 @@ import Profile from "./Views/Profile";
 import Login from "./Views/Login";
 import Register from "./Views/Register";
 import Trees from "./Views/Trees";
+import Adopt from "./Components/Adopt.js";
 import NaN from "./Views/NaN";
-
 import getToken from "./utils/getToken.js";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { AuthContextProvider } from "./Context/AuthContext";
+import ProtectedRoute from "./Components/ProtectedRoute.js";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -27,31 +29,35 @@ function App() {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUser(false);
-  };
-
-  useEffect(() => {
-    isUserLoggedIn();
-  }, [user]);
-
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/trees" element={<Trees />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NaN />} />
-        </Routes>
-        <button onClick={logout}>logout</button>
-        <Footer />
-      </BrowserRouter>
+      <AuthContextProvider>
+        {" "}
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/trees" element={<Trees />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About />} />
+
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route path="/adopt" element={<Adopt />} />
+            <Route path="*" element={<NaN />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>{" "}
+      </AuthContextProvider>
     </div>
   );
 }
