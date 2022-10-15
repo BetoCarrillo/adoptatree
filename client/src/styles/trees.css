@@ -21,6 +21,14 @@ background-image: url(file:///Users/albertocarrillo/Downloads/remove_FILL0_wght4
 
 }
 
+.liked{
+    font-variation-settings:
+            'FILL' 0 !important
+}
+
+.unliked{font-variation-settings:
+        'FILL' 1 !important}
+
 
 
 /* @import url("https://use.fontawesome.com/releases/v5.15.0/css/all.css");

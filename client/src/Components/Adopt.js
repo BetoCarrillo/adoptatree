@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import UserInfo from "../Components/UserInfo";
 import Adopt from "../Components/Adopt.js";
 import tree from "../styles/images/tree.png";
 
@@ -66,7 +65,6 @@ function Profile() {
 
   return (
     <div>
-      <UserInfo />
       <Adopt />
       My Trees: Adopt a tree
       <button onClick={adopt}>Adopt</button>

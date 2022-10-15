@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../styles/home.css";
 import "../App.css";
 import ModalHome from "../Components/ModalHome";
+/* import { AuthContext } from "../Context/AuthContext.js"; */
 
 function Home() {
   const [userProfile, setUserProfile] = useState({});
   const [error, setError] = useState(null);
+  /*   const { user } = useContext(AuthContext); */
 
   const getProfile = async () => {
     const token = localStorage.getItem("token");

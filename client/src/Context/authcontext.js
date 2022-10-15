@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import usersModel from "../models/usersModel.js";
+/* import usersModel from "../models/usersModel.js"; */
 
 export const AuthContext = createContext();
 
@@ -7,15 +7,16 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  const checkIfUserIsLoggedIn = async (req, res) => {
-    const existingUser = await usersModel.findOne({ email: req.body.email });
-
+  /*   const checkIfUserIsLoggedIn = async (req, res) => {
+   const existingUser = await usersModel.findOne({ email: req.body.email });
     if (existingUser) {
       setUser(user);
     } else {
       setUser(null);
-    }
-  };
+    } 
+  };*/
+
+  const checkIfUserIsLoggedIn = () => {};
 
   useEffect(() => {
     checkIfUserIsLoggedIn();

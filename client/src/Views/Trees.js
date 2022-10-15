@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -6,22 +6,27 @@ import "../styles/trees.css";
 import Accordion from "react-bootstrap/Accordion";
 
 function Trees() {
+  const [like, setLike] = useState(true);
+
   const { data, loading, error } = useFetch(
     "http://localhost:5005/api/trees/all/"
   );
 
-  const likes = async (req, res) => {
+  const likes = async (e, tree, req, res) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("name", "Bendición");
+    urlencoded.append("name", tree.name);
+    console.log("name", tree.name);
 
     var requestOptions = {
       method: "PUT",
       headers: myHeaders,
       body: urlencoded,
     };
+    setLike(false);
+    console.log(like);
     try {
       const response = await fetch(
         "http://localhost:5005/api/trees/likes",
@@ -33,6 +38,37 @@ function Trees() {
       console.log("error", error);
     }
   };
+
+  const unlikes = async (e, tree, req, res) => {
+    setLike(true);
+    console.log(like);
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("name", tree.name);
+
+    var requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5005/api/trees/unlikes",
+        requestOptions
+      );
+      const results = await response.json();
+      console.log("results", results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  /*  useEffect(() => {
+
+  }, [like]); */
 
   /*  console.log("data", data); */
 
@@ -54,12 +90,32 @@ function Trees() {
                       <Card.Text>
                         <div className="likesDiv">
                           {tree.likes ? <>{tree.likes}</> : ""}
-                          <span
-                            class="material-symbols-outlined"
-                            onClick={likes}
+
+                          {/*     <span
+                            class={
+                              like === true
+                                ? "material-symbols-outlined liked"
+                                : "material-symbols-outlined unliked"
+                            }
+                            onClick={(e) => likes(e, tree)}
                           >
                             favorite
-                          </span>
+                          </span> */}
+                          {like === true ? (
+                            <span
+                              class="material-symbols-outlined liked"
+                              onClick={(e) => likes(e, tree)}
+                            >
+                              favorite
+                            </span>
+                          ) : (
+                            <span
+                              class="material-symbols-outlined unliked"
+                              onClick={(e) => unlikes(e, tree)}
+                            >
+                              favorite
+                            </span>
+                          )}
                         </div>
                         <Accordion flush>
                           <Accordion.Item eventKey="0">
@@ -75,9 +131,7 @@ function Trees() {
                         &nbsp; &nbsp; &nbsp;
                         {tree.user ? <>{tree.user[0].userName}</> : ""}
                       </Card.Text>
-                      <Button value={tree} variant="primary">
-                        Add a comment..
-                      </Button>
+                      <Button variant="primary">Add a comment..</Button>
                     </Card.Body>
                   </Card>
                 </div>

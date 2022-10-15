@@ -49,7 +49,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NaN />} />
         </Routes>
-
+        <button onClick={logout}>logout</button>
         <Footer />
       </BrowserRouter>
     </div>

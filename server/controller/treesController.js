@@ -133,14 +133,14 @@ const adopt = async (req, res) => {
 };
 
 const likes = async (req, res) => {
-  console.log("req.body????", req.body.name);
+  console.log("req.body????", req.body._id);
   try {
     const treeLike = await treeModel.findOneAndUpdate(
-      req.body.name,
+      req.body,
       {
         $inc: { likes: 1 },
       },
-      { returnOriginal: false }
+      { returnOriginal: true }
     );
     console.log("treeLike????", treeLike);
   } catch (error) {
@@ -149,4 +149,27 @@ const likes = async (req, res) => {
   }
 };
 
-export { uploadTreePicture, getAllTrees, getTreesByType, adopt, likes };
+const unlikes = async (req, res) => {
+  try {
+    const treeLike = await treeModel.findOneAndUpdate(
+      req.body,
+      {
+        $inc: { likes: -1 },
+      },
+      { returnOriginal: true }
+    );
+    console.log("treeLike????", treeLike);
+  } catch (error) {
+    res.status(409).json({ message: "error while liking", error: error });
+    console.log("error", error);
+  }
+};
+
+export {
+  uploadTreePicture,
+  getAllTrees,
+  getTreesByType,
+  adopt,
+  likes,
+  unlikes,
+};

@@ -2,7 +2,7 @@ import usersModel from "../models/usersModel.js";
 import { v2 as cloudinary } from "cloudinary";
 import { encryptPassword, verifyPassword } from "../utils/bcrypt.js";
 import { issueToken } from "../utils/jwt.js";
-import { check, validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 
 const uploadUserPicture = async (req, res) => {
   console.log("req.body", req.body);
@@ -47,6 +47,37 @@ const signUp = async (req, res) => {
         msg: "user already exists",
       });
     } else {
+      app.post(
+        "/users",
+        body("email").isEmail(),
+        body("password").isLength({ min: 4 }),
+        (req, res) => {
+          const errors = validationResult(req);
+          if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+          }
+
+          /*    User.create({
+            username: req.body.username,
+            password: req.body.password,
+          }).then((user) => res.json(user)); */
+        }
+      );
+
+      /*      app.post(
+        "/users",
+        body("email").isEmail(),
+        body("password").isLength({ min: 4 }),
+        (req, res) => {  
+          
+        }
+      ); */
+
+      /* body('email').isEmail(), body('password').isLength({ min: 4 }), (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    } */
       // good place to use express validator middleware, to validate email/password/any other fields.
       const hashedPassword = await encryptPassword(req.body.password);
       const newUser = new usersModel({
@@ -117,7 +148,7 @@ const getProfile = async (req, res) => {
     userName: req.user.userName,
     email: req.user.email,
     id: req.user.id,
-    avatarPictura: req.user.avatarPicture,
+    avatarPicture: req.user.avatarPicture,
   });
 };
 
