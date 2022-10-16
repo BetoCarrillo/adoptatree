@@ -42,7 +42,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/about" element={<About />} />
-
             <Route
               path="/profile"
               element={
@@ -51,7 +50,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
             <Route path="/adopt" element={<Adopt />} />
             <Route path="*" element={<NaN />} />
           </Routes>
