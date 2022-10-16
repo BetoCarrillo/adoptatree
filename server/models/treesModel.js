@@ -16,6 +16,11 @@ const treesSchema = new mongoose.Schema({
   likes: {
     type: Number,
   },
+  comment: {
+    body: Object,
+    date: Date,
+  },
+
   date: {
     type: Date,
     default: Date.now,

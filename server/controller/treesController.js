@@ -111,6 +111,7 @@ const adopt = async (req, res) => {
         img: req.body.img,
         date: req.body.date,
         likes: req.body.likes,
+        comments: req.body.comment,
         user: req.body.user,
       });
       try {
@@ -123,6 +124,7 @@ const adopt = async (req, res) => {
             img: savedTree.img,
             date: savedTree.date,
             likes: savedTree.likes,
+            comments: savedTree.comment,
             user: savedTree.user,
           },
           msg: "Tree adopted successfully",
@@ -144,7 +146,7 @@ const likes = async (req, res) => {
       {
         $inc: { likes: 1 },
       },
-      { returnOriginal: true }
+      { returnOriginal: false }
     );
     console.log("treeLike????", treeLike);
   } catch (error) {
@@ -160,11 +162,28 @@ const unlikes = async (req, res) => {
       {
         $inc: { likes: -1 },
       },
-      { returnOriginal: true }
+      { returnOriginal: false }
     );
     console.log("treeLike????", treeLike);
   } catch (error) {
     res.status(409).json({ message: "error while liking", error: error });
+    console.log("error", error);
+  }
+};
+
+const comment = async (req, res) => {
+  console.log("req.body????", req.body._id);
+  try {
+    const treeComment = await treeModel.findOneAndUpdate(
+      req.body_id,
+      {
+        $push: { comment: req.body.comment },
+      },
+      { returnOriginal: false }
+    );
+    console.log("treecomment????", treeComment);
+  } catch (error) {
+    res.status(409).json({ message: "error while commenting", error: error });
     console.log("error", error);
   }
 };
@@ -176,4 +195,5 @@ export {
   adopt,
   likes,
   unlikes,
+  comment,
 };
