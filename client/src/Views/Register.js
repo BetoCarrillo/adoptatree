@@ -61,6 +61,9 @@ function Register() {
   };
 
   const signUp = async (e) => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
     if (error === null && passError === null) {
       let urlencoded = new URLSearchParams();
       urlencoded.append("userName", newUser.userName);
@@ -74,6 +77,7 @@ function Register() {
       );
       var requestOptions = {
         method: "Post",
+        headers: myHeaders,
         body: urlencoded,
       };
 
@@ -84,8 +88,6 @@ function Register() {
         );
         const results = await response.json();
         console.log("results", results);
-
-        console.log("first", results.token);
 
         if (results.msg === "user already exists") {
           alert("email already exists");

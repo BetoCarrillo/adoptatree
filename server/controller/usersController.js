@@ -7,7 +7,6 @@ import { body, validationResult } from "express-validator";
 const uploadUserPicture = async (req, res) => {
   console.log("req.body", req.body);
   try {
-    console.log("req.file :>> ", req.file);
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
       folder: "adoptatree",
     });
@@ -152,4 +151,72 @@ const getProfile = async (req, res) => {
   });
 };
 
-export { getAllUsers, uploadUserPicture, signUp, login, getProfile };
+const removeProfile = async (req, res) => {
+  try {
+    const remove = await usersModel.deleteOne(req.body_id);
+    console.log("remove????", remove);
+    res.status(201).json({
+      msg: "User deleted successfully",
+    });
+  } catch (error) {
+    res
+      .status(409)
+      .json({ message: "error while deleting profile", error: error });
+    console.log("error", error);
+  }
+};
+
+const changeEmail = async (req, res) => {
+  console.log("req.body????", req.body._id);
+  try {
+    const changeEmail = await usersModel.findOneAndUpdate(
+      req.body_id,
+      {
+        email: req.body.email,
+      },
+      { returnOriginal: false }
+    );
+    res.status(201).json({
+      msg: "email changed",
+    });
+    console.log("changeEmail????", changeEmail);
+  } catch (error) {
+    res
+      .status(409)
+      .json({ message: "error while changing email", error: error });
+    console.log("error", error);
+  }
+};
+
+const changeUserName = async (req, res) => {
+  console.log("req.body????", req.body._id);
+  try {
+    const changeUserName = await usersModel.findOneAndUpdate(
+      req.body_id,
+      {
+        userName: req.body.userName,
+      },
+      { returnOriginal: false }
+    );
+    res.status(201).json({
+      msg: "name changed",
+    });
+    console.log("changeUserName????", changeUserName);
+  } catch (error) {
+    res
+      .status(409)
+      .json({ message: "error while changing user name", error: error });
+    console.log("error", error);
+  }
+};
+
+export {
+  removeProfile,
+  getAllUsers,
+  uploadUserPicture,
+  signUp,
+  login,
+  getProfile,
+  changeEmail,
+  changeUserName,
+};

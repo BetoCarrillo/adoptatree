@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [userLogin, setuserLogin] = useState({});
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, logged, setLogged, checkUserStatus, getUserProfile } =
+    useContext(AuthContext);
   const redirectLogin = useNavigate();
 
   const handleChangeHandler = (e) => {
@@ -32,12 +33,12 @@ function Login() {
 
       if (token) {
         localStorage.setItem("token", token);
+        checkUserStatus();
       }
       console.log("result:", result);
       if (result.msg === "user is logged in") {
         alert("login successful");
         redirectLogin("/", { replace: true });
-        window.location.reload();
       }
 
       if (result.msg === "user not found") {
@@ -49,16 +50,16 @@ function Login() {
   };
 
   const logout = () => {
-    if (window.confirm("Logout?") === true) {
+    if (window.confirm("Are you sure you want to Logout?") === true) {
       localStorage.removeItem("token");
-      setUser(null);
+      setLogged(null);
     }
   };
 
   return (
     <div>
       <div>
-        {!user ? (
+        {!logged ? (
           <div>
             {" "}
             Login

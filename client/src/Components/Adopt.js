@@ -9,6 +9,7 @@ function Profile() {
   const [Id, setId] = useState({});
   const [error, setError] = useState(null);
   const redirectProfile = useNavigate();
+  const redirectTrees = useNavigate();
   const { user } = useContext(AuthContext);
 
   const handleChangeHandler = (e) => {
@@ -76,8 +77,14 @@ function Profile() {
     urlencoded.append("name", newTree.name);
     urlencoded.append("type", newTree.type);
     urlencoded.append("location", newTree.location);
+    urlencoded.append("comment", newTree.comment);
     urlencoded.append("date", newTree.date);
-    urlencoded.append("img", newTree.img ? newTree.img : { tree });
+    urlencoded.append(
+      "img",
+      newTree.img
+        ? newTree.img
+        : "http://res.cloudinary.com/dc9ff1idq/image/upload/v1666012775/adoptedtrees/mm8midda6ld9ppn1pheo.png"
+    );
     urlencoded.append("likes", 0);
     urlencoded.append("user", Id);
 
@@ -94,6 +101,9 @@ function Profile() {
       const results = await response.json();
       if (results.msg === "name already exists") {
         alert("Name already in use");
+      }
+      if (results.msg === "Tree adopted successfully") {
+        redirectTrees("/trees");
       }
       console.log("results", results);
     } catch (error) {
@@ -145,6 +155,16 @@ function Profile() {
                 type="text"
                 value={newTree.location ? newTree.location : ""}
                 name="location"
+                onChange={handleChangeHandler}
+              />
+            </div>
+            <div>
+              <label htmlFor="comment">Comment</label>
+              <input
+                id="comment"
+                type="text"
+                value={newTree.comment ? newTree.comment : ""}
+                name="comment"
                 onChange={handleChangeHandler}
               />
             </div>

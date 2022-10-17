@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 import "../styles/trees.css";
 import Accordion from "react-bootstrap/Accordion";
 import { AuthContext } from "../Context/AuthContext";
 
 function Trees() {
-  const [like, setLike] = useState(true);
+  const [like, setLike] = useState(false);
   const { user, setUser } = useContext(AuthContext);
-  const [newComment, setNewComment] = useState(null);
+  const [newComment, setNewComment] = useState("");
 
   const { data, loading, error } = useFetch(
     "http://localhost:5005/api/trees/all/"
@@ -28,7 +27,7 @@ function Trees() {
       headers: myHeaders,
       body: urlencoded,
     };
-    setLike(false);
+    setLike(true);
     console.log(like);
     try {
       const response = await fetch(
@@ -43,7 +42,7 @@ function Trees() {
   };
 
   const unlikes = async (e, tree, req, res) => {
-    setLike(true);
+    setLike(false);
     console.log(like);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -110,7 +109,43 @@ function Trees() {
     }
   };
 
-  /*   useEffect(() => {}, []); */
+  const removeTree = async (e, tree, req, res) => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("_id", tree._id);
+
+    var requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+
+    if (tree.user[0]._id !== user.id) {
+      alert("this is not your tree");
+    } else if (
+      window.confirm("Are you sure you want to delete the adopted tree?") ===
+      true
+    ) {
+      try {
+        const response = await fetch(
+          "http://localhost:5005/api/trees/delete",
+          requestOptions
+        );
+        const results = await response.json();
+        console.log("results", results);
+
+        if (results.msg === "Tree deleted successfully") {
+          alert("Tree given for adoption");
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+  };
+
+  useEffect(() => {}, [like]);
 
   /*  console.log("data", data); */
 
@@ -133,7 +168,7 @@ function Trees() {
                       <div className="likesDiv">
                         {tree.likes ? <>{tree.likes}</> : ""}
 
-                        {like === true ? (
+                        {like !== true ? (
                           <span
                             class="material-symbols-outlined liked"
                             onClick={(e) => likes(e, tree)}
@@ -191,6 +226,7 @@ function Trees() {
                     <button onClick={(e) => comments(e, tree)}>
                       Add a comment..
                     </button>
+                    <button onClick={(e) => removeTree(e, tree)}>delete</button>
                   </Card.Body>
                 </Card>
               </div>

@@ -1,12 +1,26 @@
 import { createContext, useEffect, useState } from "react";
+import getToken from "../utils/getToken.js";
+import likes from "../Views/Trees.js";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = (props) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(null);
+  const [like, setLike] = useState(false);
 
-  const checkIfUserIsLoggedIn = async () => {
+  const checkUserStatus = () => {
+    const token = getToken();
+    if (token) {
+      setLogged(true);
+    }
+    if (!token) {
+      setLogged(false);
+    }
+  };
+
+  const getUserProfile = async () => {
     const token = localStorage.getItem("token");
     if (token) {
       const myHeaders = new Headers();
@@ -22,8 +36,12 @@ export const AuthContextProvider = (props) => {
           requestOptionsOne
         );
         const result = await response.json();
-        console.log("result", result);
-        setUser(result);
+        setUser({
+          _id: result._id,
+          userName: result.username,
+          email: result.email,
+          avatarPicture: result.avatar,
+        });
       } catch (error) {
         console.log("error getting user's profile", error);
       }
@@ -33,17 +51,27 @@ export const AuthContextProvider = (props) => {
     }
   };
 
+  const checkLikes = () => {};
+
   useEffect(() => {
-    checkIfUserIsLoggedIn();
-  }, []);
+    checkUserStatus();
+    getUserProfile();
+    checkLikes();
+    console.log("refresh");
+  }, [logged, like]);
 
   return (
     <AuthContext.Provider
       value={{
+        getUserProfile,
+        logged,
+        setLogged,
         user,
         setUser,
         error,
         setError,
+        checkUserStatus,
+        checkLikes,
       }}
     >
       {props.children}

@@ -17,14 +17,13 @@ const treesSchema = new mongoose.Schema({
     type: Number,
   },
   comment: {
-    body: Object,
+    type: Array,
     date: Date,
   },
 
   date: {
     type: Date,
     default: Date.now,
-    max: Date.now,
   },
   img: {
     type: Array,

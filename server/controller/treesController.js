@@ -13,6 +13,24 @@ const uploadTreePicture = async (req, res) => {
       message: "Image upload succesfull",
       imageUrl: uploadResult.url,
     });
+    if (uploadResult) {
+      try {
+        const treePhoto = await treeModel.findOneAndUpdate(
+          req.body._id,
+          {
+            $push: { imageUrl: uploadResult.url },
+          },
+          { returnOriginal: false }
+        );
+        console.log("treeLike????", treeLike);
+      } catch (error) {
+        res.status(409).json({ message: "error while liking", error: error });
+        console.log("error", error);
+      }
+      // find user (.findOne()
+      // save uploadResult.url in user (.save())
+      //OR : user .findOneAndupdate(userInfo, { imageUrl: uploadResult.url})
+    }
   } catch (error) {
     res
       .status(500)
@@ -111,7 +129,7 @@ const adopt = async (req, res) => {
         img: req.body.img,
         date: req.body.date,
         likes: req.body.likes,
-        comments: req.body.comment,
+        comment: req.body.comment,
         user: req.body.user,
       });
       try {
@@ -124,7 +142,7 @@ const adopt = async (req, res) => {
             img: savedTree.img,
             date: savedTree.date,
             likes: savedTree.likes,
-            comments: savedTree.comment,
+            comment: savedTree.comment,
             user: savedTree.user,
           },
           msg: "Tree adopted successfully",
@@ -188,6 +206,19 @@ const comment = async (req, res) => {
   }
 };
 
+const removeTree = async (req, res) => {
+  try {
+    const remove = await treeModel.deleteOne(req.body_id);
+    console.log("remove????", remove);
+    res.status(201).json({
+      msg: "Tree deleted successfully",
+    });
+  } catch (error) {
+    res.status(409).json({ message: "error while deleting", error: error });
+    console.log("error", error);
+  }
+};
+
 export {
   uploadTreePicture,
   getAllTrees,
@@ -196,4 +227,5 @@ export {
   likes,
   unlikes,
   comment,
+  removeTree,
 };
