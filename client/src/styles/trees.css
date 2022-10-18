@@ -1,3 +1,10 @@
+.first{
+    padding-left: 1rem !important;
+}
+.second{
+    padding-left: 100rem !important;
+}
+
 .cardsDiv {
     display: flex;
     flex-flow: row;
@@ -23,11 +30,11 @@ background-image: url(file:///Users/albertocarrillo/Downloads/remove_FILL0_wght4
 
 .liked{
     font-variation-settings:
-            'FILL' 0 !important
+            'FILL' 1 !important
 }
 
 .unliked{font-variation-settings:
-        'FILL' 1 !important}
+        'FILL' 0 !important}
 
 
 

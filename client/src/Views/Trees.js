@@ -9,32 +9,34 @@ function Trees() {
   const [like, setLike] = useState(false);
   const { user, setUser } = useContext(AuthContext);
   const [newComment, setNewComment] = useState("");
+  const [commentStyle, setCommentStyle] = useState(false);
 
   const { data, loading, error } = useFetch(
     "http://localhost:5005/api/trees/all/"
   );
 
   const likes = async (e, tree, req, res) => {
+    setLike(true);
+    console.log("first", like);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("name", tree.name);
-    console.log("name", tree.name);
 
     var requestOptions = {
       method: "PUT",
       headers: myHeaders,
       body: urlencoded,
     };
-    setLike(true);
-    console.log(like);
+
     try {
       const response = await fetch(
         "http://localhost:5005/api/trees/likes",
         requestOptions
       );
       const results = await response.json();
+
       console.log("results", results);
     } catch (error) {
       console.log("error", error);
@@ -42,8 +44,6 @@ function Trees() {
   };
 
   const unlikes = async (e, tree, req, res) => {
-    setLike(false);
-    console.log(like);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -62,10 +62,13 @@ function Trees() {
         requestOptions
       );
       const results = await response.json();
+
+      console.log(like);
       console.log("results", results);
     } catch (error) {
       console.log("error", error);
     }
+    setLike(false);
   };
 
   const handleChangeHandler = (e) => {
@@ -103,6 +106,7 @@ function Trees() {
         requestOptions
       );
       const results = await response.json();
+      setCommentStyle((current) => !current);
       console.log("results", results);
     } catch (error) {
       console.log("error", error);
@@ -110,6 +114,7 @@ function Trees() {
   };
 
   const removeTree = async (e, tree, req, res) => {
+    console.log("user...", user);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -122,7 +127,7 @@ function Trees() {
       body: urlencoded,
     };
 
-    if (tree.user[0]._id !== user.id) {
+    if (tree.user[0].email !== user.email) {
       alert("this is not your tree");
     } else if (
       window.confirm("Are you sure you want to delete the adopted tree?") ===
@@ -145,9 +150,28 @@ function Trees() {
     }
   };
 
-  useEffect(() => {}, [like]);
+  const toggleClassComment = () => {
+    if (commentStyle === true) {
+      setCommentStyle("first");
+      return;
+    }
+    setCommentStyle("second");
+    return;
+  };
 
-  /*  console.log("data", data); */
+  const checkLikes = (like) => {
+    if (!like) {
+      setLike(true);
+    }
+    if (like) {
+      setLike(false);
+    }
+  };
+
+  useEffect(() => {
+    console.log("refresh");
+  }, [checkLikes]);
+  /*   console.log("data.allTrees.comment", data.allTrees[0].comment); */
 
   /*   let date = new Date(tree.date).toLocaleString();
   console.log("date", date); */
@@ -167,22 +191,22 @@ function Trees() {
                     <Card.Text>
                       <div className="likesDiv">
                         {tree.likes ? <>{tree.likes}</> : ""}
-
-                        {like !== true ? (
-                          <span
-                            class="material-symbols-outlined liked"
-                            onClick={(e) => likes(e, tree)}
-                          >
-                            favorite
-                          </span>
-                        ) : (
-                          <span
-                            class="material-symbols-outlined unliked"
-                            onClick={(e) => unlikes(e, tree)}
-                          >
-                            favorite
-                          </span>
-                        )}
+                        <button
+                          type=""
+                          onClick={() => setLike((prevState) => !prevState)}
+                        ></button>
+                        <span
+                          class="material-symbols-outlined liked"
+                          onClick={(e) => likes(e, tree)}
+                        >
+                          favorite
+                        </span>
+                        <span
+                          class="material-symbols-outlined unliked"
+                          onClick={(e) => unlikes(e, tree)}
+                        >
+                          favorite
+                        </span>
                       </div>
                       <Accordion flush>
                         <Accordion.Item eventKey="0">
@@ -205,13 +229,13 @@ function Trees() {
                         ""
                       )}{" "}
                       <br></br>
-                      {tree.comment ? (
-                        <>
-                          {tree.comment} {tree.user.name}
-                        </>
-                      ) : (
-                        ""
-                      )}
+                      {tree &&
+                        tree.comment.map((comment, i) => (
+                          <div key={i}>
+                            <div className={commentStyle}>{comment}</div>
+                          </div>
+                        ))}
+                      {tree.user.name}
                     </Card.Text>
                     <div>
                       <label htmlFor="comment"></label>

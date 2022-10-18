@@ -50,7 +50,7 @@ function NavBar() {
               <span className="material-symbols-outlined">person</span>
             </NavLink>
             <NavLink className="navbarLink" to="/login">
-              {logged === null ? (
+              {logged !== false ? (
                 <span className="material-symbols-outlined" onClick={logout}>
                   logout
                 </span>

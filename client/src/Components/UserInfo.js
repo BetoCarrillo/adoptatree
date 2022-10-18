@@ -16,7 +16,7 @@ function UserInfo() {
     setNewInfo(e.target.value);
   };
 
-  const handleClick = (event) => {
+  const handleClick = (e) => {
     // 👇️ toggle shown state
 
     setIsShown((current) => !current);
@@ -25,11 +25,11 @@ function UserInfo() {
     // setIsShown(true);
   };
 
-  const handleModifyName = (event) => {
+  const handleModifyName = (e) => {
     setModifyNameShown((current) => !current);
   };
 
-  const handleModifyEmail = (event) => {
+  const handleModifyEmail = (e) => {
     setModifyEmailShown((current) => !current);
   };
 

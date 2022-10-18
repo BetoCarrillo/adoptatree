@@ -42,6 +42,9 @@ export const AuthContextProvider = (props) => {
           email: result.email,
           avatarPicture: result.avatar,
         });
+        console.log(user);
+
+        /// Aqui se pierde el result. except email
       } catch (error) {
         console.log("error getting user's profile", error);
       }
@@ -51,12 +54,10 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  const checkLikes = () => {};
-
   useEffect(() => {
     checkUserStatus();
     getUserProfile();
-    checkLikes();
+
     console.log("refresh");
   }, [logged, like]);
 
@@ -71,7 +72,6 @@ export const AuthContextProvider = (props) => {
         error,
         setError,
         checkUserStatus,
-        checkLikes,
       }}
     >
       {props.children}
