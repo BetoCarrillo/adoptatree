@@ -9,6 +9,7 @@ export const AuthContextProvider = (props) => {
   const [error, setError] = useState(null);
   const [logged, setLogged] = useState(null);
   const [like, setLike] = useState(false);
+  const [userProfile, setUserProfile] = useState({});
 
   const checkUserStatus = () => {
     const token = getToken();
@@ -18,6 +19,7 @@ export const AuthContextProvider = (props) => {
     if (!token) {
       setLogged(false);
     }
+    getUserProfile();
   };
 
   const getUserProfile = async () => {
@@ -37,12 +39,12 @@ export const AuthContextProvider = (props) => {
         );
         const result = await response.json();
         setUser({
-          _id: result._id,
-          userName: result.username,
+          _id: result.id,
+          userName: result.userName,
           email: result.email,
           avatarPicture: result.avatar,
         });
-        console.log(user);
+        setUserProfile(result);
 
         /// Aqui se pierde el result. except email
       } catch (error) {
@@ -56,7 +58,6 @@ export const AuthContextProvider = (props) => {
 
   useEffect(() => {
     checkUserStatus();
-    getUserProfile();
 
     console.log("refresh");
   }, [logged, like]);
@@ -72,6 +73,7 @@ export const AuthContextProvider = (props) => {
         error,
         setError,
         checkUserStatus,
+        userProfile,
       }}
     >
       {props.children}

@@ -3,6 +3,7 @@ import {
   getAllTrees,
   getTreesByType,
   uploadTreePicture,
+  uploadMoreTreePicture,
   adopt,
   likes,
   unlikes,
@@ -15,6 +16,11 @@ const router = express.Router();
 router.get("/all", getAllTrees);
 router.get("/all/:type", getTreesByType);
 router.post("/imgUpload", multerUploads.single("images"), uploadTreePicture);
+router.put(
+  "/moreImageUpload",
+  multerUploads.single("images"),
+  uploadMoreTreePicture
+);
 router.post("/adopt", adopt);
 router.put("/likes", likes);
 router.put("/unlikes", unlikes);

@@ -13,23 +13,41 @@ const uploadTreePicture = async (req, res) => {
       message: "Image upload succesfull",
       imageUrl: uploadResult.url,
     });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "image couldn't be uploaded", error: error });
+  }
+};
+
+const uploadMoreTreePicture = async (req, res) => {
+  try {
+    console.log("req.file :>> ", req.file);
+    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+      folder: "adoptedtrees",
+    });
+    console.log("uploadResult", uploadResult);
     if (uploadResult) {
+      console.log("req.body._id", req.body._id);
       try {
-        const treePhoto = await treeModel.findOneAndUpdate(
+        const treePhoto = await treeModel.findByIdAndUpdate(
           req.body._id,
           {
-            $push: { imageUrl: uploadResult.url },
+            $push: { img: uploadResult.url },
           },
           { returnOriginal: false }
         );
-        console.log("treeLike????", treeLike);
+
+        res.status(200).json({
+          msg: "new picture saved",
+          images: treePhoto.img,
+        });
       } catch (error) {
-        res.status(409).json({ message: "error while liking", error: error });
+        res
+          .status(500)
+          .json({ message: "error while uploading photo", error: error });
         console.log("error", error);
       }
-      // find user (.findOne()
-      // save uploadResult.url in user (.save())
-      //OR : user .findOneAndupdate(userInfo, { imageUrl: uploadResult.url})
     }
   } catch (error) {
     res
@@ -222,6 +240,7 @@ const removeTree = async (req, res) => {
 
 export {
   uploadTreePicture,
+  uploadMoreTreePicture,
   getAllTrees,
   getTreesByType,
   adopt,

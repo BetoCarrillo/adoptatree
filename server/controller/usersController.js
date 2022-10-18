@@ -22,6 +22,42 @@ const uploadUserPicture = async (req, res) => {
   }
 };
 
+const updateUserPicture = async (req, res) => {
+  try {
+    console.log("req.file :>> ", req.file);
+    const uploadResult = await cloudinary.uploader.upload(req.file.path, {
+      folder: "adoptatree",
+    });
+    console.log("uploadResult", uploadResult);
+    if (uploadResult) {
+      console.log("req.body._id", req.body._id);
+      try {
+        const userPhoto = await usersModel.findOneAndUpdate(
+          req.body._id,
+          {
+            avatarPicture: uploadResult.url,
+          },
+          { returnOriginal: false }
+        );
+        // console.log("treeLike????", treeLike);
+        res.status(200).json({
+          msg: "new picture saved",
+          images: userPhoto.avatarPicture,
+        });
+      } catch (error) {
+        res
+          .status(500)
+          .json({ message: "error while uploading photo", error: error });
+        console.log("error", error);
+      }
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "image couldn't be uploaded", error: error });
+  }
+};
+
 const getAllUsers = async (req, res) => {
   const allUsers = await usersModel.find({}).populate({ path: "tree" });
   try {
@@ -219,4 +255,5 @@ export {
   getProfile,
   changeEmail,
   changeUserName,
+  updateUserPicture,
 };

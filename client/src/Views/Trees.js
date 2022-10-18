@@ -6,7 +6,7 @@ import Accordion from "react-bootstrap/Accordion";
 import { AuthContext } from "../Context/AuthContext";
 
 function Trees() {
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState();
   const { user, setUser } = useContext(AuthContext);
   const [newComment, setNewComment] = useState("");
   const [commentStyle, setCommentStyle] = useState(false);
@@ -17,7 +17,7 @@ function Trees() {
 
   const likes = async (e, tree, req, res) => {
     setLike(true);
-    console.log("first", like);
+
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -63,7 +63,6 @@ function Trees() {
       );
       const results = await response.json();
 
-      console.log(like);
       console.log("results", results);
     } catch (error) {
       console.log("error", error);
@@ -114,7 +113,6 @@ function Trees() {
   };
 
   const removeTree = async (e, tree, req, res) => {
-    console.log("user...", user);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -168,9 +166,7 @@ function Trees() {
     }
   };
 
-  useEffect(() => {
-    console.log("refresh");
-  }, [checkLikes]);
+  useEffect(() => {}, [checkLikes]);
   /*   console.log("data.allTrees.comment", data.allTrees[0].comment); */
 
   /*   let date = new Date(tree.date).toLocaleString();

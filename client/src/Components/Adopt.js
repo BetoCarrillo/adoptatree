@@ -24,7 +24,7 @@ function Profile() {
     e.preventDefault();
     const formData = new FormData();
     console.log("selectedFile", selectedFile);
-    formData.append("image", selectedFile);
+    formData.append("images", selectedFile);
     console.log("formData :>> ", formData);
 
     const requestOptions = {
