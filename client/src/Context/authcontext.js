@@ -10,14 +10,17 @@ export const AuthContextProvider = (props) => {
   const [logged, setLogged] = useState(null);
   const [like, setLike] = useState(false);
   const [userProfile, setUserProfile] = useState({});
+  const [loading, setLoading] = useState({});
 
   const checkUserStatus = () => {
     const token = getToken();
     if (token) {
       setLogged(true);
+      setLoading(false);
     }
     if (!token) {
       setLogged(false);
+      setLoading(false);
     }
     getUserProfile();
   };
@@ -74,6 +77,7 @@ export const AuthContextProvider = (props) => {
         setError,
         checkUserStatus,
         userProfile,
+        loading,
       }}
     >
       {props.children}

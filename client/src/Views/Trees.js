@@ -10,6 +10,7 @@ function Trees() {
   const { user, setUser } = useContext(AuthContext);
   const [newComment, setNewComment] = useState("");
   const [commentStyle, setCommentStyle] = useState(false);
+  const [photo, setPhoto] = useState(0);
 
   const { data, loading, error } = useFetch(
     "http://localhost:5005/api/trees/all/"
@@ -157,7 +158,29 @@ function Trees() {
     return;
   };
 
-  const checkLikes = (like) => {
+  const incrementPhoto = (e, tree) => {
+    console.log(tree.img);
+    setPhoto(photo + 1);
+
+    /*  console.log("inc", photo); */
+  };
+
+  const decrementPhoto = (e, tree) => {
+    console.log(tree.img);
+    setPhoto(photo - 1);
+    if (photo === 0) {
+      setPhoto(1);
+    }
+    console.log(photo);
+
+    /*     console.log("dec", photo); */
+  };
+
+  /*   console.log("photo JS", photo);
+   */
+  useEffect(() => {}, []);
+
+  /*   const checkLikes = (like) => {
     if (!like) {
       setLike(true);
     }
@@ -166,7 +189,7 @@ function Trees() {
     }
   };
 
-  useEffect(() => {}, [checkLikes]);
+  useEffect(() => {}, [checkLikes]); */
   /*   console.log("data.allTrees.comment", data.allTrees[0].comment); */
 
   /*   let date = new Date(tree.date).toLocaleString();
@@ -174,6 +197,7 @@ function Trees() {
 
   return (
     <div>
+      {/*   {console.log("photo JSX", photo)} */}
       {!loading ? (
         data &&
         data.allTrees.map((tree, i) => {
@@ -181,9 +205,25 @@ function Trees() {
             <div key={i}>
               <div className="cardsDiv">
                 <Card style={{ width: "18rem" }}>
-                  <Card.Img variant="top" src={tree.img} height="280rem" />
+                  {tree &&
+                    tree.img.map((image, i) => (
+                      <Card.Img
+                        variant="top"
+                        src={tree.img[photo]}
+                        height="280rem"
+                      />
+                    ))}{" "}
                   <Card.Body>
-                    <Card.Title></Card.Title>
+                    {" "}
+                    <Card.Title>
+                      {" "}
+                      <button type="" onClick={(e) => decrementPhoto(e, tree)}>
+                        prev
+                      </button>
+                      <button type="" onClick={(e) => incrementPhoto(e, tree)}>
+                        next
+                      </button>
+                    </Card.Title>
                     <Card.Text>
                       <div className="likesDiv">
                         {tree.likes ? <>{tree.likes}</> : ""}
