@@ -57,28 +57,87 @@ const uploadMoreTreePicture = async (req, res) => {
 };
 
 const getAllTrees = async (req, res) => {
-  const allTrees = await treeModel.find({}).populate({ path: "user" });
-  console.log("allTrees", allTrees);
+  console.log("req.query", req.query);
+  console.log("req.params", req.params);
+  console.log("All trees");
+  const { type, name } = req.query;
+  if (name) {
+    const requestedName = await treeModel.find({
+      name: { $eq: name },
+    });
+
+    console.log("requestedTypes", requestedName);
+
+    try {
+      if (requestedName.lenght === 0) {
+        res.status(200).json({
+          msg: "no trees whith this name",
+        });
+      } else {
+        res.status(200).json({
+          requestedName,
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        msg: "something went wrong",
+        erorr,
+      });
+    }
+  } else {
+    const allTrees = await treeModel.find({}).populate({ path: "user" });
+    // console.log("allTrees", allTrees);
+    try {
+      if (allTrees.length === 0) {
+        res.status(200).json({
+          msg: "no trees in the DB",
+        });
+      } else {
+        res.status(200).json({
+          allTrees,
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        msg: "server failed",
+        error: error,
+      });
+    }
+  }
+};
+
+const getTreesByLocation = async (req, res) => {
+  console.log("trees By location");
+  console.log("req.params.location>>>>", req.params.location);
+  const requestedLocation = await treeModel
+    .find({ type: req.params.location })
+    .exec();
+  console.log("requestedLocation", requestedLocation);
   try {
-    if (allTrees.length === 0) {
+    if (requestedLocation.lenght === 0) {
       res.status(200).json({
-        msg: "no trees in the DB",
+        msg: "no trees in this location",
       });
     } else {
       res.status(200).json({
-        allTrees,
+        requestedLocation,
+        number: requestedLocation.length,
       });
     }
   } catch (error) {
     res.status(500).json({
-      msg: "server failed",
-      error: error,
+      msg: "something went wrong",
+      erorr,
     });
   }
 };
 
 const getTreesByType = async (req, res) => {
   /*  console.log("req", req.params.type); */
+  console.log("trees By Type");
+  console.log("req.params", req.params);
+  console.log("req.query", req.query);
+
   console.log("query param", req.query);
   const { likes } = req.query;
 
@@ -97,8 +156,8 @@ const getTreesByType = async (req, res) => {
         });
       } else {
         res.status(200).json({
-          requestedTypes,
-          number: requestedTypes.length,
+          allTrees: requestedTypes,
+          // number: requestedTypes.length,
         });
       }
     } catch (error) {
@@ -119,8 +178,9 @@ const getTreesByType = async (req, res) => {
         });
       } else {
         res.status(200).json({
-          requestedTypes,
-          number: requestedTypes.length,
+          // requestedTypes,
+          // number: requestedTypes.length,
+          allTrees: requestedTypes,
         });
       }
     } catch (error) {
@@ -243,6 +303,7 @@ export {
   uploadMoreTreePicture,
   getAllTrees,
   getTreesByType,
+  getTreesByLocation,
   adopt,
   likes,
   unlikes,

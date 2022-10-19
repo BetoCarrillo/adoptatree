@@ -9,6 +9,7 @@ export const AuthContextProvider = (props) => {
   const [error, setError] = useState(null);
   const [logged, setLogged] = useState(null);
   const [like, setLike] = useState(false);
+  const [foo, setFoo] = useState(false);
   const [userProfile, setUserProfile] = useState({});
   const [loading, setLoading] = useState({});
 
@@ -58,12 +59,15 @@ export const AuthContextProvider = (props) => {
       console.log("no token for this user");
     }
   };
-
+  const changeLike = () => {
+    setLike(!like);
+    setFoo(!like);
+    console.log("like auth>>>", like);
+  };
   useEffect(() => {
+    console.log("useffect Auth run>>>");
     checkUserStatus();
-
-    console.log("refresh");
-  }, [logged, like]);
+  }, [logged, like, foo]);
 
   return (
     <AuthContext.Provider
@@ -78,6 +82,8 @@ export const AuthContextProvider = (props) => {
         checkUserStatus,
         userProfile,
         loading,
+        changeLike,
+        foo,
       }}
     >
       {props.children}

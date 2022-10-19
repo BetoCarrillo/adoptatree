@@ -122,6 +122,7 @@ const signUp = async (req, res) => {
         avatarPicture: req.body.avatarPicture,
       });
       try {
+        // const token = issueToken(req.body.email); // if we want to generate token on signup (leaving user logged in right after)
         const savedUser = await newUser.save();
         res.status(201).json({
           user: {
@@ -129,6 +130,7 @@ const signUp = async (req, res) => {
             email: savedUser.email,
             avatarPicture: savedUser.avatarPicture,
           },
+          token,
           msg: "User Registered successfully",
         });
       } catch (error) {
