@@ -60,7 +60,7 @@ const getAllTrees = async (req, res) => {
   console.log("req.query", req.query);
   console.log("req.params", req.params);
   console.log("All trees");
-  const { type, name } = req.query;
+  const { location, name } = req.query;
   if (name) {
     const requestedName = await treeModel.find({
       name: { $eq: name },
@@ -106,31 +106,31 @@ const getAllTrees = async (req, res) => {
   }
 };
 
-const getTreesByLocation = async (req, res) => {
-  console.log("trees By location");
-  console.log("req.params.location>>>>", req.params.location);
-  const requestedLocation = await treeModel
-    .find({ type: req.params.location })
-    .exec();
-  console.log("requestedLocation", requestedLocation);
-  try {
-    if (requestedLocation.lenght === 0) {
-      res.status(200).json({
-        msg: "no trees in this location",
-      });
-    } else {
-      res.status(200).json({
-        requestedLocation,
-        number: requestedLocation.length,
-      });
-    }
-  } catch (error) {
-    res.status(500).json({
-      msg: "something went wrong",
-      erorr,
-    });
-  }
-};
+// const getTreesByLocation = async (req, res) => {
+//   console.log("trees By location");
+//   console.log("req.params.location>>>>", req.params.location);
+//   const requestedLocation = await treeModel
+//     .find({ type: req.params.location })
+//     .exec();
+//   console.log("requestedLocation", requestedLocation);
+//   try {
+//     if (requestedLocation.lenght === 0) {
+//       res.status(200).json({
+//         msg: "no trees in this location",
+//       });
+//     } else {
+//       res.status(200).json({
+//         requestedLocation,
+//         number: requestedLocation.length,
+//       });
+//     }
+//   } catch (error) {
+//     res.status(500).json({
+//       msg: "something went wrong",
+//       erorr,
+//     });
+//   }
+// };
 
 const getTreesByType = async (req, res) => {
   /*  console.log("req", req.params.type); */
@@ -303,7 +303,7 @@ export {
   uploadMoreTreePicture,
   getAllTrees,
   getTreesByType,
-  getTreesByLocation,
+  // getTreesByLocation,
   adopt,
   likes,
   unlikes,

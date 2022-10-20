@@ -2,7 +2,7 @@ import express from "express";
 import {
   getAllTrees,
   getTreesByType,
-  getTreesByLocation,
+  // getTreesByLocation,
   uploadTreePicture,
   uploadMoreTreePicture,
   adopt,
@@ -16,7 +16,7 @@ import { multerUploads } from "../middlewares/multer.js";
 const router = express.Router();
 router.get("/all", getAllTrees);
 router.get("/all/:type", getTreesByType);
-router.get("/all/:location", getTreesByLocation);
+// router.get("/all/:location", getTreesByLocation);
 router.post("/imgUpload", multerUploads.single("images"), uploadTreePicture);
 router.put(
   "/moreImageUpload",

@@ -1,15 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import UserInfo from "../Components/UserInfo";
 
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 
 function Profile() {
-  const { user, checkUserStatus } = useContext(AuthContext);
-
-  useEffect(() => {
-    checkUserStatus();
-  }, []);
+  const { user } = useContext(AuthContext);
 
   return (
     <div>

@@ -1,34 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-function Search() {
-  const [search, setsearch] = useState(false);
-
-  const fetchDataSearch = async (e) => {
-    try {
-      const response = await fetch(
-        `http://localhost:5005/api/trees/all/?name=${e.target.value}`
-      );
-      const result = await response.json();
-      console.log("result", result);
-      setsearch(true);
-      /*       setLoading(false); */
-    } catch (error) {
-      /*       setLoading(false);
-      setError(error); */
-    }
-  };
+export default function Search() {
+  const [searchName, setSearchName] = useState();
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      fetchDataSearch(e);
+      console.log("works");
+      setSearchName(e.target.value);
+      // fetchDataSearch(e);
     }
   };
-
-  const handleSearch = (e) => {
-    fetchDataSearch(e);
-  };
-
-  useEffect(() => {}, []);
 
   return (
     <div>
@@ -36,7 +17,7 @@ function Search() {
         <input
           placeholder="search"
           type="search"
-          onKeyDown={(e) => handleSearch(e)}
+          onKeyDown={(e) => handleEnter(e)}
         ></input>
         {/*  <button type="" onClick={(e) => handleSearch(e)}>
           Search
@@ -45,5 +26,3 @@ function Search() {
     </div>
   );
 }
-
-export default Search;

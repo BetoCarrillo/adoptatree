@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import getToken from "../utils/getToken.js";
-import likes from "../Views/Trees.js";
 
 export const AuthContext = createContext();
 
@@ -60,12 +59,11 @@ export const AuthContextProvider = (props) => {
     }
   };
   const changeLike = () => {
-    setLike(!like);
     setFoo(!like);
   };
   useEffect(() => {
     checkUserStatus();
-  }, [logged, like, foo]);
+  }, [logged, foo]);
 
   return (
     <AuthContext.Provider

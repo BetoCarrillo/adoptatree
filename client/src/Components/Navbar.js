@@ -19,9 +19,7 @@ function NavBar() {
     }
   };
 
-  useEffect(() => {
-    checkUserStatus();
-  }, [logout]);
+  useEffect(() => {}, [logout]);
 
   return (
     <div>

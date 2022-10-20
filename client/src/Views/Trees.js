@@ -4,13 +4,13 @@ import Card from "react-bootstrap/Card";
 import "../styles/trees.css";
 import Accordion from "react-bootstrap/Accordion";
 import { AuthContext } from "../Context/AuthContext";
-import Dropdown from "react-bootstrap/Dropdown";
-
 import Search from "../Components/Search";
+import Filters from "../Components/Filters";
+import SearchBar from "../Components/SearchBar";
 
 function Trees() {
-  const [like, setLike] = useState(false);
-  const { user, setUser, changeLike, foo } = useContext(AuthContext);
+  const { user, setUser, changeLike, foo, like, setLike } =
+    useContext(AuthContext);
   const [newComment, setNewComment] = useState("");
   const [commentStyle, setCommentStyle] = useState(false);
   const [photo, setPhoto] = useState(0);
@@ -19,14 +19,17 @@ function Trees() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
+  const [search, setSearch] = useState(false);
+  const [searchName, setSearchName] = useState();
 
   // CUSTOM FETCH HOOK
   // const { setData, data, loading, error } = useFetch(
   //   "http://localhost:5005/api/trees/all/"
   // );
-  const fetchTrees = async () => {
+
+  const fetchTrees = async (searchName) => {
     try {
-      const response = await fetch("http://localhost:5005/api/trees/all/");
+      const response = await fetch(`http://localhost:5005/api/trees/all/`);
       const result = await response.json();
       console.log("result", result);
       setLoading(false);
@@ -182,44 +185,55 @@ function Trees() {
       const response = await fetch(
         `http://localhost:5005/api/trees/all/${tree.type}`
       );
-      const filteredResult = await response.json();
-      console.log("filteredResult", filteredResult);
-      /*       setLoading(false); */
+      const typeResult = await response.json();
+      console.log("filteredResult", typeResult);
+      setLoading(false);
       setTrees(true);
-      setData(filteredResult);
+      setData(typeResult);
     } catch (error) {
-      /*       setLoading(false);
-      setError(error); */
+      setLoading(false);
+      setError(error);
     }
   };
 
+  const fetchDataSearch = async (e) => {
+    console.log("works");
+    setSearchName(e.target.value);
+
+    // try {
+    //   const response = await fetch(
+    //     `http://localhost:5005/api/trees/all/?&name=${e.target.value}`
+    //   );
+    //   const result = await response.json();
+    //   console.log("result", result);
+    //   setData(result);
+    //   /*       setLoading(false); */
+    // } catch (error) {
+    //   /*       setLoading(false);
+    //   setError(error); */
+    // }
+  };
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      setSearchName(e.target.value);
+      // fetchDataSearch(e);
+    }
+  };
+
+  //  const handleSearch = (e) => {
+  //    fetchDataSearch(e);
+  //  };
+
   useEffect(() => {
-    //  fetchTrees()
-    // console.log("refresh trees");
-    // console.log("useeffct trees run!", data);
     fetchTrees();
-    // console.log("alltrees", allTrees);
   }, [foo]);
 
   return (
     <div>
-      <Dropdown>
-        <Dropdown.Toggle id="dropdown-basic">Type</Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={(e) => fetchTrees(data, e)}>
-            All
-          </Dropdown.Item>
-          {data &&
-            data.allTrees.map((tree, i) => (
-              <div key={i}>
-                <Dropdown.Item onClick={(e) => fetchType(data, e, tree)}>
-                  {tree.type}
-                </Dropdown.Item>
-              </div>
-            ))}
-        </Dropdown.Menu>
-      </Dropdown>
-      <Search />
+      <Filters fetchTrees={fetchTrees} data={data} fetchType={fetchType} />
+      {/* <SearchBar/> */}
+      {/* <Search data={data} handleEnter={handleEnter} /> */}
       {!loading ? (
         data &&
         data.allTrees.map((tree, i) => {
