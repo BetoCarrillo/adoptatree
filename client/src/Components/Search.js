@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-export default function Search() {
-  const [searchName, setSearchName] = useState();
-
+export default function Search({ searchName, setSearchName }) {
   const handleEnter = (e) => {
     if (e.key === "Enter") {
       console.log("works");

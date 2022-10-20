@@ -14,9 +14,9 @@ export default function Filters({
       <Dropdown>
         <Dropdown.Toggle id="dropdown-basic">Type</Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item onClick={(e) => fetchTrees(data, e)}>
+          {/* <Dropdown.Item onClick={(e) => fetchTrees(data, e)}>
             All
-          </Dropdown.Item>
+          </Dropdown.Item> */}
           {data &&
             data.allTrees.map((tree, i) => (
               <div key={i}>
@@ -27,6 +27,12 @@ export default function Filters({
             ))}
         </Dropdown.Menu>
       </Dropdown>
+      <span
+        class="material-symbols-outlined"
+        onClick={(e) => fetchTrees(data, e)}
+      >
+        refresh
+      </span>
     </div>
   );
 }

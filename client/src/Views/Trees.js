@@ -197,29 +197,30 @@ function Trees() {
   };
 
   const fetchDataSearch = async (e) => {
-    console.log("works");
-    setSearchName(e.target.value);
+    // console.log("works");
+    console.log(e.target.value);
+    // setSearchName(e.target.value);
 
-    // try {
-    //   const response = await fetch(
-    //     `http://localhost:5005/api/trees/all/?&name=${e.target.value}`
-    //   );
-    //   const result = await response.json();
-    //   console.log("result", result);
-    //   setData(result);
-    //   /*       setLoading(false); */
-    // } catch (error) {
-    //   /*       setLoading(false);
-    //   setError(error); */
-    // }
-  };
-
-  const handleEnter = (e) => {
-    if (e.key === "Enter") {
-      setSearchName(e.target.value);
-      // fetchDataSearch(e);
+    try {
+      const response = await fetch(
+        `http://localhost:5005/api/trees/all/?&name=${e.target.value}`
+      );
+      const result = await response.json();
+      console.log("result", result);
+      setData(result);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error);
     }
   };
+
+  // const handleEnter = (e) => {
+  //   if (e.key === "Enter") {
+  //     setSearchName(e.target.value);
+  //     // fetchDataSearch(e);
+  //   }
+  // };
 
   //  const handleSearch = (e) => {
   //    fetchDataSearch(e);
@@ -227,13 +228,18 @@ function Trees() {
 
   useEffect(() => {
     fetchTrees();
-  }, [foo]);
+  }, [foo, searchName]);
 
   return (
     <div>
-      <Filters fetchTrees={fetchTrees} data={data} fetchType={fetchType} />
-      {/* <SearchBar/> */}
-      {/* <Search data={data} handleEnter={handleEnter} /> */}
+      <Filters
+        fetchTrees={fetchTrees}
+        data={data}
+        fetchType={fetchType}
+        // handleEnter={handleEnter}
+      />
+      <SearchBar fetchDataSearch={fetchDataSearch} />
+      {/* <Search setSearchName={setSearchName} /> */}
       {!loading ? (
         data &&
         data.allTrees.map((tree, i) => {
