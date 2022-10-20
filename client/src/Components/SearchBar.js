@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 
 function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
-  const [search, setSearch] = useState();
   // const inputRef = useRef();
-  const handleEnter = (e) => {
-    if (e.key === "Enter") {
-      console.log("works");
-      fetchDataSearch(e);
-      // console.log(e.target.value);
-      // setSearch(e.target.value);
-      // console.log(search);
-    }
+  // const handleEnter = (e) => {
+  //   if (e.key === "Enter") {
+  //     fetchDataSearch(e);
+  //   }
+  // };
+
+  const handleSearch = (e) => {
+    console.log(e.target.value);
+    fetchDataSearch(e);
   };
+
   useEffect(() => {
     // inputRef.current.focus();
   }, []);
@@ -23,7 +24,7 @@ function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
           // ref={inputRef}
           type="text"
           name=""
-          onKeyDown={(e) => handleEnter(e)}
+          onChange={(e) => handleSearch(e)}
         ></input>
       </div>
     </div>

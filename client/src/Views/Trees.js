@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import "../styles/trees.css";
 import Accordion from "react-bootstrap/Accordion";
 import { AuthContext } from "../Context/AuthContext";
-import Search from "../Components/Search";
+// import Search from "../Components/Search";
 import Filters from "../Components/Filters";
 import SearchBar from "../Components/SearchBar";
 
@@ -27,7 +27,7 @@ function Trees() {
   //   "http://localhost:5005/api/trees/all/"
   // );
 
-  const fetchTrees = async (searchName) => {
+  const fetchTrees = async () => {
     try {
       const response = await fetch(`http://localhost:5005/api/trees/all/`);
       const result = await response.json();
@@ -180,39 +180,80 @@ function Trees() {
   /*   let date = new Date(tree.date).toLocaleString();
   console.log("date", date); */
 
-  const fetchType = async (data, e, tree) => {
-    try {
-      const response = await fetch(
-        `http://localhost:5005/api/trees/all/${tree.type}`
-      );
-      const typeResult = await response.json();
-      console.log("filteredResult", typeResult);
-      setLoading(false);
-      setTrees(true);
-      setData(typeResult);
-    } catch (error) {
-      setLoading(false);
-      setError(error);
-    }
-  };
+  // const fetchType = async (data, e, tree) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:5005/api/trees/all/${tree.type}`
+  //     );
+  //     const typeResult = await response.json();
+  //     console.log("filteredResult", typeResult);
+  //     setLoading(false);
+  //     setTrees(true);
+  //     setData(typeResult);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     setError(error);
+  //   }
+  // };
 
   const fetchDataSearch = async (e) => {
-    // console.log("works");
-    console.log(e.target.value);
-    // setSearchName(e.target.value);
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    try {
-      const response = await fetch(
-        `http://localhost:5005/api/trees/all/?&name=${e.target.value}`
-      );
-      const result = await response.json();
-      console.log("result", result);
-      setData(result);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      setError(error);
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("$text", e.target.value);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+
+    if (e.target.value === "") {
+      try {
+        const response = await fetch(`http://localhost:5005/api/trees/all/`);
+        const result = await response.json();
+        console.log("result", result);
+        setLoading(false);
+        setData(result);
+      } catch (error) {
+        setLoading(false);
+        setError(error);
+      }
+    } else {
+      try {
+        const response = await fetch(
+          "http://localhost:5005/api/trees/search",
+          requestOptions
+        );
+        const results = await response.json();
+        console.log("result", results);
+        setLoading(false);
+        setTrees(true);
+        setData(results);
+      } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+        setError(error);
+      }
     }
+
+    // console.log("works");
+    // console.log(e.target.value);
+    // // setSearchName(e.target.value);
+
+    // try {
+    //   const response = await fetch(
+    //     `http://localhost:5005/api/trees/all/?&name=${e.target.value}`
+    //   );
+    //   const result = await response.json();
+    //   console.log("result", result);
+    //   setData(result);
+    //   setLoading(false);
+    // } catch (error) {
+    //   setLoading(false);
+    //   setError(error);
+    // }
   };
 
   // const handleEnter = (e) => {
@@ -228,16 +269,16 @@ function Trees() {
 
   useEffect(() => {
     fetchTrees();
-  }, [foo, searchName]);
+  }, [foo]);
 
   return (
     <div>
-      <Filters
+      {/* <Filters
         fetchTrees={fetchTrees}
         data={data}
         fetchType={fetchType}
         // handleEnter={handleEnter}
-      />
+      /> */}
       <SearchBar fetchDataSearch={fetchDataSearch} />
       {/* <Search setSearchName={setSearchName} /> */}
       {!loading ? (

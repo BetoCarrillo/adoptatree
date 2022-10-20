@@ -56,73 +56,96 @@ const uploadMoreTreePicture = async (req, res) => {
   }
 };
 
+// const getAllTreeSearch = async (req, res) => {
+//   const { location, name, type } = req.query;
+//   if (name) {
+//     const requestedName = await treeModel.find({
+//       name: { $eq: name },
+//     });
+//     console.log("requestedTypes", requestedName);
+//     try {
+//       if (requestedName.lenght === 0) {
+//         res.status(200).json({
+//           msg: "no trees whith this name",
+//         });
+//       } else {
+//         res.status(200).json({
+//           allTrees: requestedName,
+//         });
+//       }
+//     } catch (error) {
+//       res.status(500).json({
+//         msg: "something went wrong",
+//         erorr,
+//       });
+//     }
+//   }
+//   if (location) {
+//     const requestedLocation = await treeModel.find({
+//       location: { $eq: location },
+//     });
+//     console.log("requestedTypes", requestedLocation);
+//     try {
+//       if (requestedLocation.lenght === 0) {
+//         res.status(200).json({
+//           msg: "no trees",
+//         });
+//       } else {
+//         res.status(200).json({
+//           allTrees: requestedLocation,
+//         });
+//       }
+//     } catch (error) {
+//       res.status(500).json({
+//         msg: "something went wrong",
+//         erorr,
+//       });
+//     }
+//   }
+//   if (type) {
+//     const requestedType = await treeModel.find({
+//       type: { $eq: type },
+//     });
+//     console.log("requestedTypes", requestedType);
+//     try {
+//       if (requestedType.lenght === 0) {
+//         res.status(200).json({
+//           msg: "no trees",
+//         });
+//       } else {
+//         res.status(200).json({
+//           allTrees: requestedType,
+//         });
+//       }
+//     } catch (error) {
+//       res.status(500).json({
+//         msg: "something went wrong",
+//         erorr,
+//       });
+//     }
+//   }
+// };
+
 const getAllTreeSearch = async (req, res) => {
-  const { location, name, type } = req.query;
-  if (name) {
-    const requestedName = await treeModel.find({
-      name: { $eq: name },
-    });
-    console.log("requestedTypes", requestedName);
-    try {
-      if (requestedName.lenght === 0) {
-        res.status(200).json({
-          msg: "no Trees",
-        });
-      } else {
-        res.status(200).json({
-          allTrees: requestedName,
-        });
-      }
-    } catch (error) {
-      res.status(500).json({
-        msg: "something went wrong",
-        erorr,
+  // console.log("req.query", req);
+  const requestedSearch = await treeModel.find({
+    $text: { $search: req.body.$text },
+  });
+  try {
+    if (requestedSearch.lenght === 0) {
+      res.status(200).json({
+        msg: "no trees",
+      });
+    } else {
+      res.status(200).json({
+        allTrees: requestedSearch,
       });
     }
-  }
-  if (location) {
-    const requestedLocation = await treeModel.find({
-      location: { $eq: location },
+  } catch (error) {
+    res.status(500).json({
+      msg: "something went wrong",
+      erorr,
     });
-    console.log("requestedTypes", requestedLocation);
-    try {
-      if (requestedLocation.lenght === 0) {
-        res.status(200).json({
-          msg: "no trees",
-        });
-      } else {
-        res.status(200).json({
-          allTrees: requestedLocation,
-        });
-      }
-    } catch (error) {
-      res.status(500).json({
-        msg: "something went wrong",
-        erorr,
-      });
-    }
-  }
-  if (type) {
-    const requestedType = await treeModel.find({
-      type: { $eq: type },
-    });
-    console.log("requestedTypes", requestedType);
-    try {
-      if (requestedType.lenght === 0) {
-        res.status(200).json({
-          msg: "no trees",
-        });
-      } else {
-        res.status(200).json({
-          allTrees: requestedType,
-        });
-      }
-    } catch (error) {
-      res.status(500).json({
-        msg: "something went wrong",
-        erorr,
-      });
-    }
   }
 };
 

@@ -16,7 +16,7 @@ import { multerUploads } from "../middlewares/multer.js";
 
 const router = express.Router();
 router.get("/all", getAllTrees);
-router.get("/search", getAllTreeSearch);
+router.post("/search", getAllTreeSearch);
 // router.get("/all/:type", getTreesByTßype);
 // router.get("/all/:location", getTreesByLocation);
 router.post("/imgUpload", multerUploads.single("images"), uploadTreePicture);
