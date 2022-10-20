@@ -5,8 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [userLogin, setuserLogin] = useState({});
-  const { user, setUser, logged, setLogged, checkUserStatus, getUserProfile } =
-    useContext(AuthContext);
+  const {
+    user,
+    setUser,
+    logged,
+    setLogged,
+    checkUserStatus,
+    userProfile,
+    getUserProfile,
+  } = useContext(AuthContext);
   const redirectLogin = useNavigate();
 
   const handleChangeHandler = (e) => {

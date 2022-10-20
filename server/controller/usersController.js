@@ -39,7 +39,7 @@ const updateUserPicture = async (req, res) => {
           },
           { returnOriginal: false }
         );
-        // console.log("treeLike????", treeLike);
+
         res.status(200).json({
           msg: "new picture saved",
           images: userPhoto.avatarPicture,
@@ -122,7 +122,8 @@ const signUp = async (req, res) => {
         avatarPicture: req.body.avatarPicture,
       });
       try {
-        // const token = issueToken(req.body.email); // if we want to generate token on signup (leaving user logged in right after)
+        const token = issueToken(req.body.email);
+        // if we want to generate token on signup (leaving user logged in right)
         const savedUser = await newUser.save();
         res.status(201).json({
           user: {
@@ -162,7 +163,7 @@ const login = async (req, res) => {
       }
       if (verified) {
         console.log("user is logged in");
-        const token = issueToken(existingUser.id);
+        const token = issueToken(existingUser.email);
         console.log("token", token);
         res.status(201).json({
           msg: "user is logged in",

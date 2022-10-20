@@ -8,7 +8,7 @@ function Register() {
   const [error, setError] = useState(null);
   const [passError, setPassError] = useState(null);
   const redirectLogin = useNavigate();
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, checkUserStatus } = useContext(AuthContext);
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -88,6 +88,12 @@ function Register() {
         );
         const results = await response.json();
         console.log("results", results);
+        const token = results.token;
+
+        if (token) {
+          localStorage.setItem("token", token);
+          checkUserStatus();
+        }
 
         if (results.msg === "user already exists") {
           alert("email already exists");

@@ -21,7 +21,7 @@ function NavBar() {
 
   useEffect(() => {
     checkUserStatus();
-  }, []);
+  }, [logout]);
 
   return (
     <div>

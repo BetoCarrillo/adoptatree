@@ -62,10 +62,8 @@ export const AuthContextProvider = (props) => {
   const changeLike = () => {
     setLike(!like);
     setFoo(!like);
-    console.log("like auth>>>", like);
   };
   useEffect(() => {
-    console.log("useffect Auth run>>>");
     checkUserStatus();
   }, [logged, like, foo]);
 
