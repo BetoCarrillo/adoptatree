@@ -60,14 +60,13 @@ const getAllTrees = async (req, res) => {
   console.log("req.query", req.query);
   console.log("req.params", req.params);
   console.log("All trees");
-  const { location, name } = req.query;
+  const { location, name, type } = req.query;
+
   if (name) {
     const requestedName = await treeModel.find({
       name: { $eq: name },
     });
-
-    console.log("requestedTypes", requestedName);
-
+    console.log("requestedName", requestedName);
     try {
       if (requestedName.lenght === 0) {
         res.status(200).json({
@@ -76,6 +75,28 @@ const getAllTrees = async (req, res) => {
       } else {
         res.status(200).json({
           allTrees: requestedName,
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        msg: "something went wrong",
+        erorr,
+      });
+    }
+  }
+  if (location) {
+    const requestedLocation = await treeModel.find({
+      location: { $eq: location },
+    });
+    console.log("requestedLocation", requestedLocation);
+    try {
+      if (requestedLocation.lenght === 0) {
+        res.status(200).json({
+          msg: "no trees",
+        });
+      } else {
+        res.status(200).json({
+          allTrees: requestedLocation,
         });
       }
     } catch (error) {
@@ -132,65 +153,65 @@ const getAllTrees = async (req, res) => {
 //   }
 // };
 
-const getTreesByType = async (req, res) => {
-  /*  console.log("req", req.params.type); */
-  console.log("trees By Type");
-  console.log("req.params", req.params);
-  console.log("req.query", req.query);
+// const getTreesByType = async (req, res) => {
+//   /*  console.log("req", req.params.type); */
+//   console.log("trees By Type");
+//   console.log("req.params", req.params);
+//   console.log("req.query", req.query);
 
-  console.log("query param", req.query);
-  const { likes } = req.query;
+//   console.log("query param", req.query);
+//   const { likes } = req.query;
 
-  if (likes) {
-    const requestedTypes = await treeModel.find({
-      type: req.params.type,
-      likes: { $gte: likes },
-    });
+//   if (likes) {
+//     const requestedTypes = await treeModel.find({
+//       type: req.params.type,
+//       likes: { $gte: likes },
+//     });
 
-    console.log("requestedTypes", requestedTypes);
+//     console.log("requestedTypes", requestedTypes);
 
-    try {
-      if (requestedTypes.lenght === 0) {
-        res.status(200).json({
-          msg: "no trees of this type",
-        });
-      } else {
-        res.status(200).json({
-          allTrees: requestedTypes,
-          // number: requestedTypes.length,
-        });
-      }
-    } catch (error) {
-      res.status(500).json({
-        msg: "something went wrong",
-        erorr,
-      });
-    }
-  } else {
-    const requestedTypes = await treeModel.find({ type: req.params.type });
+//     try {
+//       if (requestedTypes.lenght === 0) {
+//         res.status(200).json({
+//           msg: "no trees of this type",
+//         });
+//       } else {
+//         res.status(200).json({
+//           allTrees: requestedTypes,
+//           // number: requestedTypes.length,
+//         });
+//       }
+//     } catch (error) {
+//       res.status(500).json({
+//         msg: "something went wrong",
+//         erorr,
+//       });
+//     }
+//   } else {
+//     const requestedTypes = await treeModel.find({ type: req.params.type });
 
-    console.log("requestedTypes", requestedTypes);
+//     console.log("requestedTypes", requestedTypes);
 
-    try {
-      if (requestedTypes.lenght === 0) {
-        res.status(200).json({
-          msg: "no trees of this type",
-        });
-      } else {
-        res.status(200).json({
-          // requestedTypes,
-          // number: requestedTypes.length,
-          allTrees: requestedTypes,
-        });
-      }
-    } catch (error) {
-      res.status(500).json({
-        msg: "something went wrong",
-        erorr,
-      });
-    }
-  }
-};
+//     try {
+//       if (requestedTypes.lenght === 0) {
+//         res.status(200).json({
+//           msg: "no trees of this type",
+//         });
+//       } else {
+//         res.status(200).json({
+//           // requestedTypes,
+//           // number: requestedTypes.length,
+//           allTrees: requestedTypes,
+//         });
+//       }
+//     } catch (error) {
+//       res.status(500).json({
+//         msg: "something went wrong",
+//         erorr,
+//       });
+//     }
+//   }
+// };
 
 const adopt = async (req, res) => {
   console.log("req.body", req.body);
@@ -302,7 +323,7 @@ export {
   uploadTreePicture,
   uploadMoreTreePicture,
   getAllTrees,
-  getTreesByType,
+  // getTreesByType,
   // getTreesByLocation,
   adopt,
   likes,
