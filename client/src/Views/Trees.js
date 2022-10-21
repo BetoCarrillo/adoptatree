@@ -6,11 +6,20 @@ import Accordion from "react-bootstrap/Accordion";
 import { AuthContext } from "../Context/AuthContext";
 // import Search from "../Components/Search";
 import Filters from "../Components/Filters";
-import SearchBar from "../Components/SearchBar";
+import { TreeContext } from "../Context/TreeContext";
+// import SearchBar from "../Components/SearchBar";
 
 function Trees() {
-  const { user, setUser, changeLike, foo, like, setLike } =
-    useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const {
+    changeLike,
+    setChangeLike,
+    likes,
+    unlikes,
+    like,
+    setLike,
+    functionChangeLikes,
+  } = useContext(TreeContext);
   const [newComment, setNewComment] = useState("");
   const [commentStyle, setCommentStyle] = useState(false);
   const [photo, setPhoto] = useState(0);
@@ -40,56 +49,56 @@ function Trees() {
     }
   };
 
-  const likes = async (e, tree, req, res) => {
-    // setLike(true);
+  // const likes = async (e, tree, req, res) => {
+  //   // setLike(true);
 
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("name", tree.name);
+  //   var urlencoded = new URLSearchParams();
+  //   urlencoded.append("name", tree.name);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
 
-    try {
-      const response = await fetch(
-        "http://localhost:5005/api/trees/likes",
-        requestOptions
-      );
-      const results = await response.json();
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:5005/api/trees/likes",
+  //       requestOptions
+  //     );
+  //     const results = await response.json();
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
-  const unlikes = async (e, tree, req, res) => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  // const unlikes = async (e, tree, req, res) => {
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("name", tree.name);
+  //   var urlencoded = new URLSearchParams();
+  //   urlencoded.append("name", tree.name);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
 
-    try {
-      const response = await fetch(
-        "http://localhost:5005/api/trees/unlikes",
-        requestOptions
-      );
-      const results = await response.json();
-    } catch (error) {
-      console.log("error", error);
-    }
-    setLike(false);
-  };
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:5005/api/trees/unlikes",
+  //       requestOptions
+  //     );
+  //     const results = await response.json();
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  //   setLike(false);
+  // };
 
   const handleChangeHandler = (e) => {
     setNewComment(e.target.value);
@@ -196,65 +205,65 @@ function Trees() {
   //   }
   // };
 
-  const fetchDataSearch = async (e) => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  // const fetchDataSearch = async (e) => {
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("$text", e.target.value);
+  //   var urlencoded = new URLSearchParams();
+  //   urlencoded.append("$text", e.target.value);
 
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlencoded,
-    };
+  //   var requestOptions = {
+  //     method: "POST",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
 
-    if (e.target.value === "") {
-      try {
-        const response = await fetch(`http://localhost:5005/api/trees/all/`);
-        const result = await response.json();
-        console.log("result", result);
-        setLoading(false);
-        setData(result);
-      } catch (error) {
-        setLoading(false);
-        setError(error);
-      }
-    } else {
-      try {
-        const response = await fetch(
-          "http://localhost:5005/api/trees/search",
-          requestOptions
-        );
-        const results = await response.json();
-        console.log("result", results);
-        setLoading(false);
-        setTrees(true);
-        setData(results);
-      } catch (error) {
-        console.log("error", error);
-        setLoading(false);
-        setError(error);
-      }
-    }
+  //   if (e.target.value === "") {
+  //     try {
+  //       const response = await fetch(`http://localhost:5005/api/trees/all/`);
+  //       const result = await response.json();
+  //       console.log("result", result);
+  //       setLoading(false);
+  //       setData(result);
+  //     } catch (error) {
+  //       setLoading(false);
+  //       setError(error);
+  //     }
+  //   } else {
+  //     try {
+  //       const response = await fetch(
+  //         "http://localhost:5005/api/trees/search",
+  //         requestOptions
+  //       );
+  //       const results = await response.json();
+  //       console.log("result", results);
+  //       setLoading(false);
+  //       setTrees(true);
+  //       setData(results);
+  //     } catch (error) {
+  //       console.log("error", error);
+  //       setLoading(false);
+  //       setError(error);
+  //     }
+  //   }
 
-    // console.log("works");
-    // console.log(e.target.value);
-    // // setSearchName(e.target.value);
+  // console.log("works");
+  // console.log(e.target.value);
+  // // setSearchName(e.target.value);
 
-    // try {
-    //   const response = await fetch(
-    //     `http://localhost:5005/api/trees/all/?&name=${e.target.value}`
-    //   );
-    //   const result = await response.json();
-    //   console.log("result", result);
-    //   setData(result);
-    //   setLoading(false);
-    // } catch (error) {
-    //   setLoading(false);
-    //   setError(error);
-    // }
-  };
+  // try {
+  //   const response = await fetch(
+  //     `http://localhost:5005/api/trees/all/?&name=${e.target.value}`
+  //   );
+  //   const result = await response.json();
+  //   console.log("result", result);
+  //   setData(result);
+  //   setLoading(false);
+  // } catch (error) {
+  //   setLoading(false);
+  //   setError(error);
+  // }
+  // };
 
   // const handleEnter = (e) => {
   //   if (e.key === "Enter") {
@@ -269,7 +278,7 @@ function Trees() {
 
   useEffect(() => {
     fetchTrees();
-  }, [foo]);
+  }, [changeLike]);
 
   return (
     <div>
@@ -279,7 +288,7 @@ function Trees() {
         fetchType={fetchType}
         // handleEnter={handleEnter}
       /> */}
-      <SearchBar fetchDataSearch={fetchDataSearch} />
+      {/* <SearchBar fetchDataSearch={fetchDataSearch} /> */}
       {/* <Search setSearchName={setSearchName} /> */}
       {!loading ? (
         data &&
@@ -310,23 +319,22 @@ function Trees() {
                     <Card.Text>
                       <div className="likesDiv">
                         {tree.likes ? <>{tree.likes}</> : ""}
-                        <button
-                          type=""
-                          onClick={() => setLike((prevState) => !prevState)}
-                        ></button>
                         <span
                           class="material-symbols-outlined liked"
                           onClick={(e) => {
                             console.log("liked");
                             likes(e, tree);
-                            changeLike();
+                            functionChangeLikes();
                           }}
                         >
                           favorite
                         </span>
                         <span
                           class="material-symbols-outlined unliked"
-                          onClick={(e) => unlikes(e, tree)}
+                          onClick={(e) => {
+                            unlikes(e, tree);
+                            functionChangeLikes();
+                          }}
                         >
                           favorite
                         </span>

@@ -14,6 +14,8 @@ import { useState } from "react";
 import { AuthContextProvider } from "./Context/AuthContext";
 import ProtectedRoute from "./Components/ProtectedRoute.js";
 import Profiles from "./Views/Profiles";
+import Search from "./Views/Search";
+import { TreeContextProvider } from "./Context/TreeContext";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -33,30 +35,33 @@ function App() {
   return (
     <div className="App">
       <AuthContextProvider>
-        {" "}
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/trees" element={<Trees />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profiles" element={<Profiles />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/about" element={<About />} />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/adopt" element={<Adopt />} />
-            <Route path="*" element={<NaN />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>{" "}
+        <TreeContextProvider>
+          {" "}
+          <BrowserRouter>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/trees" element={<Trees />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/profiles" element={<Profiles />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/about" element={<About />} />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/adopt" element={<Adopt />} />
+              <Route path="*" element={<NaN />} />
+            </Routes>
+            <Footer />
+          </BrowserRouter>{" "}
+        </TreeContextProvider>
       </AuthContextProvider>
     </div>
   );

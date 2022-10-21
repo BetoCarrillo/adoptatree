@@ -10,7 +10,7 @@ function Profiles() {
       {user.userName}
       <br></br>
       {user.email} <br></br>
-      {user.avatarPicture}
+      <img src={user.avatarPicture} alt=""></img>
       <br></br>
       {user.tree}
     </div>

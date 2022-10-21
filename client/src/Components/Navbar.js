@@ -46,14 +46,17 @@ function NavBar() {
             <NavLink className="navbarLink" to="/home">
               <span className="material-symbols-outlined">home</span>
             </NavLink>
+            <NavLink className="navbarLink" to="/search">
+              <span class="material-symbols-outlined">search</span>
+            </NavLink>
             <NavLink className="navbarLink" to="/trees">
               <span className="material-symbols-outlined">forest</span>
             </NavLink>
-            <NavLink className="navbarLink" to="/about">
-              <span className="material-symbols-outlined">contact_support</span>
-            </NavLink>
             <NavLink className="navbarLink" to="/profile">
               <span className="material-symbols-outlined">person</span>
+            </NavLink>
+            <NavLink className="navbarLink" to="/about">
+              <span className="material-symbols-outlined">contact_support</span>
             </NavLink>
             <NavLink className="navbarLink" to="/login">
               {logged !== false ? (

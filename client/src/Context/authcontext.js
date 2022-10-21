@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import getToken from "../utils/getToken.js";
+import { TreeContext } from "./TreeContext.js";
 
 export const AuthContext = createContext();
 
@@ -7,8 +8,8 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
   const [logged, setLogged] = useState(null);
-  const [like, setLike] = useState(false);
-  const [foo, setFoo] = useState(false);
+  // const [like, setLike] = useState(false);
+  // const [foo, setFoo] = useState(false);
   const [userProfile, setUserProfile] = useState({});
   const [loading, setLoading] = useState({});
 
@@ -58,12 +59,12 @@ export const AuthContextProvider = (props) => {
       console.log("no token for this user");
     }
   };
-  const changeLike = () => {
-    setFoo(!like);
-  };
+  // const changeLike = () => {
+  //   setFoo(!like);
+  // };
   useEffect(() => {
     checkUserStatus();
-  }, [logged, foo]);
+  }, [logged]);
 
   return (
     <AuthContext.Provider
@@ -78,8 +79,6 @@ export const AuthContextProvider = (props) => {
         checkUserStatus,
         userProfile,
         loading,
-        changeLike,
-        foo,
       }}
     >
       {props.children}
