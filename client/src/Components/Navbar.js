@@ -37,7 +37,10 @@ function NavBar() {
             <div></div>
           ) : (
             <div>
-              Hi {userProfile.userName ? userProfile.userName : user.email}
+              Hi{" "}
+              {userProfile.userName === undefined
+                ? userProfile.userName
+                : user.email}
               &nbsp; |
             </div>
           )}

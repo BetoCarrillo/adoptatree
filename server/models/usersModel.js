@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
   },
 
   tree: [{ type: mongoose.Schema.Types.ObjectId, ref: "tree" }],
+  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "tree" }],
 });
 
 userSchema.index({ "$**": "text" });

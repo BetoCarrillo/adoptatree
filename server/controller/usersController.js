@@ -1,4 +1,5 @@
 import usersModel from "../models/usersModel.js";
+import treeModel from "../models/treesModel.js";
 import { v2 as cloudinary } from "cloudinary";
 import { encryptPassword, verifyPassword } from "../utils/bcrypt.js";
 import { issueToken } from "../utils/jwt.js";
@@ -194,6 +195,7 @@ const login = async (req, res) => {
             email: existingUser.email,
             id: existingUser._id,
             avatarPicture: existingUser.avatarPicture,
+            likes: existingUser.likes,
           },
           token,
         });
@@ -209,7 +211,35 @@ const getProfile = async (req, res) => {
     email: req.user.email,
     id: req.user.id,
     avatarPicture: req.user.avatarPicture,
+    likes: req.user.likes,
   });
+};
+
+const getMyProfile = async (req, res) => {
+  const userId = req.params._id;
+  const myProfile = await User.findOne({ _id: userId })
+    .populate({
+      path: "trees",
+      select: ["name", "type", "location", "comment", "date", "img", "likes"],
+    })
+    .populate({
+      path: "likes",
+      select: ["name", "type", "location", "comment", "date", "img", "likes"],
+    })
+    .exec();
+  console.log("Get my profile:", myProfile);
+  try {
+    if (myProfile === null || myProfile === undefined) {
+      response.status(200).json({ msg: "Nothing found" });
+    } else {
+      response.status(200).json(myProfile);
+    }
+  } catch (error) {
+    response.status(500).json({
+      msg: "Server failed",
+      error: error,
+    });
+  }
 };
 
 const removeProfile = async (req, res) => {
@@ -271,6 +301,116 @@ const changeUserName = async (req, res) => {
   }
 };
 
+const likes = async (req, res) => {
+  console.log("req.body????", req.body);
+  const user_id = req.body.user_id;
+  const tree_id = req.body.tree_id;
+  const userThatLiked = await usersModel.findById({
+    _id: user_id,
+  });
+
+  const alreadyLiked = await treeModel
+    .findOne({ _id: user_id })
+    .where("likes")
+    .equals(`${userThatLiked._id}`);
+  console.log("Likedby?", userThatLiked);
+  // likes: { $elemMatch: { tree_id } },
+
+  // user_id,
+  // { likes: tree_id }
+  // { $getField: user_id.likes },
+  // { $exists: tree_id }
+  // });
+  if (!alreadyLiked) {
+    try {
+      await usersModel.findOneAndUpdate(
+        { _id: user_id },
+        { $push: { likes: tree_id } }
+        // { new: true }
+      );
+    } catch (error) {
+      res.status(409).json({ message: "Couldn't save" });
+      console.log("User.findOneAndUpdate in like tree:", error);
+    }
+    try {
+      await treeModel.findOneAndUpdate(
+        { _id: tree_id },
+        { $push: { likes: user_id } }
+        // { new: true }
+      );
+    } catch (error) {
+      res.status(409).json({ message: "tree couldn't be liked" });
+      console.log("tree.findOneAndUpdate in like tree:", error);
+    }
+    res.status(200).json({ message: "Added to likes" });
+  } else {
+    res.status(400).json({ message: "Already added" });
+    // console.log("already added:", error);
+  }
+};
+
+//   try {
+//     const treeLike = await treeModel.findOneAndUpdate(
+//       req.body,
+//       {
+//         $inc: { likes: 1 },
+//       },
+//       { returnOriginal: false }
+//     );
+//     console.log("treeLike????", treeLike);
+//   } catch (error) {
+//     res.status(409).json({ message: "error while liking", error: error });
+//     console.log("error", error);
+//   }
+// };
+
+const unlikes = async (req, res) => {
+  const user_id = req.body.user_id;
+  const tree_id = req.body.tree_id;
+  const alreadyLiked = await usersModel.exists({ likes: tree_id });
+
+  if (alreadyLiked) {
+    try {
+      await usersModel.findOneAndUpdate(
+        { _id: user_id },
+        { $pull: { likes: tree_id } },
+        { new: true }
+      );
+    } catch (error) {
+      res.status(409).json({ message: "Error removing this item" });
+      console.log("Error in removeLikeTree:", error);
+    }
+    try {
+      await treeModel.findOneAndUpdate(
+        { _id: tree_id },
+        { $pull: { likes: user_id } },
+        { new: true }
+      );
+    } catch (error) {
+      res.status(409).json({ message: "Error" });
+      console.log("Error while unliking the tree:", error);
+    }
+    res.status(200).json({ message: "Removed from likes" });
+  } else {
+    res.status(400).json({ message: "There seems to be no like to removed" });
+  }
+};
+
+//   try {
+//     const treeLike = await treeModel.findOneAndUpdate(
+//       req.body,
+//       {
+//         $inc: { likes: -1 },
+//       },
+//       { returnOriginal: false }
+//     );
+//     console.log("treeLike????", treeLike);
+//   } catch (error) {
+//     res.status(409).json({ message: "error while liking", error: error });
+//     console.log("error", error);
+//   }
+// };
+
 export {
   removeProfile,
   getAllUsers,
@@ -282,4 +422,7 @@ export {
   changeUserName,
   getAllUserSearch,
   updateUserPicture,
+  getMyProfile,
+  likes,
+  unlikes,
 };

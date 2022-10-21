@@ -23,7 +23,6 @@ function Trees() {
   const [newComment, setNewComment] = useState("");
   const [commentStyle, setCommentStyle] = useState(false);
   const [photo, setPhoto] = useState(0);
-  const [trees, setTrees] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
@@ -277,8 +276,9 @@ function Trees() {
   //  };
 
   useEffect(() => {
+    console.log("trees refresh");
     fetchTrees();
-  }, [changeLike]);
+  }, [functionChangeLikes]);
 
   return (
     <div>
@@ -318,7 +318,11 @@ function Trees() {
                     </Card.Title>
                     <Card.Text>
                       <div className="likesDiv">
-                        {tree.likes ? <>{tree.likes}</> : ""}
+                        {tree.likes.length !== 0 ? (
+                          <>{tree.likes.length}</>
+                        ) : (
+                          ""
+                        )}
                         <span
                           class="material-symbols-outlined liked"
                           onClick={(e) => {

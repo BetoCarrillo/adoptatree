@@ -326,38 +326,38 @@ const adopt = async (req, res) => {
   } catch (error) {}
 };
 
-const likes = async (req, res) => {
-  console.log("req.body????", req.body._id);
-  try {
-    const treeLike = await treeModel.findOneAndUpdate(
-      req.body,
-      {
-        $inc: { likes: 1 },
-      },
-      { returnOriginal: false }
-    );
-    console.log("treeLike????", treeLike);
-  } catch (error) {
-    res.status(409).json({ message: "error while liking", error: error });
-    console.log("error", error);
-  }
-};
+// const likes = async (req, res) => {
+//   console.log("req.body????", req.body._id);
+//   try {
+//     const treeLike = await treeModel.findOneAndUpdate(
+//       req.body,
+//       {
+//         $inc: { likes: 1 },
+//       },
+//       { returnOriginal: false }
+//     );
+//     console.log("treeLike????", treeLike);
+//   } catch (error) {
+//     res.status(409).json({ message: "error while liking", error: error });
+//     console.log("error", error);
+//   }
+// };
 
-const unlikes = async (req, res) => {
-  try {
-    const treeLike = await treeModel.findOneAndUpdate(
-      req.body,
-      {
-        $inc: { likes: -1 },
-      },
-      { returnOriginal: false }
-    );
-    console.log("treeLike????", treeLike);
-  } catch (error) {
-    res.status(409).json({ message: "error while liking", error: error });
-    console.log("error", error);
-  }
-};
+// const unlikes = async (req, res) => {
+//   try {
+//     const treeLike = await treeModel.findOneAndUpdate(
+//       req.body,
+//       {
+//         $inc: { likes: -1 },
+//       },
+//       { returnOriginal: false }
+//     );
+//     console.log("treeLike????", treeLike);
+//   } catch (error) {
+//     res.status(409).json({ message: "error while liking", error: error });
+//     console.log("error", error);
+//   }
+// };
 
 const comment = async (req, res) => {
   console.log("req.body????", req.body._id);
@@ -397,8 +397,8 @@ export {
   // getTreesByType,
   // getTreesByLocation,
   adopt,
-  likes,
-  unlikes,
+  // likes,
+  // unlikes,
   comment,
   removeTree,
   getAllTreeSearch,

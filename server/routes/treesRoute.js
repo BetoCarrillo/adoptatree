@@ -6,8 +6,8 @@ import {
   uploadTreePicture,
   uploadMoreTreePicture,
   adopt,
-  likes,
-  unlikes,
+  // likes,
+  // unlikes,
   comment,
   removeTree,
   getAllTreeSearch,
@@ -26,8 +26,8 @@ router.put(
   uploadMoreTreePicture
 );
 router.post("/adopt", adopt);
-router.put("/likes", likes);
-router.put("/unlikes", unlikes);
+// router.put("/likes", likes);
+// router.put("/unlikes", unlikes);
 router.put("/comments", comment);
 router.delete("/delete", removeTree);
 

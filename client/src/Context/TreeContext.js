@@ -28,21 +28,21 @@ export const TreeContextProvider = (props) => {
   };
   const likes = async (e, tree, req, res) => {
     console.log("run like funct", like);
-    // setLike(true);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
     var urlencoded = new URLSearchParams();
-    urlencoded.append("name", tree.name);
+    urlencoded.append("user_id", user._id);
+    urlencoded.append("tree_id", tree._id);
 
     var requestOptions = {
       method: "PUT",
       headers: myHeaders,
       body: urlencoded,
     };
-
     try {
       const response = await fetch(
-        "http://localhost:5005/api/trees/likes",
+        "http://localhost:5005/api/users/likes",
         requestOptions
       );
       const results = await response.json();
@@ -58,17 +58,17 @@ export const TreeContextProvider = (props) => {
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("name", tree.name);
+    urlencoded.append("user_id", user._id);
+    urlencoded.append("tree_id", tree._id);
 
     var requestOptions = {
       method: "PUT",
       headers: myHeaders,
       body: urlencoded,
     };
-
     try {
       const response = await fetch(
-        "http://localhost:5005/api/trees/unlikes",
+        "http://localhost:5005/api/users/unlikes",
         requestOptions
       );
       const results = await response.json();
@@ -161,12 +161,13 @@ export const TreeContextProvider = (props) => {
     }
   };
   const functionChangeLikes = () => {
-    setChangeLike(!like);
+    setLike(!like);
+    console.log("functionChangeLikes", like);
   };
 
   useEffect(() => {
     console.log("treecontext refresh");
-  }, [changeLike]);
+  }, [functionChangeLikes]);
 
   return (
     <TreeContext.Provider
