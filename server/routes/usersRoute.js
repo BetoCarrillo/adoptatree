@@ -9,6 +9,7 @@ import {
   changeUserName,
   changeEmail,
   updateUserPicture,
+  getAllUserSearch,
 } from "../controller/usersController.js";
 import { multerUploads } from "../middlewares/multer.js";
 import jwtAuth from "../utils/jwtAuth.js";
@@ -16,6 +17,7 @@ import jwtAuth from "../utils/jwtAuth.js";
 const router = express.Router();
 
 router.get("/all", getAllUsers);
+router.post("/search", getAllUserSearch);
 router.post("/imageUpload", multerUploads.single("image"), uploadUserPicture);
 router.put(
   "/moreImageUpload",

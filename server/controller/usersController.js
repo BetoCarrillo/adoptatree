@@ -73,6 +73,28 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getAllUserSearch = async (req, res) => {
+  const requestedSearch = await usersModel.find({
+    $text: { $search: req.body.$text },
+  });
+  try {
+    if (requestedSearch.lenght === 0) {
+      res.status(200).json({
+        msg: "no users",
+      });
+    } else {
+      res.status(200).json({
+        allUsers: requestedSearch,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      msg: "something went wrong",
+      erorr,
+    });
+  }
+};
+
 const signUp = async (req, res) => {
   console.log("req.body", req.body);
   try {
@@ -258,5 +280,6 @@ export {
   getProfile,
   changeEmail,
   changeUserName,
+  getAllUserSearch,
   updateUserPicture,
 };

@@ -4,7 +4,6 @@ import { AuthContext } from "../Context/AuthContext";
 import "../styles/profile.css";
 
 function UserInfo() {
-  console.log("first");
   const [error, setError] = useState(null);
   const [isShown, setIsShown] = useState(false);
   const [modifyNameShown, setModifyNameShown] = useState(false);
@@ -167,7 +166,7 @@ function UserInfo() {
 
   return (
     <div>
-      <h2>Profile</h2>
+      <h2>Your Profile</h2>
       <img
         src={userProfile.avatarPicture}
         alt={userProfile.userName}

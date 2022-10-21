@@ -25,5 +25,7 @@ const userSchema = new mongoose.Schema({
   tree: [{ type: mongoose.Schema.Types.ObjectId, ref: "tree" }],
 });
 
+userSchema.index({ "$**": "text" });
+
 const userModel = mongoose.model("user", userSchema);
 export default userModel;

@@ -13,6 +13,7 @@ import getToken from "./utils/getToken.js";
 import { useState } from "react";
 import { AuthContextProvider } from "./Context/AuthContext";
 import ProtectedRoute from "./Components/ProtectedRoute.js";
+import Profiles from "./Views/Profiles";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -40,6 +41,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/trees" element={<Trees />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profiles" element={<Profiles />} />
             <Route path="/register" element={<Register />} />
             <Route path="/about" element={<About />} />
             <Route

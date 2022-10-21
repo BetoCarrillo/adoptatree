@@ -3,6 +3,7 @@ import UserInfo from "../Components/UserInfo";
 
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
+import UsersProfileInfo from "../Components/UsersProfileInfo";
 
 function Profile() {
   const { user } = useContext(AuthContext);
@@ -10,7 +11,9 @@ function Profile() {
   return (
     <div>
       <UserInfo />
-      <p>My Trees</p>
+      <UsersProfileInfo />
+
+      <p>Your Trees</p>
       <NavLink to="/adopt">Adopt a Tree</NavLink>
     </div>
   );
