@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import useFetch from "../hooks/useFetch";
 import Card from "react-bootstrap/Card";
 import "../styles/trees.css";
@@ -19,6 +19,8 @@ function Trees() {
     like,
     setLike,
     functionChangeLikes,
+    // setCheckLike,
+    // checklike,
   } = useContext(TreeContext);
   const [newComment, setNewComment] = useState("");
   const [commentStyle, setCommentStyle] = useState(false);
@@ -275,10 +277,29 @@ function Trees() {
   //    fetchDataSearch(e);
   //  };
 
+  const checkIfLiked = () => {
+    const check =
+      data &&
+      data.allTrees.map((tree, i) => {
+        console.log("comparison ", tree, like, user._id);
+        // like === user._id ? setCheckLike(true) : setCheckLike(false);
+        // eslint-disable-next-line no-lone-blocks
+        {
+          tree.likes.map((like) => {
+            console.log("LIKE", like);
+            console.log("comparison ", like, user._id);
+            like === user._id ? setChangeLike(true) : setChangeLike(false);
+            // console.log("checkinglike", checklike);
+          });
+        }
+      });
+  };
+
   useEffect(() => {
     console.log("trees refresh");
     fetchTrees();
-  }, [functionChangeLikes]);
+    checkIfLiked();
+  }, []);
 
   return (
     <div>
@@ -323,25 +344,28 @@ function Trees() {
                         ) : (
                           ""
                         )}
-                        <span
-                          class="material-symbols-outlined liked"
-                          onClick={(e) => {
-                            console.log("liked");
-                            likes(e, tree);
-                            functionChangeLikes();
-                          }}
-                        >
-                          favorite
-                        </span>
-                        <span
-                          class="material-symbols-outlined unliked"
-                          onClick={(e) => {
-                            unlikes(e, tree);
-                            functionChangeLikes();
-                          }}
-                        >
-                          favorite
-                        </span>
+                        {!changeLike ? (
+                          <span
+                            class="material-symbols-outlined liked"
+                            onClick={(e) => {
+                              console.log("liked");
+                              likes(e, tree);
+                              checkIfLiked();
+                            }}
+                          >
+                            favorite
+                          </span>
+                        ) : (
+                          <span
+                            class="material-symbols-outlined unliked"
+                            onClick={(e) => {
+                              unlikes(e, tree);
+                              checkIfLiked();
+                            }}
+                          >
+                            favorite
+                          </span>
+                        )}
                       </div>
                       <Accordion flush>
                         <Accordion.Item eventKey="0">

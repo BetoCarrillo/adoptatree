@@ -64,7 +64,7 @@ function Search() {
   };
   useEffect(() => {
     console.log("search refresh");
-  }, [changeLike]);
+  }, []);
 
   return (
     <div>

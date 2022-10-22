@@ -13,9 +13,9 @@ function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
     fetchDataSearch(e);
   };
 
-  useEffect(() => {
-    // inputRef.current.focus();
-  }, []);
+  // useEffect(() => {
+  //   // inputRef.current.focus();
+  // }, []);
 
   return (
     <div>

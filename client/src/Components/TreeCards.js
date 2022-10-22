@@ -31,7 +31,7 @@ function TreeCards() {
 
   useEffect(() => {
     console.log("treecards refresh");
-  }, [changeLike]);
+  }, []);
 
   return (
     <div>
@@ -65,7 +65,11 @@ function TreeCards() {
                     </Card.Title>
                     <Card.Text>
                       <div className="likesDiv">
-                        {tree.likes ? <>{tree.likes}</> : ""}
+                        {tree.likes.length !== 0 ? (
+                          <>{tree.likes.length}</>
+                        ) : (
+                          ""
+                        )}
                         <span
                           class="material-symbols-outlined liked"
                           onClick={(e) => {

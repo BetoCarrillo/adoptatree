@@ -13,6 +13,7 @@ export const TreeContextProvider = (props) => {
   const { user, setUser } = useContext(AuthContext);
   const [changeLike, setChangeLike] = useState(false);
   const [like, setLike] = useState(false);
+  // const [checklike, setCheckLike] = useState(false);
 
   const fetchTrees = async () => {
     try {
@@ -167,7 +168,7 @@ export const TreeContextProvider = (props) => {
 
   useEffect(() => {
     console.log("treecontext refresh");
-  }, [functionChangeLikes]);
+  }, []);
 
   return (
     <TreeContext.Provider
@@ -193,6 +194,8 @@ export const TreeContextProvider = (props) => {
         setChangeLike,
         changeLike,
         functionChangeLikes,
+        // setCheckLike,
+        // checklike,
       }}
     >
       {props.children}

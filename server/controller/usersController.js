@@ -216,30 +216,55 @@ const getProfile = async (req, res) => {
 };
 
 const getMyProfile = async (req, res) => {
-  const userId = req.params._id;
-  const myProfile = await User.findOne({ _id: userId })
+  const existingUser = await usersModel
+    .findOne({ email: req.body.email })
     .populate({
       path: "trees",
-      select: ["name", "type", "location", "comment", "date", "img", "likes"],
-    })
-    .populate({
-      path: "likes",
       select: ["name", "type", "location", "comment", "date", "img", "likes"],
     })
     .exec();
   console.log("Get my profile:", myProfile);
   try {
-    if (myProfile === null || myProfile === undefined) {
-      response.status(200).json({ msg: "Nothing found" });
+    if (requestedSearch.lenght === 0) {
+      res.status(200).json({
+        msg: "no users",
+      });
     } else {
-      response.status(200).json(myProfile);
+      res.status(200).json({
+        allUsers: requestedSearch,
+      });
     }
   } catch (error) {
-    response.status(500).json({
-      msg: "Server failed",
-      error: error,
+    res.status(500).json({
+      msg: "something went wrong",
+      erorr,
     });
   }
+
+  // const myProfile = await usersModel
+  //   .findOne({ _id: userId })
+  //   .populate({
+  //     path: "trees",
+  //     select: ["name", "type", "location", "comment", "date", "img", "likes"],
+  //   })
+  // .populate({
+  //   path: "likes",
+  //   select: ["name", "type", "location", "comment", "date", "img", "likes"],
+  // })
+  //   .exec();
+  // console.log("Get my profile:", myProfile);
+  // try {
+  //   if (myProfile === null || myProfile === undefined) {
+  //     res.status(200).json({ msg: "Nothing found" });
+  //   } else {
+  //     res.status(200).json(myProfile);
+  //   }
+  // } catch (error) {
+  //   res.status(500).json({
+  //     msg: "Server failed",
+  //     error: error,
+  //   });
+  // }
 };
 
 const removeProfile = async (req, res) => {
