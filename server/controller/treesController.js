@@ -1,4 +1,5 @@
 import treeModel from "../models/treesModel.js";
+import usersModel from "../models/usersModel.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const uploadTreePicture = async (req, res) => {
@@ -178,7 +179,7 @@ const getAllTrees = async (req, res) => {
   // }
   // else {
   const allTrees = await treeModel.find({}).populate({ path: "user" });
-  // console.log("allTrees", allTrees);
+
   try {
     if (allTrees.length === 0) {
       res.status(200).json({
@@ -326,46 +327,21 @@ const adopt = async (req, res) => {
   } catch (error) {}
 };
 
-// const likes = async (req, res) => {
-//   console.log("req.body????", req.body._id);
-//   try {
-//     const treeLike = await treeModel.findOneAndUpdate(
-//       req.body,
-//       {
-//         $inc: { likes: 1 },
-//       },
-//       { returnOriginal: false }
-//     );
-//     console.log("treeLike????", treeLike);
-//   } catch (error) {
-//     res.status(409).json({ message: "error while liking", error: error });
-//     console.log("error", error);
-//   }
-// };
-
-// const unlikes = async (req, res) => {
-//   try {
-//     const treeLike = await treeModel.findOneAndUpdate(
-//       req.body,
-//       {
-//         $inc: { likes: -1 },
-//       },
-//       { returnOriginal: false }
-//     );
-//     console.log("treeLike????", treeLike);
-//   } catch (error) {
-//     res.status(409).json({ message: "error while liking", error: error });
-//     console.log("error", error);
-//   }
-// };
-
 const comment = async (req, res) => {
   console.log("req.body????", req.body._id);
+  const tree_id = req.body.tr_id;
+
+  // const userThatComment = await usersModel.findOne({
+  //   _id: user_id,
+  // });
   try {
-    const treeComment = await treeModel.findOneAndUpdate(
-      req.body_id,
+    const existingUser = await treeModel.findOne({ _id: req.body._id });
+    console.log("existingUser", existingUser);
+    const treeComment = await treeModel.updateOne(
+      existingUser,
       {
         $push: { comment: req.body.comment },
+        // $push: { comment: req.body.userThatComment._id },
       },
 
       { returnOriginal: false }
@@ -397,8 +373,6 @@ export {
   // getTreesByType,
   // getTreesByLocation,
   adopt,
-  // likes,
-  // unlikes,
   comment,
   removeTree,
   getAllTreeSearch,

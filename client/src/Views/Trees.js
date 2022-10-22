@@ -23,7 +23,7 @@ function Trees() {
     // checklike,
   } = useContext(TreeContext);
   const [newComment, setNewComment] = useState("");
-  const [commentStyle, setCommentStyle] = useState(false);
+  // const [commentStyle, setCommentStyle] = useState(false);
   const [photo, setPhoto] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -50,66 +50,17 @@ function Trees() {
     }
   };
 
-  // const likes = async (e, tree, req, res) => {
-  //   // setLike(true);
-
-  //   let myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  //   var urlencoded = new URLSearchParams();
-  //   urlencoded.append("name", tree.name);
-
-  //   var requestOptions = {
-  //     method: "PUT",
-  //     headers: myHeaders,
-  //     body: urlencoded,
-  //   };
-
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:5005/api/trees/likes",
-  //       requestOptions
-  //     );
-  //     const results = await response.json();
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
-
-  // const unlikes = async (e, tree, req, res) => {
-  //   let myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  //   var urlencoded = new URLSearchParams();
-  //   urlencoded.append("name", tree.name);
-
-  //   var requestOptions = {
-  //     method: "PUT",
-  //     headers: myHeaders,
-  //     body: urlencoded,
-  //   };
-
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:5005/api/trees/unlikes",
-  //       requestOptions
-  //     );
-  //     const results = await response.json();
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  //   setLike(false);
-  // };
-
   const handleChangeHandler = (e) => {
     setNewComment(e.target.value);
   };
 
-  const comments = async (e, tree, req, res) => {
+  const comments = async (e, tree) => {
+    console.log("tree._id", tree._id);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
+    urlencoded.append("_id", tree._id);
     urlencoded.append("comment", newComment);
 
     var requestOptions = {
@@ -130,7 +81,7 @@ function Trees() {
     }
   };
 
-  const removeTree = async (e, tree, req, res) => {
+  const removeTree = async (e, tree) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -165,14 +116,14 @@ function Trees() {
     }
   };
 
-  const toggleClassComment = () => {
-    if (commentStyle === true) {
-      setCommentStyle("first");
-      return;
-    }
-    setCommentStyle("second");
-    return;
-  };
+  // const toggleClassComment = () => {
+  //   if (commentStyle === true) {
+  //     setCommentStyle("first");
+  //     return;
+  //   }
+  //   setCommentStyle("second");
+  //   return;
+  // };
 
   const incrementPhoto = (e, tree) => {
     setPhoto(photo + 1);
@@ -184,98 +135,6 @@ function Trees() {
       setPhoto(1);
     }
   };
-
-  /*   console.log("data.allTrees.comment", data.allTrees[0].comment); */
-
-  /*   let date = new Date(tree.date).toLocaleString();
-  console.log("date", date); */
-
-  // const fetchType = async (data, e, tree) => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:5005/api/trees/all/${tree.type}`
-  //     );
-  //     const typeResult = await response.json();
-  //     console.log("filteredResult", typeResult);
-  //     setLoading(false);
-  //     setTrees(true);
-  //     setData(typeResult);
-  //   } catch (error) {
-  //     setLoading(false);
-  //     setError(error);
-  //   }
-  // };
-
-  // const fetchDataSearch = async (e) => {
-  //   let myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  //   var urlencoded = new URLSearchParams();
-  //   urlencoded.append("$text", e.target.value);
-
-  //   var requestOptions = {
-  //     method: "POST",
-  //     headers: myHeaders,
-  //     body: urlencoded,
-  //   };
-
-  //   if (e.target.value === "") {
-  //     try {
-  //       const response = await fetch(`http://localhost:5005/api/trees/all/`);
-  //       const result = await response.json();
-  //       console.log("result", result);
-  //       setLoading(false);
-  //       setData(result);
-  //     } catch (error) {
-  //       setLoading(false);
-  //       setError(error);
-  //     }
-  //   } else {
-  //     try {
-  //       const response = await fetch(
-  //         "http://localhost:5005/api/trees/search",
-  //         requestOptions
-  //       );
-  //       const results = await response.json();
-  //       console.log("result", results);
-  //       setLoading(false);
-  //       setTrees(true);
-  //       setData(results);
-  //     } catch (error) {
-  //       console.log("error", error);
-  //       setLoading(false);
-  //       setError(error);
-  //     }
-  //   }
-
-  // console.log("works");
-  // console.log(e.target.value);
-  // // setSearchName(e.target.value);
-
-  // try {
-  //   const response = await fetch(
-  //     `http://localhost:5005/api/trees/all/?&name=${e.target.value}`
-  //   );
-  //   const result = await response.json();
-  //   console.log("result", result);
-  //   setData(result);
-  //   setLoading(false);
-  // } catch (error) {
-  //   setLoading(false);
-  //   setError(error);
-  // }
-  // };
-
-  // const handleEnter = (e) => {
-  //   if (e.key === "Enter") {
-  //     setSearchName(e.target.value);
-  //     // fetchDataSearch(e);
-  //   }
-  // };
-
-  //  const handleSearch = (e) => {
-  //    fetchDataSearch(e);
-  //  };
 
   // const checkIfLiked = () => {
   //   const check =
@@ -303,14 +162,6 @@ function Trees() {
 
   return (
     <div>
-      {/* <Filters
-        fetchTrees={fetchTrees}
-        data={data}
-        fetchType={fetchType}
-        // handleEnter={handleEnter}
-      /> */}
-      {/* <SearchBar fetchDataSearch={fetchDataSearch} /> */}
-      {/* <Search setSearchName={setSearchName} /> */}
       {!loading ? (
         data &&
         data.allTrees.map((tree, i) => {
@@ -405,17 +256,18 @@ function Trees() {
                       &nbsp; &nbsp; &nbsp;
                       {tree.user ? (
                         <>
-                          {tree.user[0].name}
+                          {/* {tree.user[0].name} */}
                           {tree.user[0].email}
                         </>
                       ) : (
                         ""
-                      )}{" "}
+                      )}
+                      {""}
                       <br></br>
                       {tree &&
                         tree.comment.map((comment, i) => (
                           <div key={i}>
-                            <div className={commentStyle}>{comment}</div>
+                            <div>{comment}</div>
                           </div>
                         ))}
                       {tree.user.name}
@@ -425,7 +277,6 @@ function Trees() {
                       <input
                         id="comment"
                         type="text"
-                        value={newComment}
                         name="comment"
                         onChange={handleChangeHandler}
                       />
