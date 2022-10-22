@@ -27,7 +27,7 @@ export const TreeContextProvider = (props) => {
       setError(error);
     }
   };
-  const likes = async (e, tree, req, res) => {
+  const likes = async (e, tree) => {
     console.log("run like funct", like);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -53,7 +53,7 @@ export const TreeContextProvider = (props) => {
     }
   };
 
-  const unlikes = async (e, tree, req, res) => {
+  const unlikes = async (e, tree) => {
     console.log("run unlike funct", like);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -82,7 +82,7 @@ export const TreeContextProvider = (props) => {
     setNewComment(e.target.value);
   };
 
-  const comments = async (e, tree, req, res) => {
+  const comments = async (e, tree) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -107,7 +107,7 @@ export const TreeContextProvider = (props) => {
     }
   };
 
-  const removeTree = async (e, tree, req, res) => {
+  const removeTree = async (e, tree) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 

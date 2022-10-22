@@ -124,7 +124,7 @@ function Trees() {
         requestOptions
       );
       const results = await response.json();
-      setCommentStyle((current) => !current);
+      // setCommentStyle((current) => !current);
     } catch (error) {
       console.log("error", error);
     }
@@ -277,28 +277,28 @@ function Trees() {
   //    fetchDataSearch(e);
   //  };
 
-  const checkIfLiked = () => {
-    const check =
-      data &&
-      data.allTrees.map((tree, i) => {
-        console.log("comparison ", tree, like, user._id);
-        // like === user._id ? setCheckLike(true) : setCheckLike(false);
-        // eslint-disable-next-line no-lone-blocks
-        {
-          tree.likes.map((like) => {
-            console.log("LIKE", like);
-            console.log("comparison ", like, user._id);
-            like === user._id ? setChangeLike(true) : setChangeLike(false);
-            // console.log("checkinglike", checklike);
-          });
-        }
-      });
-  };
+  // const checkIfLiked = () => {
+  //   const check =
+  //     data &&
+  //     data.allTrees.map((tree, i) => {
+  //       console.log("comparison ", tree, like, user._id);
+  //       // like === user._id ? setCheckLike(true) : setCheckLike(false);
+  //       // eslint-disable-next-line no-lone-blocks
+  //       {
+  //         tree.likes.map((like) => {
+  //           console.log("LIKE", like);
+  //           console.log("comparison ", like, user._id);
+  //           like === user._id ? setChangeLike(true) : setChangeLike(false);
+  //           // console.log("checkinglike", checklike);
+  //         });
+  //       }
+  //     });
+  // };
 
   useEffect(() => {
     console.log("trees refresh");
     fetchTrees();
-    checkIfLiked();
+    // checkIfLiked();
   }, []);
 
   return (
@@ -344,7 +344,7 @@ function Trees() {
                         ) : (
                           ""
                         )}
-                        {!changeLike ? (
+                        {/* {changeLike ? (
                           <span
                             class="material-symbols-outlined liked"
                             onClick={(e) => {
@@ -365,7 +365,26 @@ function Trees() {
                           >
                             favorite
                           </span>
-                        )}
+                        )} */}
+                        <span
+                          class="material-symbols-outlined liked"
+                          onClick={(e) => {
+                            console.log("liked");
+                            likes(e, tree);
+                            // checkIfLiked();
+                          }}
+                        >
+                          favorite
+                        </span>
+                        <span
+                          class="material-symbols-outlined unliked"
+                          onClick={(e) => {
+                            unlikes(e, tree);
+                            // checkIfLiked();
+                          }}
+                        >
+                          favorite
+                        </span>
                       </div>
                       <Accordion flush>
                         <Accordion.Item eventKey="0">

@@ -330,12 +330,13 @@ const likes = async (req, res) => {
   console.log("req.body????", req.body);
   const user_id = req.body.user_id;
   const tree_id = req.body.tree_id;
-  const userThatLiked = await usersModel.findById({
+
+  const userThatLiked = await usersModel.findOne({
     _id: user_id,
   });
 
   const alreadyLiked = await treeModel
-    .findOne({ _id: user_id })
+    .findOne({ _id: tree_id })
     .where("likes")
     .equals(`${userThatLiked._id}`);
   console.log("Likedby?", userThatLiked);
@@ -349,25 +350,27 @@ const likes = async (req, res) => {
   if (!alreadyLiked) {
     try {
       await usersModel.findOneAndUpdate(
-        { _id: user_id },
-        { $push: { likes: tree_id } }
-        // { new: true }
+        { _id: userThatLiked._id },
+        { $push: { likes: tree_id } },
+        // { returnOriginal: false },
+        { new: true }
       );
     } catch (error) {
       res.status(409).json({ message: "Couldn't save" });
-      console.log("User.findOneAndUpdate in like tree:", error);
+      console.log(" error in like tree:", error);
     }
     try {
       await treeModel.findOneAndUpdate(
         { _id: tree_id },
-        { $push: { likes: user_id } }
-        // { new: true }
+        { $push: { likes: userThatLiked._id } },
+        // { returnOriginal: false },
+        { new: true }
       );
     } catch (error) {
       res.status(409).json({ message: "tree couldn't be liked" });
-      console.log("tree.findOneAndUpdate in like tree:", error);
+      console.log("error in like tree:", error);
     }
-    res.status(200).json({ message: "Added to likes" });
+    res.status(200).json({ message: "like added" });
   } else {
     res.status(400).json({ message: "Already added" });
     // console.log("already added:", error);
@@ -390,34 +393,53 @@ const likes = async (req, res) => {
 // };
 
 const unlikes = async (req, res) => {
+  console.log("req.body????", req.body);
   const user_id = req.body.user_id;
   const tree_id = req.body.tree_id;
-  const alreadyLiked = await usersModel.exists({ likes: tree_id });
 
-  if (alreadyLiked) {
+  const userThatLiked = await usersModel.findOne({
+    _id: user_id,
+  });
+
+  const alreadyLiked = await treeModel
+    .findOne({ _id: user_id })
+    .where("likes")
+    .equals(`${userThatLiked._id}`);
+  console.log("Likedby?", userThatLiked);
+  // likes: { $elemMatch: { tree_id } },
+
+  // user_id,
+  // { likes: tree_id }
+  // { $getField: user_id.likes },
+  // { $exists: tree_id }
+  // });
+  if (!alreadyLiked) {
     try {
-      await usersModel.findOneAndUpdate(
-        { _id: user_id },
+      await usersModel.findByIdAndUpdate(
+        { _id: userThatLiked._id },
         { $pull: { likes: tree_id } },
+        // { returnOriginal: false },
         { new: true }
       );
     } catch (error) {
-      res.status(409).json({ message: "Error removing this item" });
-      console.log("Error in removeLikeTree:", error);
+      res.status(409).json({ message: "Couldn't save" });
+      console.log("remove tree like:", error);
     }
     try {
-      await treeModel.findOneAndUpdate(
+      await treeModel.findByIdAndUpdate(
         { _id: tree_id },
-        { $pull: { likes: user_id } },
+        { $pull: { likes: userThatLiked._id } },
+        // { returnOriginal: false },
         { new: true }
       );
     } catch (error) {
-      res.status(409).json({ message: "Error" });
-      console.log("Error while unliking the tree:", error);
+      res.status(409).json({ message: "tree couldn't be unliked" });
+      console.log("error unliking tree:", error);
     }
-    res.status(200).json({ message: "Removed from likes" });
+    res.status(200).json({ message: "removed" });
   } else {
-    res.status(400).json({ message: "There seems to be no like to removed" });
+    res.status(400).json({ message: "no liked to remove" });
+    // console.log("already added:", error);
   }
 };
 
