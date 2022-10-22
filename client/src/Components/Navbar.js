@@ -13,13 +13,13 @@ function NavBar() {
   const logout = () => {
     if (window.confirm("Logout?") === true) {
       localStorage.removeItem("token");
-      logged(false);
     } else {
       redirectLogout("/trees", { replace: true });
     }
+    setLogged(!logged);
   };
 
-  useEffect(() => {}, [logout]);
+  useEffect(() => {}, [logged]);
 
   return (
     <div>

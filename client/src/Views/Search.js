@@ -19,6 +19,37 @@ function Search() {
     functionChangeLikes,
   } = useContext(TreeContext);
 
+  const fetchLikedTrees = async () => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("_id", "634e7264057ddcfd3c2514a6");
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+
+    try {
+      const response = await fetch(
+        "http://localhost:5005/api/trees/id",
+        requestOptions
+      );
+      const results = await response.json();
+      console.log("result", results);
+      setLoading(false);
+      setTrees(results);
+    } catch (error) {
+      console.log("error", error);
+      setLoading(false);
+      setError(error);
+    }
+  };
+
+  // fetchLikedTrees();
+
   const fetchDataSearch = async (e) => {
     e.preventDefault();
     let myHeaders = new Headers();
@@ -38,7 +69,7 @@ function Search() {
         const response = await fetch(`http://localhost:5005/api/trees/all/`);
         const result = await response.json();
         console.log("result", result);
-        // setLoading(false);
+        setLoading(false);
         setTrees(result);
       } catch (error) {
         setLoading(false);
@@ -53,7 +84,7 @@ function Search() {
         const results = await response.json();
         console.log("result", results);
         setLoading(false);
-        setTrees(true);
+
         setTrees(results);
       } catch (error) {
         console.log("error", error);
@@ -64,6 +95,7 @@ function Search() {
   };
   useEffect(() => {
     console.log("search refresh");
+    // fetchLikedTrees();
   }, []);
 
   return (

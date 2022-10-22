@@ -36,8 +36,8 @@ function TreeCards() {
   return (
     <div>
       {" "}
-      {console.log("TREES CARDS", trees)}
-      {!loading ? (
+      {/* {console.log("TREES CARDS", trees)} */}
+      {loading ? (
         trees &&
         trees.allTrees.map((tree, i) => {
           return (
@@ -74,7 +74,7 @@ function TreeCards() {
                           class="material-symbols-outlined liked"
                           onClick={(e) => {
                             likes(e, tree);
-                            functionChangeLikes();
+                            // functionChangeLikes();
                           }}
                         >
                           favorite
@@ -83,7 +83,7 @@ function TreeCards() {
                           class="material-symbols-outlined unliked"
                           onClick={(e) => {
                             unlikes(e, tree);
-                            functionChangeLikes();
+                            // functionChangeLikes();
                           }}
                         >
                           favorite

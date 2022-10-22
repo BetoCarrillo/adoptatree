@@ -7,11 +7,15 @@ import { AuthContext } from "../Context/AuthContext";
 // import Search from "../Components/Search";
 import Filters from "../Components/Filters";
 import { TreeContext } from "../Context/TreeContext";
+import TreeCards from "../Components/TreeCards";
+import SearchBar from "../Components/SearchBar";
 // import SearchBar from "../Components/SearchBar";
 
 function Trees() {
   const { user, setUser } = useContext(AuthContext);
   const {
+    trees,
+    setTrees,
     changeLike,
     setChangeLike,
     likes,
@@ -43,7 +47,7 @@ function Trees() {
       const result = await response.json();
       console.log("result", result);
       setLoading(false);
-      setData(result);
+      setTrees(result);
     } catch (error) {
       setLoading(false);
       setError(error);
@@ -55,13 +59,13 @@ function Trees() {
   };
 
   const comments = async (e, tree) => {
-    console.log("tree._id", tree._id);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("_id", tree._id);
+    urlencoded.append("tree_id", tree._id);
     urlencoded.append("comment", newComment);
+    urlencoded.append("user_id", user._id);
 
     var requestOptions = {
       method: "PUT",
@@ -154,6 +158,49 @@ function Trees() {
   //     });
   // };
 
+  const fetchDataSearch = async (e) => {
+    e.preventDefault();
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("$text", e.target.value);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+
+    if (e.target.value === "") {
+      try {
+        const response = await fetch(`http://localhost:5005/api/trees/all/`);
+        const result = await response.json();
+        console.log("result", result);
+        setLoading(false);
+        setTrees(result);
+      } catch (error) {
+        setLoading(false);
+        setError(error);
+      }
+    } else {
+      try {
+        const response = await fetch(
+          "http://localhost:5005/api/trees/search",
+          requestOptions
+        );
+        const results = await response.json();
+        console.log("result", results);
+        setLoading(false);
+
+        setTrees(results);
+      } catch (error) {
+        console.log("error", error);
+        setLoading(false);
+        setError(error);
+      }
+    }
+  };
   useEffect(() => {
     console.log("trees refresh");
     fetchTrees();
@@ -162,9 +209,10 @@ function Trees() {
 
   return (
     <div>
+      <SearchBar fetchDataSearch={fetchDataSearch} />
       {!loading ? (
-        data &&
-        data.allTrees.map((tree, i) => {
+        trees &&
+        trees.allTrees.map((tree, i) => {
           return (
             <div key={i}>
               <div className="cardsDiv">

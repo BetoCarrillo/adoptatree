@@ -60,6 +60,7 @@ const updateUserPicture = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
+  console.log("getAllUsers");
   const allUsers = await usersModel.find({}).populate({ path: "tree" });
   try {
     res.status(200).json({
@@ -75,6 +76,7 @@ const getAllUsers = async (req, res) => {
 };
 
 const getAllUserSearch = async (req, res) => {
+  console.log("getAllUserSearch");
   const requestedSearch = await usersModel.find({
     $text: { $search: req.body.$text },
   });
@@ -215,23 +217,18 @@ const getProfile = async (req, res) => {
   });
 };
 
-const getMyProfile = async (req, res) => {
-  const existingUser = await usersModel
-    .findOne({ email: req.body.email })
-    .populate({
-      path: "trees",
-      select: ["name", "type", "location", "comment", "date", "img", "likes"],
-    })
-    .exec();
-  console.log("Get my profile:", myProfile);
+const getMyTrees = async (req, res) => {
+  const requestedUser = await usersModel.find({ email: req.body.email }).exec();
+  console.log("requestedUser", requestedUser);
   try {
-    if (requestedSearch.lenght === 0) {
+    if (requestedUser.lenght === 0) {
       res.status(200).json({
-        msg: "no users",
+        msg: "no user",
       });
     } else {
       res.status(200).json({
-        allUsers: requestedSearch,
+        requestedUser,
+        mytrees: requestedUser.length,
       });
     }
   } catch (error) {
@@ -240,32 +237,84 @@ const getMyProfile = async (req, res) => {
       erorr,
     });
   }
-
-  // const myProfile = await usersModel
-  //   .findOne({ _id: userId })
-  //   .populate({
-  //     path: "trees",
-  //     select: ["name", "type", "location", "comment", "date", "img", "likes"],
-  //   })
-  // .populate({
-  //   path: "likes",
-  //   select: ["name", "type", "location", "comment", "date", "img", "likes"],
-  // })
-  //   .exec();
-  // console.log("Get my profile:", myProfile);
-  // try {
-  //   if (myProfile === null || myProfile === undefined) {
-  //     res.status(200).json({ msg: "Nothing found" });
-  //   } else {
-  //     res.status(200).json(myProfile);
-  //   }
-  // } catch (error) {
-  //   res.status(500).json({
-  //     msg: "Server failed",
-  //     error: error,
-  //   });
-  // }
 };
+
+// const getMyTrees = async (req, res) => {
+//   console.log("user by email");
+//   //   console.log("req.params.email)>>>>", req.params.email);
+//   //   try {
+//   //     const requestedTrees = await usersModel
+//   //       .find({ email: req.params.email })
+//   //       .exec();
+//   //     console.log("requestedLocation", requestedTrees);
+//   //     if (requestedTrees.lenght === 0) {
+//   //       res.status(200).json({
+//   //         msg: "no trees in this user",
+//   //       });
+//   //     } else {
+//   //       res.status(200).json({
+//   //         mytrees: requestedTrees,
+//   //         number: requestedLocation.length,
+//   //       });
+//   //     }
+//   //   } catch (error) {
+//   //     res.status(500).json({
+//   //       msg: "something went wrong",
+//   //       erorr,
+//   //     });
+//   //   }
+//   // };
+
+//   try {
+//     const existingUser = await usersModel
+//       .find({ email: req.params.email })
+//       .populate({
+//         path: "tree",
+//         select: ["name", "type", "location", "comment", "date", "img", "likes"],
+//       })
+//       .exec();
+//     console.log("Get my profile:", existingUser);
+//     if (existingUser.lenght === 0) {
+//       res.status(200).json({
+//         msg: "no users",
+//       });
+//     } else {
+//       res.status(200).json({
+//         myTrees: existingUser,
+//       });
+//     }
+//   } catch (error) {
+//     res.status(500).json({
+//       msg: "something went wrong",
+//       erorr,
+//     });
+//   }
+// };
+// const myProfile = await usersModel
+//   .findOne({ _id: userId })
+//   .populate({
+//     path: "trees",
+//     select: ["name", "type", "location", "comment", "date", "img", "likes"],
+//   })
+// .populate({
+//   path: "likes",
+//   select: ["name", "type", "location", "comment", "date", "img", "likes"],
+// })
+//   .exec();
+// console.log("Get my profile:", myProfile);
+// try {
+//   if (myProfile === null || myProfile === undefined) {
+//     res.status(200).json({ msg: "Nothing found" });
+//   } else {
+//     res.status(200).json(myProfile);
+//   }
+// } catch (error) {
+//   res.status(500).json({
+//     msg: "Server failed",
+//     error: error,
+//   });
+// }
+// };
 
 const removeProfile = async (req, res) => {
   try {
@@ -469,7 +518,7 @@ export {
   changeUserName,
   getAllUserSearch,
   updateUserPicture,
-  getMyProfile,
+  getMyTrees,
   likes,
   unlikes,
 };

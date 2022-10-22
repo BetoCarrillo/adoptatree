@@ -177,7 +177,6 @@ function UserInfo() {
       ) : (
         <button onClick={handleClick}>-</button>
       )}
-
       {isShown && (
         <div>
           {userProfile && (

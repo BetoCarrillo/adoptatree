@@ -154,75 +154,100 @@ const getAllTrees = async (req, res) => {
   console.log("req.query", req.query);
   console.log("req.params", req.params);
   console.log("All trees");
-  // const { location, name } = req.query;
-  // if (name) {
-  //   const requestedName = await treeModel.find({
-  //     name: { $eq: name },
-  //   });
-  //   console.log("requestedTypes", requestedName);
-  //   try {
-  //     if (requestedName.lenght === 0) {
-  //       res.status(200).json({
-  //         msg: "no trees whith this name",
-  //       });
-  //     } else {
-  //       res.status(200).json({
-  //         allTrees: requestedName,
-  //       });
-  //     }
-  //   } catch (error) {
-  //     res.status(500).json({
-  //       msg: "something went wrong",
-  //       erorr,
-  //     });
-  //   }
-  // }
-  // else {
-  const allTrees = await treeModel.find({}).populate({ path: "user" });
+  const { location, name } = req.query;
+  if (name) {
+    const requestedName = await treeModel.find({
+      name: { $eq: name },
+    });
+    console.log("requestedTypes", requestedName);
+    try {
+      if (requestedName.lenght === 0) {
+        res.status(200).json({
+          msg: "no trees whith this name",
+        });
+      } else {
+        res.status(200).json({
+          allTrees: requestedName,
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        msg: "something went wrong",
+        erorr,
+      });
+    }
+  } else {
+    const allTrees = await treeModel.find({}).populate({
+      path: "user",
+    });
 
+    try {
+      if (allTrees.length === 0) {
+        res.status(200).json({
+          msg: "no trees in the DB",
+        });
+      } else {
+        res.status(200).json({
+          allTrees,
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        msg: "server failed",
+        error: error,
+      });
+    }
+  }
+};
+
+const getTreesById = async (req, res) => {
+  const requestedIdTree = await treeModel
+    .findById({ _id: req.body._id })
+    .exec();
+  console.log("requestedIdTree", requestedIdTree);
   try {
-    if (allTrees.length === 0) {
+    if (requestedIdTree.lenght === 0) {
       res.status(200).json({
-        msg: "no trees in the DB",
+        msg: "no trees with this ID",
       });
     } else {
       res.status(200).json({
-        allTrees,
+        requestedIdTree,
+        allTrees: requestedIdTree.length,
       });
     }
   } catch (error) {
     res.status(500).json({
-      msg: "server failed",
-      error: error,
+      msg: "something went wrong",
+      erorr,
     });
   }
-  // }
 };
 
-// const getTreesByLocation = async (req, res) => {
-//   console.log("trees By location");
-//   console.log("req.params.location>>>>", req.params.location);
-//   const requestedLocation = await treeModel
-//     .find({ type: req.params.location })
-//     .exec();
-//   console.log("requestedLocation", requestedLocation);
-//   try {
-//     if (requestedLocation.lenght === 0) {
-//       res.status(200).json({
-//         msg: "no trees in this location",
-//       });
-//     } else {
-//       res.status(200).json({
-//         requestedLocation,
-//         number: requestedLocation.length,
-//       });
-//     }
-//   } catch (error) {
-//     res.status(500).json({
-//       msg: "something went wrong",
-//       erorr,
-//     });
-//   }
+// // const getTreesByLocation = async (req, res) => {
+// //   console.log("trees By location");
+// //   console.log("req.params.location>>>>", req.params.location);
+// //   const requestedLocation = await treeModel
+// //     .find({ type: req.params.location })
+// //     .exec();
+// //   console.log("requestedLocation", requestedLocation);
+// //   try {
+// //     if (requestedLocation.lenght === 0) {
+// //       res.status(200).json({
+// //         msg: "no trees in this location",
+// //       });
+// //     } else {
+// //       res.status(200).json({
+// //         requestedLocation,
+// //         number: requestedLocation.length,
+// //       });
+// //     }
+// //   } catch (error) {
+// //     res.status(500).json({
+// //       msg: "something went wrong",
+// //       erorr,
+// //     });
+// //   }
 // };
 
 // const getTreesByType = async (req, res) => {
@@ -328,28 +353,30 @@ const adopt = async (req, res) => {
 };
 
 const comment = async (req, res) => {
-  console.log("req.body????", req.body._id);
-  const tree_id = req.body.tr_id;
+  const tree_id = req.body.tree_id;
+  const user_id = req.body.user_id;
 
-  // const userThatComment = await usersModel.findOne({
-  //   _id: user_id,
-  // });
-  try {
-    const existingUser = await treeModel.findOne({ _id: req.body._id });
-    console.log("existingUser", existingUser);
-    const treeComment = await treeModel.updateOne(
-      existingUser,
-      {
-        $push: { comment: req.body.comment },
-        // $push: { comment: req.body.userThatComment._id },
-      },
+  const userThatComment = await usersModel.findOne({
+    user_id,
+  });
+  console.log("userThatComment", userThatComment);
+  if (userThatComment) {
+    try {
+      const treeComment = await treeModel.findByIdAndUpdate(
+        { _id: tree_id },
+        {
+          $push: {
+            comment: { $each: [req.body.comment, userThatComment.email] },
+          },
+        },
 
-      { returnOriginal: false }
-    );
-    console.log("treecomment????", treeComment);
-  } catch (error) {
-    res.status(409).json({ message: "error while commenting", error: error });
-    console.log("error", error);
+        { returnOriginal: false }
+      );
+      console.log("treecomment????", treeComment);
+    } catch (error) {
+      res.status(409).json({ message: "error while commenting", error: error });
+      console.log("error", error);
+    }
   }
 };
 
@@ -376,4 +403,5 @@ export {
   comment,
   removeTree,
   getAllTreeSearch,
+  getTreesById,
 };

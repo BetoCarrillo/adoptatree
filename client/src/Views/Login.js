@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -63,6 +63,8 @@ function Login() {
       setLogged(null);
     }
   };
+
+  useEffect(() => {}, [logged]);
 
   return (
     <div>

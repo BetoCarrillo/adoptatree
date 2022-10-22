@@ -10,7 +10,7 @@ import {
   changeEmail,
   updateUserPicture,
   getAllUserSearch,
-  getMyProfile,
+  getMyTrees,
   likes,
   unlikes,
 } from "../controller/usersController.js";
@@ -20,6 +20,7 @@ import jwtAuth from "../utils/jwtAuth.js";
 const router = express.Router();
 
 router.get("/all", getAllUsers);
+// router.get("/all/:email", getMyTrees);
 router.post("/search", getAllUserSearch);
 router.post("/imageUpload", multerUploads.single("image"), uploadUserPicture);
 router.put(
@@ -30,7 +31,8 @@ router.put(
 router.post("/signup", signUp);
 router.post("/login", login);
 router.get("/profile", jwtAuth, getProfile);
-router.get("/profile/:_id", getMyProfile);
+router.get("/mytrees", getMyTrees);
+
 router.delete("/delete", removeProfile);
 router.put("/userName", changeUserName);
 router.put("/email", changeEmail);
