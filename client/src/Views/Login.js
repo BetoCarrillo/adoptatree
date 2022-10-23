@@ -11,7 +11,7 @@ function Login() {
   const { user, setUser, logged, setLogged, checkUserStatus } =
     useContext(AuthContext);
   const redirectLogin = useNavigate();
-  const [passwordChange, setPasswordChange] = useState("");
+  const [passwordChange, setPasswordChange] = useState("password");
 
   const handleChangeHandler = (e) => {
     setuserLogin({ ...userLogin, [e.target.name]: e.target.value });
@@ -76,13 +76,15 @@ function Login() {
         {!logged ? (
           <div className="loginDiv">
             {" "}
-            <span className="loginTitle">Login</span>
-            <div>
+            <div className="loginFormDiv">
               <div>
-                <label htmlFor="email">Email</label>{" "}
+                <label htmlFor="email" className="loginText">
+                  Email
+                </label>{" "}
               </div>{" "}
               <div>
                 <input
+                  className="loginInput"
                   type="text"
                   name="email"
                   id="email"
@@ -90,23 +92,45 @@ function Login() {
                   onChange={handleChangeHandler}
                 />
               </div>
+              <br />
               <div>
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password" className="loginText">
+                  Password
+                </label>{" "}
               </div>
               <div>
                 <input
-                  type="text"
+                  className="loginInput"
+                  type={passwordChange}
                   name="password"
                   id="password"
                   value={userLogin.password ? userLogin.password : ""}
                   onChange={handleChangeHandler}
                 />
+                <span className="showpasswordtext" onClick={togglePassword}>
+                  {passwordChange === "password" ? (
+                    <span className="material-symbols-outlined visibility ">
+                      visibility
+                    </span>
+                  ) : (
+                    <span class="material-symbols-outlined">
+                      visibility_off
+                    </span>
+                  )}
+                </span>
               </div>
             </div>
-            <NavLink className="navbarLink" to="/register">
-              Register here
+            <Button
+              className="loginButton"
+              color="success"
+              type=""
+              onClick={login}
+            >
+              Login
+            </Button>
+            <NavLink className="registerLink" to="/register">
+              or register here
             </NavLink>
-            <button onClick={login}>Login</button>
           </div>
         ) : (
           <div className="logoutButton">

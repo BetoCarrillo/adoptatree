@@ -19,14 +19,45 @@
   width: 60%;
 }
 
+.loginFormDiv{
+padding-top: 1.5rem;
 
+}
+
+.loginText{
+  font-family: Cairo;
+  font-weight: bold;
+  font-size: 30px;
+}
+.loginInput{
+  width: 18rem;
+  height: 2.5rem;
+}
+.registerLink {
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+
+}
+
+.registerLink:hover {
+  color:#71C080;
+
+}
 
 .logoutButton{
    display: flex;
    justify-content: center;
   padding-top: 20%;
+  
+}
 
+.loginButton {
+  font-size: 45px !important;
+    color: #71C080 !important;
+    font-family: Cairo !important;
    
+
 }
 
 .logoutButtonMUI {
@@ -42,13 +73,30 @@
 .logoutButtonMUI {
     font-size: 30px !important;
   
-
   }
+
+    .loginButton {
+      font-size: 25px !important;
+      color: #71C080 !important;
+      font-family: Cairo !important;
+  
+    }
 
     .loginDiv {
     border: solid 3px #71C080;
       height: 20rem;
      
     }
+
+        .loginText {
+  
+          font-size: 20px;
+        }
+
+                .loginInput {
+                  width: 15rem;
+                  height: 2.5rem;
+                }
+        
 
 }
