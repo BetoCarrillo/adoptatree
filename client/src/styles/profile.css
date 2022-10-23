@@ -1,4 +1,61 @@
 .profilePic{
-    height: 5rem;
-    width: 5rem;
+    border-radius: 4rem;
+    height: 7rem;
+    width: 7rem;
+}
+.profileInfoDiv{
+    padding-top: 2.5rem;
+    padding-left: 1rem;
+}
+
+.profileNameTitle{
+    font-size: 30px;
+    font-family: Cairo Play;
+}
+
+.editProfileButton {
+    color: #71C080 !important;
+    cursor: pointer;
+}
+
+.boldText{
+    font-weight: bold;
+    text-decoration: underline;
+}
+.editProfileLogo{
+    font-size: 20px;
+
+}
+
+.deleteProfileButton{
+    color: #71C080 !important;
+        cursor: pointer;
+        font-size: 3rem;
+}
+
+.uploadUsePic{
+background-color: white !important;
+width: 60%;
+
+}
+
+.adoptButtonDiv{
+    padding: 10%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 6rem !important;
+
+}
+
+.adoptButton{color: white !important;
+font-weight: bold; font-size: 25px !important;
+background-color: #71C080 !important;
+
+}
+
+
+@media screen and (max-width: 700px) {
+
+
+
 }

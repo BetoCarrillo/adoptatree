@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
@@ -166,80 +167,135 @@ function UserInfo() {
 
   return (
     <div>
-      <h2>Your Profile</h2>
-      <img
-        src={userProfile.avatarPicture}
-        alt={userProfile.userName}
-        className="profilePic"
-      />
-      {!isShown ? (
-        <button onClick={handleClick}>+</button>
-      ) : (
-        <button onClick={handleClick}>-</button>
-      )}
-      {isShown && (
-        <div>
-          {userProfile && (
-            <div>
-              <p>{userProfile.userName}</p>{" "}
-              <span
-                class="material-symbols-outlined"
-                onClick={handleModifyName}
-              >
-                edit
-              </span>
-              <p>{userProfile.email}</p>{" "}
-              <span
-                class="material-symbols-outlined"
-                onClick={handleModifyEmail}
-              >
-                edit
-              </span>
-              {modifyNameShown ? (
-                <div>
-                  <input
-                    id="newInfo"
-                    type="text"
-                    value={newInfo}
-                    name="newInfo"
-                    onChange={handleChangeHandler}
-                  />
-                  <button onClick={(e) => changeUserName(e, userProfile)}>
-                    modify name
-                  </button>
-                </div>
-              ) : (
-                <div></div>
-              )}
-              {modifyEmailShown ? (
+      <div className="profileInfoDiv">
+        <img
+          src={userProfile.avatarPicture}
+          alt={userProfile.userName}
+          className="profilePic"
+        />
+        <br /> <br />
+        {userProfile.userName !== undefined ? (
+          <h2 className="profileNameTitle">{userProfile.email}</h2>
+        ) : (
+          <h2 className="profileNameTitle">{userProfile.userName}</h2>
+        )}
+        {!isShown ? (
+          <Button
+            className="editProfileButton"
+            color="success"
+            type=""
+            onClick={handleClick}
+          >
+            Edit profile
+          </Button>
+        ) : (
+          <Button
+            className="editProfileButton"
+            color="success"
+            type=""
+            onClick={handleClick}
+          >
+            Cancel
+          </Button>
+        )}
+        {isShown && (
+          <div>
+            {userProfile && (
+              <div>
                 <div>
                   {" "}
-                  <input
-                    id="newInfo"
-                    type="text"
-                    value={newInfo}
-                    name="newInfo"
-                    onChange={handleChangeHandler}
-                  />
-                  <button onClick={(e) => changeEmail(e, userProfile)}>
-                    modify email
-                  </button>
+                  <span className="boldText">Username:</span>{" "}
+                  {userProfile.userName}{" "}
+                  <span
+                    class="material-symbols-outlined editProfileLogo"
+                    onClick={handleModifyName}
+                  >
+                    edit
+                  </span>{" "}
+                  {modifyNameShown ? (
+                    <div>
+                      <input
+                        id="newInfo"
+                        type="text"
+                        value={newInfo}
+                        name="newInfo"
+                        onChange={handleChangeHandler}
+                      />
+                      <Button
+                        className="editProfileButton"
+                        color="success"
+                        type=""
+                        onClick={(e) => changeUserName(e, userProfile)}
+                      >
+                        done
+                      </Button>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+                  <br />
                 </div>
-              ) : (
-                <div></div>
-              )}
-              <form>
-                <input type="file" onChange={attachFileHandler} />
-                <button onClick={updatePicture}>Update Profile Picture</button>
-              </form>
-              <button onClick={(e) => removeProfile(e, userProfile)}>
-                delete
-              </button>
-            </div>
-          )}
-          {error && <p>you have to login first</p>}
-        </div>
-      )}
+                <span className="boldText">Email:</span> {userProfile.email}{" "}
+                <span
+                  class="material-symbols-outlined editProfileLogo"
+                  onClick={handleModifyEmail}
+                >
+                  edit
+                </span>
+                {modifyEmailShown ? (
+                  <div>
+                    {" "}
+                    <input
+                      id="newInfo"
+                      type="text"
+                      value={newInfo}
+                      name="newInfo"
+                      onChange={handleChangeHandler}
+                    />
+                    <Button
+                      className="editProfileButton"
+                      color="success"
+                      type=""
+                      onClick={(e) => changeEmail(e, userProfile)}
+                    >
+                      done
+                    </Button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}{" "}
+                <br />
+                <form>
+                  <input
+                    className="uploadUsePic"
+                    type="file"
+                    onChange={attachFileHandler}
+                  />
+                  <Button
+                    className="editProfileButton"
+                    color="success"
+                    type=""
+                    onClick={updatePicture}
+                  >
+                    <span class="material-symbols-outlined">upload</span>
+                  </Button>
+                </form>
+                <Button
+                  className="deleteProfileButton"
+                  color="success"
+                  type=""
+                  onClick={(e) => removeProfile(e, userProfile)}
+                >
+                  <span class="material-symbols-outlined deleteProfileButton">
+                    delete
+                  </span>
+                </Button>
+              </div>
+            )}
+            {error && <p>you have to login first</p>}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

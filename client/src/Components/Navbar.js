@@ -2,27 +2,15 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "../styles/navbar.css";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import linkedin from "../styles/images/linkedin.png";
 import github from "../styles/images/github.png";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
 
 function NavBar() {
-  const { user, setUser, logged, setLogged, checkUserStatus, userProfile } =
-    useContext(AuthContext);
+  const { user, logged, userProfile } = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  // const redirectLogout = useNavigate();
-
-  // const logout = () => {
-  //   if (window.confirm("Logout?") === true) {
-  //     localStorage.removeItem("token");
-  //   } else {
-  //     redirectLogout("/trees", { replace: true });
-  //   }
-  //   setLogged(!logged);
-  // };
 
   useEffect(() => {}, [logged]);
 
@@ -87,14 +75,6 @@ function NavBar() {
             </div>
           </div>
           <div className="footerList">
-            {/*       <a
-          rel="noreferrer"
-          target={"_blank"}
-          href="https://www.codeacademyberlin.com/"
-        >
-          {" "}
-          <img className="FootAcademy" src={codelogo} alt="" height={30}></img>
-        </a> */}
             <Overlay target={target.current} show={show} placement="bottom">
               {(props) => (
                 <Tooltip className="mailpopover" {...props}>

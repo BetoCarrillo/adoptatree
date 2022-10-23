@@ -1,17 +1,11 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import "../styles/home.css";
 import "../App.css";
 import ModalHome from "../Components/ModalHome";
-import { AuthContext } from "../Context/AuthContext";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
-/* import { AuthContext } from "../Context/AuthContext.js"; */
-
 function Home() {
-  const [userProfile, setUserProfile] = useState({});
-  const [error, setError] = useState(null);
-  const { user } = useContext(AuthContext);
   const redirectAdopt = useNavigate();
 
   const handleRedirect = () => {

@@ -41,23 +41,28 @@ function UsersProfileInfo() {
 
   return (
     <div>
-      <input
-        // ref={inputRef}
-        type="text"
-        name=""
-        onChange={(e) => handleSearch(e)}
-      ></input>
-      {usersInfo &&
-        usersInfo.allUsers.map((user, i) => (
-          <div key={i}>
-            <div>
-              <Link state={user} to="/profiles">
-                {" "}
-                {user.userName} {user.email}
-              </Link>
+      <div>
+        <div>community</div>
+
+        <input
+          // ref={inputRef}
+          placeholder="search for users"
+          type="text"
+          name=""
+          onChange={(e) => handleSearch(e)}
+        ></input>
+        {usersInfo &&
+          usersInfo.allUsers.map((user, i) => (
+            <div key={i}>
+              <div>
+                <Link state={user} to="/profiles">
+                  {" "}
+                  {user.userName} {user.email}
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+      </div>
     </div>
   );
 }

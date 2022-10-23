@@ -1,0 +1,12 @@
+.logoutButton{
+   display: flex;
+   justify-content: center;
+  padding-top: 20%;
+   
+}
+
+.logoutButtonMUI {
+ 
+    color: #71C080 !important;
+
+}

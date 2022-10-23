@@ -2,19 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import "../styles/login.css";
 
 function Login() {
   console.log("first");
   const [userLogin, setuserLogin] = useState({});
-  const {
-    user,
-    setUser,
-    logged,
-    setLogged,
-    checkUserStatus,
-    userProfile,
-    getUserProfile,
-  } = useContext(AuthContext);
+  const { user, setUser, logged, setLogged, checkUserStatus } =
+    useContext(AuthContext);
   const redirectLogin = useNavigate();
 
   const handleChangeHandler = (e) => {
@@ -99,10 +94,15 @@ function Login() {
             <button onClick={login}>Login</button>
           </div>
         ) : (
-          <div>
-            <button type="" onClick={logout}>
+          <div className="logoutButton">
+            <Button
+              className="logoutButtonMUI"
+              color="success"
+              type=""
+              onClick={logout}
+            >
               logout
-            </button>
+            </Button>
           </div>
         )}
       </div>

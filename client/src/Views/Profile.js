@@ -1,20 +1,35 @@
 import React, { useContext, useState } from "react";
 import UserInfo from "../Components/UserInfo";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import UsersProfileInfo from "../Components/UsersProfileInfo";
 import UserTrees from "../Components/UserTrees";
+import { Button } from "@mui/material";
 
 function Profile() {
   const { user } = useContext(AuthContext);
+  const redirectAdopt = useNavigate();
+
+  const handleRedirect = () => {
+    redirectAdopt("/adopt");
+  };
 
   return (
     <div>
       <UserInfo />
       <UsersProfileInfo />
       <UserTrees />
-      <NavLink to="/adopt">Adopt a new Tree here</NavLink>
+      <div className="adoptButtonDiv">
+        <Button
+          className="adoptButton"
+          color="success"
+          type=""
+          onClick={handleRedirect}
+        >
+          <span class="material-symbols-outlined">park</span>dopt
+        </Button>
+      </div>
     </div>
   );
 }

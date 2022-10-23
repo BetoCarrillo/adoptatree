@@ -1,16 +1,10 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext } from "react";
 import "../styles/footer.css";
-// import linkedin from "../styles/images/linkedin.png";
-// import github from "../styles/images/github.png";
-// import Overlay from "react-bootstrap/Overlay";
-// import Tooltip from "react-bootstrap/Tooltip";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 
 function Footer() {
-  // const [show, setShow] = useState(false);
-  // const target = useRef(null);
-  const { logged, setLogged, checkUserStatus } = useContext(AuthContext);
+  const { logged, setLogged } = useContext(AuthContext);
   const redirectLogout = useNavigate();
 
   const logout = () => {
