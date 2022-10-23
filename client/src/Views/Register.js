@@ -1,14 +1,28 @@
+import { Button } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
+import "../styles/register.css";
 
 function Register() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [newUser, setNewUser] = useState({});
   const [error, setError] = useState(null);
+  const redirectProfile = useNavigate();
   const [passError, setPassError] = useState(null);
   const redirectLogin = useNavigate();
   const { user, setUser, checkUserStatus } = useContext(AuthContext);
+  const [passwordChange, setPasswordChange] = useState("password");
+  const handleClose = () => {
+    redirectProfile(-1);
+  };
+  const togglePassword = () => {
+    if (passwordChange === "password") {
+      setPasswordChange("text");
+      return;
+    }
+    setPasswordChange("password");
+  };
 
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -116,44 +130,115 @@ function Register() {
 
   return (
     <div>
-      <div>
-        <label htmlFor="username">Username (optional)</label>
-        <input
-          id="username"
-          type="text"
-          value={newUser.userName ? newUser.userName : ""}
-          name="userName"
-          onChange={handleChangeHandler}
-        />
+      <div className="register">
+        <div className="registerDiv">
+          <span
+            class="material-symbols-outlined backButton "
+            onClick={handleClose}
+          >
+            arrow_back
+          </span>
+
+          <div className="registerFormDiv">
+            <div>
+              <label htmlFor="username" className="registerText">
+                Username
+              </label>
+            </div>
+            <div>
+              <input
+                className="registerInput"
+                id="username"
+                type="text"
+                value={newUser.userName ? newUser.userName : ""}
+                name="userName"
+                onChange={handleChangeHandler}
+              />
+            </div>
+            <br />
+            <div>
+              {" "}
+              <label htmlFor="email" className="registerText">
+                Email*
+              </label>
+            </div>
+            <div>
+              <input
+                className="registerInput"
+                type="text"
+                name="email"
+                id="email"
+                value={newUser.email ? newUser.email : ""}
+                onChange={handleChangeHandler}
+              />
+            </div>
+            <br />
+            <div>
+              {" "}
+              <label htmlFor="password" className="registerText">
+                Password*
+              </label>
+            </div>
+            <div>
+              <input
+                className="registerInputPassword"
+                type={passwordChange}
+                name="password"
+                id="password"
+                value={newUser.password ? newUser.password : ""}
+                onChange={handleChangeHandler}
+              />
+              <span className="showpasswordtext" onClick={togglePassword}>
+                {passwordChange === "password" ? (
+                  <span className="material-symbols-outlined visibility ">
+                    visibility
+                  </span>
+                ) : (
+                  <span class="material-symbols-outlined">visibility_off</span>
+                )}
+              </span>
+            </div>
+            <br />
+            <div className="photoFormDiv">
+              <form>
+                <input
+                  color="success"
+                  className="fileButton"
+                  type="file"
+                  onChange={attachFileHandler}
+                />
+                <Button
+                  className="registerPhotoButton"
+                  color="success"
+                  type=""
+                  onClick={submitForm}
+                >
+                  <span class="material-symbols-outlined">upload</span>
+                </Button>
+              </form>
+            </div>
+          </div>
+          <div className="userPictureDiv">
+            {newUser.avatarPicture && (
+              <img
+                className="userPicture"
+                src={newUser.avatarPicture}
+                alt="userPic"
+              />
+            )}
+          </div>
+          <div>
+            <Button
+              className="registerButton"
+              color="success"
+              type=""
+              onClick={signUp}
+            >
+              Signup
+            </Button>
+          </div>
+        </div>
       </div>
-      <div>
-        <label htmlFor="email">Email*</label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          value={newUser.email ? newUser.email : ""}
-          onChange={handleChangeHandler}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password*</label>
-        <input
-          type="text"
-          name="password"
-          id="password"
-          value={newUser.password ? newUser.password : ""}
-          onChange={handleChangeHandler}
-        />
-      </div>
-      <form>
-        <input type="file" onChange={attachFileHandler} />
-        <button onClick={submitForm}>Upload</button>
-      </form>
-      {newUser.avatarPicture && (
-        <img src={newUser.avatarPicture} alt="userPic" />
-      )}
-      <button onClick={signUp}>Signup</button>
     </div>
   );
 }

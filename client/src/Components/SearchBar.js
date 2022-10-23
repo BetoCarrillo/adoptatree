@@ -20,6 +20,8 @@ function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
   return (
     <div className="searchBarDiv">
       <label className="searchBarLabel" for="searchbar">
+        {" "}
+        &nbsp; &nbsp; &nbsp;
         <span class="material-symbols-outlined">search</span>
       </label>
       <input

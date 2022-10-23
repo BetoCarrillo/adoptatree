@@ -57,7 +57,6 @@ padding-top: 1.5rem;
     color: #71C080 !important;
     font-family: Cairo !important;
    
-
 }
 
 .logoutButtonMUI {
@@ -65,10 +64,14 @@ padding-top: 1.5rem;
     color: #71C080 !important;
     font-family: Cairo !important ;
 
-
 }
 
 @media screen and (max-width: 700px) {
+  .login {
+      padding-top: 3rem;
+  
+  
+    }
 
 .logoutButtonMUI {
     font-size: 30px !important;
