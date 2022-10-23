@@ -1,23 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../styles/navbar.css";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import linkedin from "../styles/images/linkedin.png";
+import github from "../styles/images/github.png";
+import Overlay from "react-bootstrap/Overlay";
+import Tooltip from "react-bootstrap/Tooltip";
 
 function NavBar() {
   const { user, setUser, logged, setLogged, checkUserStatus, userProfile } =
     useContext(AuthContext);
-  const [error, setError] = useState();
-  const redirectLogout = useNavigate();
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
+  // const redirectLogout = useNavigate();
 
-  const logout = () => {
-    if (window.confirm("Logout?") === true) {
-      localStorage.removeItem("token");
-    } else {
-      redirectLogout("/trees", { replace: true });
-    }
-    setLogged(!logged);
-  };
+  // const logout = () => {
+  //   if (window.confirm("Logout?") === true) {
+  //     localStorage.removeItem("token");
+  //   } else {
+  //     redirectLogout("/trees", { replace: true });
+  //   }
+  //   setLogged(!logged);
+  // };
 
   useEffect(() => {}, [logged]);
 
@@ -36,40 +41,67 @@ function NavBar() {
           {logged !== true ? (
             <div></div>
           ) : (
-            <div>
-              Hi{" "}
-              {userProfile.userName === undefined
-                ? userProfile.userName
-                : user.email}
-              &nbsp; |
+            <div className="helloText">
+              <span className="useremail">
+                {userProfile.userName === undefined
+                  ? userProfile.userName
+                  : user.email}
+                &nbsp;
+              </span>
+              |
             </div>
           )}
-
-          <div className="navbarList">
-            <NavLink className="navbarLink" to="/home">
-              <span className="material-symbols-outlined">home</span>
-            </NavLink>
-            <NavLink className="navbarLink" to="/search">
-              <span class="material-symbols-outlined">search</span>
-            </NavLink>
-            <NavLink className="navbarLink" to="/trees">
-              <span className="material-symbols-outlined">forest</span>
-            </NavLink>
-            <NavLink className="navbarLink" to="/profile">
-              <span className="material-symbols-outlined">person</span>
-            </NavLink>
-            <NavLink className="navbarLink" to="/about">
-              <span className="material-symbols-outlined">contact_support</span>
-            </NavLink>
-            <NavLink className="navbarLink" to="/login">
-              {logged !== false ? (
-                <span className="material-symbols-outlined" onClick={logout}>
-                  logout
+          <div className="footerList">
+            <div className="githubLogo">
+              <a
+                rel="noreferrer"
+                href="https://github.com/BetoCarrillo"
+                target={"_blank"}
+              >
+                <div>
+                  <img src={github} alt="" className="gitHubLogoDiv"></img>
+                </div>
+              </a>
+            </div>
+            <div className="LinkLogo">
+              <a
+                rel="noreferrer"
+                href="https://www.linkedin.com/in/alberto-carrillo-ch/"
+                target={"_blank"}
+              >
+                <div>
+                  <img src={linkedin} alt="" className="linkLogoDiv"></img>
+                </div>
+              </a>
+            </div>
+            <div className="mailDiv">
+              <div>
+                <span
+                  className="material-symbols-outlined mailLogo"
+                  ref={target}
+                  onClick={() => setShow(!show)}
+                >
+                  mail
                 </span>
-              ) : (
-                <span className="material-symbols-outlined">login</span>
+              </div>
+            </div>
+          </div>
+          <div className="footerList">
+            {/*       <a
+          rel="noreferrer"
+          target={"_blank"}
+          href="https://www.codeacademyberlin.com/"
+        >
+          {" "}
+          <img className="FootAcademy" src={codelogo} alt="" height={30}></img>
+        </a> */}
+            <Overlay target={target.current} show={show} placement="bottom">
+              {(props) => (
+                <Tooltip className="mailpopover" {...props}>
+                  alberto.carrillo01@gmail.com
+                </Tooltip>
               )}
-            </NavLink>
+            </Overlay>
           </div>
         </div>
       </div>

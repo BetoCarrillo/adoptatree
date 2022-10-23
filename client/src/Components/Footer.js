@@ -1,73 +1,59 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "../styles/footer.css";
-import linkedin from "../styles/images/linkedin.png";
-import github from "../styles/images/github.png";
-import Overlay from "react-bootstrap/Overlay";
-import Tooltip from "react-bootstrap/Tooltip";
-import { NavLink } from "react-router-dom";
+// import linkedin from "../styles/images/linkedin.png";
+// import github from "../styles/images/github.png";
+// import Overlay from "react-bootstrap/Overlay";
+// import Tooltip from "react-bootstrap/Tooltip";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
 function Footer() {
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
+  // const [show, setShow] = useState(false);
+  // const target = useRef(null);
+  const { logged, setLogged, checkUserStatus } = useContext(AuthContext);
+  const redirectLogout = useNavigate();
+
+  const logout = () => {
+    if (window.confirm("Logout?") === true) {
+      localStorage.removeItem("token");
+    } else {
+      redirectLogout("/trees", { replace: true });
+    }
+    setLogged(!logged);
+  };
 
   return (
     <div className="footerDiv">
-      <div className="footerList">
-        <div className="githubLogo">
-          <a
-            rel="noreferrer"
-            href="https://github.com/BetoCarrillo"
-            target={"_blank"}
-          >
-            <div>
-              <img src={github} alt="" height={44}></img>
-            </div>
-          </a>
-        </div>
-        <div className="LinkLogo">
-          <a
-            rel="noreferrer"
-            href="https://www.linkedin.com/in/alberto-carrillo-ch/"
-            target={"_blank"}
-          >
-            <div>
-              <img src={linkedin} alt="" height={45}></img>
-            </div>
-          </a>
-        </div>
-        <div className="mailDiv">
-          <div>
-            <span
-              className="material-symbols-outlined mailLogo"
-              ref={target}
-              onClick={() => setShow(!show)}
-            >
-              mail
-            </span>
-          </div>
-        </div>
-      </div>
-      <div className="footerList">
-        <NavLink to="/about" className="FootText">
-          More about this web page
+      <div className="navList">
+        <NavLink className="navbarLink" to="/home">
+          <span className="material-symbols-outlined homeLogo">home</span>
         </NavLink>
-      </div>
-      <div className="footerList">
-        {/*       <a
-          rel="noreferrer"
-          target={"_blank"}
-          href="https://www.codeacademyberlin.com/"
-        >
-          {" "}
-          <img className="FootAcademy" src={codelogo} alt="" height={30}></img>
-        </a> */}
-        <Overlay target={target.current} show={show} placement="top">
-          {(props) => (
-            <Tooltip className="mailpopover" {...props}>
-              alberto.carrillo01@gmail.com
-            </Tooltip>
+        {/* <NavLink className="navbarLink" to="/search">
+              <span class="material-symbols-outlined">search</span>
+            </NavLink> */}
+        <NavLink className="navbarLink" to="/trees">
+          <span className="material-symbols-outlined treesLogo">forest</span>
+        </NavLink>
+        <NavLink className="navbarLink" to="/profile">
+          <span className="material-symbols-outlined profileLogo">person</span>
+        </NavLink>
+        <NavLink className="navbarLink" to="/about">
+          <span className="material-symbols-outlined aboutLogo">
+            contact_support
+          </span>
+        </NavLink>
+        <NavLink className="navbarLink" to="/login">
+          {logged !== false ? (
+            <span
+              className="material-symbols-outlined loginLogo"
+              onClick={logout}
+            >
+              logout
+            </span>
+          ) : (
+            <span className="material-symbols-outlined loginLogo">login</span>
           )}
-        </Overlay>
+        </NavLink>
       </div>
     </div>
   );

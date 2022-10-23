@@ -4,7 +4,7 @@ padding: 1rem;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-gap: 1rem;
+
 
 }
 
@@ -13,18 +13,22 @@ gap: 1rem;
     text-decoration: none;
     color: black !important;
     font-weight: bold;
-    font-size: 18px;
-    padding: 0 !important;
+    font-size: 24px;
+    padding-top: 7px;
+    /* padding: 0 !important; */
 
   
 }
 
+.navList{
+display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
 .navbarList{
     display: flex;
     flex-direction: row;
-    gap: 1rem;
-  
-   
+    gap: 0.2rem;
 }
 
 .navbarLink {
@@ -35,12 +39,38 @@ gap: 1rem;
 }
 
 .navbarLink:hover {
-    color: #71C080;
+    color: white;
 
+}
+.helloText{
+    font-size: 1.3rem;
+    font-weight: bold; padding-top: 7px;
+}
+
+.homeLogo{
+    font-size: 3rem;
+}
+
+.treesLogo {
+    font-size: 3rem;
+}
+
+.profileLogo {
+    font-size: 3rem;
+}
+.aboutLogo {
+    font-size: 3rem;
+}
+.loginLogo {
+    font-size: 3rem;
+}
+
+.useremail{
+    color: #71C080;
 }
 
 .active {
-    color: #71C080;
+color: white;
 align-self: flex-start;
 padding-top: 0.3rem;
 
@@ -55,10 +85,33 @@ padding-top: 0.3rem;
     color: #71C080;
 }
 
+
+
 @media screen and (max-width: 700px) {
 
 .navbarLogo {
-        font-size: 14px;
+        font-size: 12px;
+        padding-top: 0px;
+        
     }
+
+        .helloText {
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding-top: 7px;
+        }
+
+       
+.navbarDiv {
+    padding: 0.8rem;
+    padding-right: 0.2rem;
+
+}
+
+.treeLogoNavbar {
+    padding-top: 7px;
+    font-size: 1rem;
+    color: #71C080;
+}
 
 }
