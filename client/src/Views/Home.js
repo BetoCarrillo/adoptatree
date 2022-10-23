@@ -15,6 +15,7 @@ function Home() {
   return (
     <div className="homeDiv">
       <div className="homeTitle ">
+        {" "}
         ADOPT{" "}
         <span className="material-symbols-outlined treeLogo animation ">
           {" "}
@@ -29,7 +30,7 @@ function Home() {
       <div className="homeMyTrees">My Trees</div>
       <div className="homeTitleBer">
         <Button
-          className="learnMoreButton"
+          className="adoptHomeButton"
           color="success"
           type=""
           onClick={handleRedirect}

@@ -8,7 +8,7 @@ function Footer() {
   const redirectLogout = useNavigate();
 
   const logout = () => {
-    if (window.confirm("Logout?") === true) {
+    if (window.confirm("Ready to logout?") === true) {
       localStorage.removeItem("token");
     } else {
       redirectLogout("/trees", { replace: true });

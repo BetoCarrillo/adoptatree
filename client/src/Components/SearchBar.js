@@ -18,15 +18,18 @@ function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
   // }, []);
 
   return (
-    <div>
-      <div>
-        <input
-          // ref={inputRef}
-          type="text"
-          name=""
-          onChange={(e) => handleSearch(e)}
-        ></input>
-      </div>
+    <div className="searchBarDiv">
+      <label className="searchBarLabel" for="searchbar">
+        <span class="material-symbols-outlined">search</span>
+      </label>
+      <input
+        className="searchBarInput"
+        placeholder=" search"
+        // ref={inputRef}
+        type="text"
+        name="searchbar"
+        onChange={(e) => handleSearch(e)}
+      ></input>
     </div>
   );
 }

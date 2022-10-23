@@ -1,17 +1,70 @@
-.first{
-    padding-left: 1rem !important;
+.searchBarDiv{
+  margin: 0%;
+    display: flex;
+    justify-content: center;
+   
 }
-.second{
-    padding-left: 100rem !important;
+.searchBarInput {
+width:60vh;
+border: none;
+background-color: #71C080;
+text-decoration: white;
+height: 3rem;
+font-size: 20px;
+
+    
+}
+
+.searchBarLabel{
+background-color: #71C080;
+color: white;
+padding-top: 12px;
+}
+
+.searchBarInput::placeholder {color: white;}
+
+
+.searchBarInput:focus {
+border-color: black;
+
 }
 
 .cardsDiv {
     display: flex;
-    flex-flow: row;
+    flex-direction: row;
     justify-content: center;
     padding-bottom: 10rem;
-
+   
 }
+.cardDiv {
+   width: 35rem;
+    border: none ;
+    
+}
+.cardsTreeName{
+    font-size: 28px;
+}
+
+.cardImg {
+    height: 32rem;
+    border-radius: 1rem;
+   
+}
+.cardTitleText{
+    display: flex;
+    justify-content: space-between;
+}
+
+.firstComment{
+    font-size: 15px;
+}
+.seeMoreComments{
+    font-size: 10px;
+}
+.parentLogo{
+    font-size: 12px;
+}
+
 .likesDiv{
     display: flex;
     justify-content: flex-end;
@@ -28,14 +81,76 @@ background-image: url(file:///Users/albertocarrillo/Downloads/remove_FILL0_wght4
 
 }
 
+.likesCount{
+    font-size: 20px;
+}
+
 .liked{
     font-variation-settings:
-            'FILL' 1 !important
+            'FILL' 1 !important;font-size: 40px;
 }
 
 .unliked{font-variation-settings:
-        'FILL' 0 !important}
+        'FILL' 0 !important;
+        font-size: 40px;}
+        
 
+        .commentAddLogo{
+            font-size: 40px;
+        }
+
+                .commentDiv {
+                   display: flex;
+                   justify-content: stretch;
+                   align-items: stretch;
+                  
+                }
+                .inputComment{
+                    width: 100vh;
+                    height: 4rem;
+                    border-radius: 0.5rem;
+                }
+
+.loadingDiv{
+    display: flex;
+    justify-content: center;
+}
+.loadingTree{
+    font-size: 30px;
+}
+
+.deleteTreeButton {
+    color: black !important;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.deleteTreeButtonDiv{display: flex; justify-content: flex-end;}
+
+.individualComment:nth-child(2n){
+    margin-left: 5px !important;
+    font-weight: bold;
+    padding-bottom: 15px;
+
+}
+
+.accordion-button:focus {
+    color: black;
+    border: none !important;
+
+    box-shadow: none !important;
+}
+.accordion-button{
+background-color: white !important;
+color: black;
+    border: none !important;
+
+}
+.accordion-button:hover {
+    background-color: white !important;
+    color: black;
+    border: none !important;
+}
 
 
 /* @import url("https://use.fontawesome.com/releases/v5.15.0/css/all.css");
@@ -63,6 +178,8 @@ background-image: url(file:///Users/albertocarrillo/Downloads/remove_FILL0_wght4
         padding-bottom: 5rem;
     }
 
-
+.cardDiv {
+    width: 25rem;
+}
 
 }

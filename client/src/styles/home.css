@@ -29,6 +29,17 @@
     color:#71C080 !important;
 }
 
+.adoptHomeButton {
+    color: white !important;
+    background-color: #71C080 !important;
+    font-size: 18px !important;
+}
+
+
+
+.homeTextTitle{
+    padding-bottom: 100px !important;
+}
 .homeMyTrees{
     padding-top: 3rem;
         align-self: center;

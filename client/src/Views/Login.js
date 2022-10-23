@@ -11,9 +11,18 @@ function Login() {
   const { user, setUser, logged, setLogged, checkUserStatus } =
     useContext(AuthContext);
   const redirectLogin = useNavigate();
+  const [passwordChange, setPasswordChange] = useState("");
 
   const handleChangeHandler = (e) => {
     setuserLogin({ ...userLogin, [e.target.name]: e.target.value });
+  };
+
+  const togglePassword = () => {
+    if (passwordChange === "password") {
+      setPasswordChange("text");
+      return;
+    }
+    setPasswordChange("password");
   };
 
   const login = async () => {
@@ -53,7 +62,7 @@ function Login() {
   };
 
   const logout = () => {
-    if (window.confirm("Are you sure you want to Logout?") === true) {
+    if (window.confirm("Ready to logout?") === true) {
       localStorage.removeItem("token");
       setLogged(null);
     }
@@ -63,30 +72,36 @@ function Login() {
 
   return (
     <div>
-      <div>
+      <div className="login">
         {!logged ? (
-          <div>
+          <div className="loginDiv">
             {" "}
-            Login
+            <span className="loginTitle">Login</span>
             <div>
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                name="email"
-                id="email"
-                value={userLogin.email ? userLogin.email : ""}
-                onChange={handleChangeHandler}
-              />
-            </div>
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                type="text"
-                name="password"
-                id="password"
-                value={userLogin.password ? userLogin.password : ""}
-                onChange={handleChangeHandler}
-              />
+              <div>
+                <label htmlFor="email">Email</label>{" "}
+              </div>{" "}
+              <div>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  value={userLogin.email ? userLogin.email : ""}
+                  onChange={handleChangeHandler}
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Password</label>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="password"
+                  id="password"
+                  value={userLogin.password ? userLogin.password : ""}
+                  onChange={handleChangeHandler}
+                />
+              </div>
             </div>
             <NavLink className="navbarLink" to="/register">
               Register here

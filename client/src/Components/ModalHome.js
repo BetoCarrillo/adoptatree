@@ -21,7 +21,7 @@ function ModalHome() {
         <Modal.Header className="modalHeadingDiv">
           <Modal.Title>What is adopt a tree?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>link to about</Modal.Body>
         <Modal.Footer className="modalFooterDiv">
           <Button variant="secondary" onClick={handleClose}>
             <span className="material-symbols-outlined">cancel</span>

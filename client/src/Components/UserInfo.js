@@ -20,12 +20,7 @@ function UserInfo() {
   };
 
   const handleClick = (e) => {
-    // 👇️ toggle shown state
-
     setIsShown((current) => !current);
-
-    // 👇️ or simply set it to true
-    // setIsShown(true);
   };
 
   const handleModifyName = (e) => {
@@ -140,7 +135,7 @@ function UserInfo() {
     console.log(e.target.files[0]);
   };
 
-  const updatePicture = async (e, req, res) => {
+  const updatePicture = async (e) => {
     e.preventDefault();
     console.log("selectedfile", selectedFile);
     console.log("userProfile", userProfile);
@@ -204,7 +199,9 @@ function UserInfo() {
               <div>
                 <div>
                   {" "}
-                  <span className="boldText">Username:</span>{" "}
+                  <span className="boldText underlinedText">
+                    Username:
+                  </span>{" "}
                   {userProfile.userName}{" "}
                   <span
                     class="material-symbols-outlined editProfileLogo"
@@ -235,7 +232,8 @@ function UserInfo() {
                   )}
                   <br />
                 </div>
-                <span className="boldText">Email:</span> {userProfile.email}{" "}
+                <span className="boldText underlinedText">Email:</span>{" "}
+                {userProfile.email}{" "}
                 <span
                   class="material-symbols-outlined editProfileLogo"
                   onClick={handleModifyEmail}

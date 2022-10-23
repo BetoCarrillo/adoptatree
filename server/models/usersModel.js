@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   avatarPicture: {
-    type: String,
+    type: Array,
   },
 
   role: {

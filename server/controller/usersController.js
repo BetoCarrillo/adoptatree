@@ -31,15 +31,16 @@ const updateUserPicture = async (req, res) => {
     });
     console.log("uploadResult", uploadResult);
     if (uploadResult) {
-      console.log("req.body._id", req.body._id);
+      console.log("first");
       try {
-        const userPhoto = await usersModel.findOneAndUpdate(
+        const userPhoto = await usersModel.findByIdAndUpdate(
           req.body._id,
           {
-            avatarPicture: uploadResult.url,
+            avatarPicture: auploadResult.url,
           },
           { returnOriginal: false }
         );
+        console.log("userPhoto??", userPhoto);
 
         res.status(200).json({
           msg: "new picture saved",
