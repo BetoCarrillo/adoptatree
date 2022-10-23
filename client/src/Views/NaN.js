@@ -1,7 +1,23 @@
 import React from "react";
+import desert from "../styles/images/desert.png";
 
 function NaN() {
-  return <div>NaN</div>;
+  return (
+    <div>
+      <div className="desertTitle">
+        <div className="noTreesText">Ups!.. No trees to adopt in here.</div>{" "}
+        <br />
+        <div className="protectionClimate">
+          <span class="material-symbols-outlined">public</span> Let's take
+          action for climate protection!{" "}
+          <span class="material-symbols-outlined">public</span>
+        </div>{" "}
+      </div>
+      <div>
+        <img src={desert} alt="" className="desertPNG"></img>
+      </div>
+    </div>
+  );
 }
 
 export default NaN;

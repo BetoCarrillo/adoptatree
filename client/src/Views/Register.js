@@ -7,7 +7,7 @@ import "../styles/register.css";
 function Register() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [newUser, setNewUser] = useState({});
-  const [error, setError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
   const redirectProfile = useNavigate();
   const [passError, setPassError] = useState(null);
   const redirectLogin = useNavigate();
@@ -35,11 +35,11 @@ function Register() {
   const handleChangeHandler = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
 
-    /*     if (!isValidEmail(newUser.email)) {
-      setError("invalid");
+    if (!isValidEmail(newUser.email)) {
+      setEmailError("invalid");
     } else {
-      setError(null);
-    } */
+      setEmailError(null);
+    }
 
     if (!isValidPass(newUser.password)) {
       setPassError("invalid password");
@@ -78,7 +78,7 @@ function Register() {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    if (error === null && passError === null) {
+    if (emailError === null && passError === null) {
       let urlencoded = new URLSearchParams();
       urlencoded.append("userName", newUser.userName);
       urlencoded.append("email", newUser.email);
@@ -120,10 +120,10 @@ function Register() {
         console.log("error fetching", error);
       }
     }
-    if (error === null && passError !== null) {
+    if (emailError === null && passError !== null) {
       alert("please a choose 4 digit password");
     }
-    if (error !== null && passError === null) {
+    if (emailError !== null && passError === null) {
       alert("please a use valid email");
     }
   };

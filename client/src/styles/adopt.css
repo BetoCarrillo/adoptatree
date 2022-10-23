@@ -1,0 +1,90 @@
+.adopt{
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 6rem;
+}
+
+.adoptDiv {
+    border: solid 4px #71C080;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 1rem;
+    height: 49rem !important;
+    align-items: center;
+    width: 70%;
+
+  
+}
+
+.backButton {
+    cursor: pointer;
+    align-self: flex-start !important;
+    padding-left: 10px;
+    padding-top: 4px;
+    
+
+}
+
+.adoptFormDiv {
+    padding-top: 1.5rem;
+
+}
+
+.adoptText {
+    font-family: Cairo;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.adoptInput {
+    width: 18rem;
+    height: 2.5rem;
+    
+}
+
+.adoptButton {
+    font-size: 45px !important;
+    font-family: Cairo !important;
+    
+}
+.adoptPhotoFormDiv {
+    width: 15rem;
+    font-size: 12px;
+  
+}
+
+.adoptPhotoButton {
+    color: #71C080 !important;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 700px) {
+    .adopt {
+        padding-top: 3rem;
+    }
+
+    .adoptButton {
+        font-size: 25px !important;
+        font-family: Cairo !important;
+    }
+
+    .adoptDiv {
+        border: solid 3px #71C080;
+        height:40rem !important;
+     
+
+    }
+
+    .adoptText {
+        font-size: 20px;
+    }
+
+    .adoptInput {
+        width: 15rem;
+        height: 2.5rem;
+    }
+
+
+}

@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import tree from "../styles/images/tree.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
+import "../styles/adopt.css";
+import { Button } from "@mui/material";
 
 function Profile() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -112,7 +114,7 @@ function Profile() {
   };
 
   const handleClose = () => {
-    redirectProfile(-1);
+    redirectProfile("/home");
   };
 
   useEffect(() => {
@@ -121,16 +123,25 @@ function Profile() {
 
   return (
     <div>
-      {user ? (
-        <div>
-          <button type="" onClick={handleClose}>
-            <span class="material-symbols-outlined">arrow_back</span>
-          </button>
-          <button onClick={adopt}>Adopt</button>
-          <div>
+      <div className="adopt">
+        {user ? (
+          <div className="adoptDiv">
+            <div className="backButton">
+              <span
+                className="material-symbols-outlined backButton"
+                onClick={handleClose}
+              >
+                arrow_back
+              </span>
+            </div>
             <div>
-              <label htmlFor="name">Tree name</label>
+              <label htmlFor="name" className="adoptText">
+                Tree name
+              </label>
+            </div>
+            <div>
               <input
+                className="adoptInput"
                 id="name"
                 type="text"
                 value={newTree.name ? newTree.name : ""}
@@ -138,9 +149,15 @@ function Profile() {
                 onChange={handleChangeHandler}
               />
             </div>
+            <br />
             <div>
-              <label htmlFor="type">Tree type</label>
+              <label htmlFor="type" className="adoptText">
+                Tree type
+              </label>
+            </div>
+            <div>
               <input
+                className="adoptInput"
                 id="type"
                 type="text"
                 value={newTree.type ? newTree.type : ""}
@@ -148,29 +165,49 @@ function Profile() {
                 onChange={handleChangeHandler}
               />
             </div>
+            <br />
             <div>
-              <label htmlFor="location">Tree location</label>
+              {" "}
+              <label htmlFor="location" className="adoptText">
+                Tree location
+              </label>
+            </div>
+            <div>
               <input
+                className="adoptInput"
                 id="location"
                 type="text"
                 value={newTree.location ? newTree.location : ""}
                 name="location"
                 onChange={handleChangeHandler}
               />
+            </div>{" "}
+            <br />
+            <div>
+              {" "}
+              <label htmlFor="comment" className="adoptText">
+                Comment
+              </label>
             </div>
             <div>
-              <label htmlFor="comment">Comment</label>
               <input
+                className="adoptInput"
                 id="comment"
                 type="text"
                 value={newTree.comment ? newTree.comment : ""}
                 name="comment"
                 onChange={handleChangeHandler}
               />
+            </div>{" "}
+            <br />
+            <div>
+              <label htmlFor="date" className="adoptText">
+                Date
+              </label>
             </div>
             <div>
-              <label htmlFor="date">adoption date</label>
               <input
+                className="adoptInput"
                 id="date"
                 type="date"
                 value={newTree.date ? newTree.date : ""}
@@ -178,16 +215,44 @@ function Profile() {
                 onChange={handleChangeHandler}
               />
             </div>
-            <form>
-              <input type="file" onChange={attachFileHandler} />
-              <button onClick={submitForm}>Upload Pictures</button>
-            </form>
-            {newTree.img && <img src={newTree.img} alt="userTreePic" />}
+            <br />
+            <div className="adoptPhotoFormDiv">
+              <form>
+                <input
+                  color="success"
+                  className="fileButton"
+                  type="file"
+                  onChange={attachFileHandler}
+                />
+                <Button
+                  className="registerPhotoButton"
+                  color="success"
+                  type=""
+                  onClick={submitForm}
+                >
+                  <span class="material-symbols-outlined">upload</span>
+                </Button>
+              </form>
+            </div>
+            <br />
+            <div className="userPictureDiv">
+              {newTree.img && <img src={newTree.img} alt="userTreePic" />}
+            </div>
+            <div>
+              <Button
+                className="adoptButton"
+                color="success"
+                type=""
+                onClick={adopt}
+              >
+                Adopt
+              </Button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <NavLink to="/login">Please login first</NavLink>
-      )}
+        ) : (
+          <NavLink to="/login">Please login first</NavLink>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import "../styles/profile.css";
 
 function UsersProfileInfo() {
   const [loading, setLoading] = useState(true);

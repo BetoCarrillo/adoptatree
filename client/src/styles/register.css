@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     padding-bottom: 1.5rem;
-    padding-top: 0rem;
+
     gap: 1rem;
     width: 60%;
 }
@@ -23,7 +23,7 @@
     cursor: pointer;
    align-self: flex-start;
    padding-left: 10px;
-    padding-top: 40px;
+
 
 }
 
@@ -59,7 +59,10 @@
 }
 .fileButton{
     background-color: white !important;
- font-size: 11px;
+    width: 16rem;
+    padding-left: 17px;
+
+
 }
 
 .fileButton:hover {

@@ -78,6 +78,23 @@ background-color: #71C080 !important;
 
 .userSearchInputDiv{
 padding-top: 10px;
+} 
+
+/* USERS PROFILES */
+.profilesDiv{
+    padding-left: 2rem;
+    padding-top: 5rem;
+}
+
+.usersTreesTitle{
+    font-size: 20px;
+    font-family: Cairo;
+}
+
+.usersEmailLink{text-decoration: none; color: #71C080;}
+.usersEmailLink:hover {
+  
+    color:black;
 }
 
 @media screen and (max-width: 700px) {
