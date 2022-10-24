@@ -38,6 +38,7 @@ const uploadMoreTreePicture = async (req, res) => {
           },
           { returnOriginal: false }
         );
+        console.log("treePhoto", treePhoto);
 
         res.status(200).json({
           msg: "new picture saved",
@@ -180,7 +181,7 @@ const getAllTrees = async (req, res) => {
     const allTrees = await treeModel.find({}).populate({
       path: "user",
     });
-
+    // console.log("allTress >>>>", allTrees[0].user);
     try {
       if (allTrees.length === 0) {
         res.status(200).json({
@@ -371,11 +372,13 @@ const getTreesByUser = async (req, res) => {
 // };
 
 const adopt = async (req, res) => {
-  const user_id = req.body.user_id;
+  const user_id = req.body._id;
   const userThatAdopt = await usersModel.findOne({
     user_id,
   });
-  console.log("user_id", user_id);
+  console.log("user_id////", user_id);
+  console.log("userThatAdopt???", userThatAdopt);
+
   try {
     const existingName = await treeModel.findOne({ name: req.body.name });
     if (existingName) {
@@ -385,7 +388,7 @@ const adopt = async (req, res) => {
         name: req.body.name,
         type: req.body.type,
         location: req.body.location,
-        comment: req.body.comment,
+        comment: [req.body.comment, userThatAdopt.email],
         date: req.body.date,
         img: req.body.img,
         user: userThatAdopt._id,

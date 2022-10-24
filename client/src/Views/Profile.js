@@ -27,7 +27,8 @@ function Profile() {
           type=""
           onClick={handleRedirect}
         >
-          <span class="material-symbols-outlined aProfile">park</span>dopt
+          &nbsp; <span class="material-symbols-outlined aProfile">park</span>
+          dopt &nbsp;
         </Button>
       </div>
     </div>

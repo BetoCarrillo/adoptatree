@@ -6,13 +6,48 @@ import linkedin from "../styles/images/linkedin.png";
 import github from "../styles/images/github.png";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
+// import { TreeContext } from "../Context/TreeContext";
 
 function NavBar() {
   const { user, logged } = useContext(AuthContext);
+  // const { myTrees, setMyTrees } = useContext(TreeContext);
   const [show, setShow] = useState(false);
   const target = useRef(null);
+  const [myTrees, setMyTrees] = useState();
 
-  useEffect(() => {}, [logged]);
+  const getProfile = async () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      const requestOptionsOne = {
+        method: "GET",
+        headers: myHeaders,
+      };
+      try {
+        const response = await fetch(
+          "http://localhost:5005/api/users/profile",
+          requestOptionsOne
+        );
+        const result = await response.json();
+        // console.log("result", result);
+        setMyTrees(result);
+      } catch (error) {
+        console.log("error getting user's profile", error);
+      }
+    } else {
+      console.log("no token for this user");
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  // console.log("user", myTrees);
+  // useEffect(() => {}, [logged]);
 
   return (
     <div>
@@ -30,6 +65,16 @@ function NavBar() {
             <div></div>
           ) : (
             <div className="helloText">
+              {myTrees &&
+                myTrees.createdTrees.map((tree, i) => (
+                  <span
+                    className="material-symbols-outlined navbarTree"
+                    key={i}
+                  >
+                    park
+                  </span>
+                ))}
+              &nbsp;
               <span className="useremail">
                 {user.userName === undefined ? user.userName : user.email}
                 &nbsp;

@@ -4,16 +4,18 @@ import { AuthContext } from "./AuthContext";
 export const TreeContext = createContext();
 
 export const TreeContextProvider = (props) => {
+  // console.log("%ctrees context run", "color:red");
   const [trees, setTrees] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState({});
-  const [photo, setPhoto] = useState(0);
   const [newComment, setNewComment] = useState("");
-  const [commentStyle, setCommentStyle] = useState(false);
   const { user, setUser } = useContext(AuthContext);
-  const [changeLike, setChangeLike] = useState(false);
+  // const [changeLike, setChangeLike] = useState(false);
   const [like, setLike] = useState(false);
   // const [checklike, setCheckLike] = useState(false);
+  // const [foo, setFoo] = useState(false);
+  const [liked, setLiked] = useState(false);
+  // const [myTrees, setMyTrees] = useState();
 
   const fetchTrees = async () => {
     try {
@@ -48,6 +50,7 @@ export const TreeContextProvider = (props) => {
       );
       const results = await response.json();
       console.log("results liked", results);
+      setLike(true);
     } catch (error) {
       console.log("error", error);
     }
@@ -101,7 +104,6 @@ export const TreeContextProvider = (props) => {
         requestOptions
       );
       const results = await response.json();
-      setCommentStyle((current) => !current);
     } catch (error) {
       console.log("error", error);
     }
@@ -142,32 +144,40 @@ export const TreeContextProvider = (props) => {
     }
   };
 
-  const toggleClassComment = () => {
-    if (commentStyle === true) {
-      setCommentStyle("first");
-      return;
-    }
-    setCommentStyle("second");
-    return;
-  };
+  // const getProfile = async () => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     const myHeaders = new Headers();
+  //     myHeaders.append("Authorization", `Bearer ${token}`);
 
-  const incrementPhoto = (e, tree) => {
-    setPhoto(photo + 1);
-  };
+  //     const requestOptionsOne = {
+  //       method: "GET",
+  //       headers: myHeaders,
+  //     };
+  //     try {
+  //       const response = await fetch(
+  //         "http://localhost:5005/api/users/profile",
+  //         requestOptionsOne
+  //       );
+  //       const result = await response.json();
+  //       console.log("result", result.creater);
+  //       setMyTrees(result.createdTrees);
+  //     } catch (error) {
+  //       console.log("error getting user's profile", error);
+  //     }
+  //   } else {
+  //     console.log("no token for this user");
+  //   }
+  // };
 
-  const decrementPhoto = (e, tree) => {
-    setPhoto(photo - 1);
-    if (photo === 0) {
-      setPhoto(1);
-    }
-  };
-  const functionChangeLikes = () => {
-    setLike(!like);
-    console.log("functionChangeLikes", like);
-  };
+  // const functionChangeLikes = () => {
+  //   setLike(!like);
+  //   console.log("functionChangeLikes", like);
+  // };
 
   useEffect(() => {
     console.log("treecontext refresh");
+    // changeLike();
   }, []);
 
   return (
@@ -176,26 +186,28 @@ export const TreeContextProvider = (props) => {
         trees,
         setTrees,
         fetchTrees,
-        decrementPhoto,
-        incrementPhoto,
         removeTree,
         newComment,
         setNewComment,
         comments,
         handleChangeHandler,
-        setCommentStyle,
-        commentStyle,
-        loading,
         setLoading,
         like,
         setLike,
         likes,
         unlikes,
-        setChangeLike,
-        changeLike,
-        functionChangeLikes,
+        setLiked,
+        liked,
+        // setChangeLike,
+        // changeLike,
+        // functionChangeLikes,
+        // checkIfLiked,
         // setCheckLike,
         // checklike,
+        // setFoo,
+        // foo,
+        // setMyTrees,
+        // myTrees,
       }}
     >
       {props.children}

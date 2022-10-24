@@ -2,20 +2,22 @@ import React, { useContext, useEffect, useState, useMemo } from "react";
 import useFetch from "../hooks/useFetch";
 import Card from "react-bootstrap/Card";
 import "../styles/trees.css";
-import linkedin from "../styles/images/linkedin.png";
+
 import Accordion from "react-bootstrap/Accordion";
 import { AuthContext } from "../Context/AuthContext";
-
 import { TreeContext } from "../Context/TreeContext";
 import TreeCards from "../Components/TreeCards";
 import SearchBar from "../Components/SearchBar";
 import Carousel from "react-bootstrap/Carousel";
-import github from "../styles/images/github.png";
+
 import { Button } from "@mui/material";
 
 function Trees() {
   const { user, setUser } = useContext(AuthContext);
   const {
+    // checkIfLiked,
+    liked,
+    setLiked,
     trees,
     setTrees,
     changeLike,
@@ -25,17 +27,18 @@ function Trees() {
     like,
     setLike,
     functionChangeLikes,
+    newComment,
+    setNewComment,
     // setCheckLike,
     // checklike,
+    // /setFoo,
+    //  foo,
   } = useContext(TreeContext);
-  const [newComment, setNewComment] = useState("");
   const [commentDivShown, setCommentDivShown] = useState(false);
   const [commentInputShown, setCommentInputShown] = useState(false);
-  // const [commentStyle, setCommentStyle] = useState(false);
-  const [photo, setPhoto] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [search, setSearch] = useState(false);
   const [searchName, setSearchName] = useState();
@@ -132,44 +135,6 @@ function Trees() {
     }
   };
 
-  // const toggleClassComment = () => {
-  //   if (commentStyle === true) {
-  //     setCommentStyle("first");
-  //     return;
-  //   }
-  //   setCommentStyle("second");
-  //   return;
-  // };
-
-  const incrementPhoto = (e, tree) => {
-    setPhoto(photo + 1);
-  };
-
-  const decrementPhoto = (e, tree) => {
-    setPhoto(photo - 1);
-    if (photo === 0) {
-      setPhoto(1);
-    }
-  };
-
-  // const checkIfLiked = () => {
-  //   const check =
-  //     data &&
-  //     data.allTrees.map((tree, i) => {
-  //       console.log("comparison ", tree, like, user._id);
-  //       // like === user._id ? setCheckLike(true) : setCheckLike(false);
-  //       // eslint-disable-next-line no-lone-blocks
-  //       {
-  //         tree.likes.map((like) => {
-  //           console.log("LIKE", like);
-  //           console.log("comparison ", like, user._id);
-  //           like === user._id ? setChangeLike(true) : setChangeLike(false);
-  //           // console.log("checkinglike", checklike);
-  //         });
-  //       }
-  //     });
-  // };
-
   const fetchDataSearch = async (e) => {
     e.preventDefault();
     let myHeaders = new Headers();
@@ -213,16 +178,39 @@ function Trees() {
       }
     }
   };
+
+  const checkIfLiked = () => {
+    setLiked(!liked);
+    trees &&
+      trees.allTrees.map((tree, i) => {
+        console.log("comparison ", tree, like, user._id);
+        // like === user._id ? setCheckLike(true) : setCheckLike(false);
+        // eslint-disable-next-line no-lone-blocks
+        {
+          tree.likes.map((like) => {
+            console.log("LIKE", like);
+            console.log("comparison ", like, user._id);
+            if (like === user._id) {
+              setLiked(!liked);
+            }
+            // console.log("checkinglike", checklike);
+          });
+        }
+      });
+  };
+
   useEffect(() => {
     console.log("trees refresh");
     fetchTrees();
     // checkIfLiked();
-  }, []);
+  }, [changeLike]);
 
   return (
     <div>
       <br />
       <SearchBar fetchDataSearch={fetchDataSearch} />
+      <br />
+
       <br />
       {!loading ? (
         trees &&
@@ -266,54 +254,6 @@ function Trees() {
                           )}
                         </div>
                         <div className="likesDiv">
-                          <span
-                            class="material-symbols-outlined commentAddLogo"
-                            onClick={handleClick}
-                          >
-                            maps_ugc
-                          </span>{" "}
-                          &nbsp;
-                          {/* {changeLike ? (
-                          <span
-                            class="material-symbols-outlined liked"
-                            onClick={(e) => {
-                              console.log("liked");
-                              likes(e, tree);
-                              checkIfLiked();
-                            }}
-                          >
-                            favorite
-                          </span>
-                        ) : (
-                          <span
-                            class="material-symbols-outlined unliked"
-                            onClick={(e) => {
-                              unlikes(e, tree);
-                              checkIfLiked();
-                            }}
-                          >
-                            favorite
-                          </span>
-                        )} */}
-                          <span
-                            class="material-symbols-outlined liked"
-                            onClick={(e) => {
-                              console.log("liked");
-                              likes(e, tree);
-                              // checkIfLiked();
-                            }}
-                          >
-                            favorite
-                          </span>
-                          <span
-                            class="material-symbols-outlined unliked"
-                            onClick={(e) => {
-                              unlikes(e, tree);
-                              // checkIfLiked();
-                            }}
-                          >
-                            favorite
-                          </span>
                           <span className="likesCount">
                             {" "}
                             {tree.likes.length !== 0 ? (
@@ -322,6 +262,58 @@ function Trees() {
                               ""
                             )}
                           </span>
+                          {!liked ? (
+                            <span
+                              class="material-symbols-outlined liked"
+                              onClick={(e) => {
+                                setLiked(!liked);
+                                likes(e, tree);
+                                checkIfLiked();
+                              }}
+                            >
+                              park
+                            </span>
+                          ) : (
+                            <span
+                              class="material-symbols-outlined unliked"
+                              onClick={(e) => {
+                                setLiked(!liked);
+                                unlikes(e, tree);
+                                checkIfLiked();
+                              }}
+                            >
+                              park
+                            </span>
+                          )}{" "}
+                          &nbsp;{" "}
+                          {/* <button onClick={() => setFoo(!foo)}>
+                            change Foo
+                          </button> */}
+                          <span
+                            class="material-symbols-outlined commentAddLogo"
+                            onClick={handleClick}
+                          >
+                            maps_ugc
+                          </span>{" "}
+                          {/* <span
+                            class="material-symbols-outlined liked"
+                            onClick={(e) => {
+                              console.log("liked");
+                              likes(e, tree);
+                              checkIfLiked();
+                            }}
+                          >
+                            favorite
+                          </span>
+                          <span
+                            class="material-symbols-outlined unliked"
+                            onClick={(e) => {
+                              unlikes(e, tree);
+                              checkIfLiked();
+                            }}
+                          > 
+                            favorite
+                          </span>*/}
                         </div>
                       </div>
                       <div>
@@ -384,47 +376,54 @@ function Trees() {
                         <span className="boldText"> {tree.user[0].email}</span>
                       )}
                       <span> {tree.comment[0]}</span> &nbsp; &nbsp;
-                      <Accordion flush>
-                        {" "}
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header onClick={handleCommentDiv}>
-                            <div>
-                              {!commentDivShown ? (
-                                <div className="firstComment">
-                                  &nbsp;{" "}
-                                  {tree.comment[2] ? tree.comment[2] : ""}{" "}
-                                  <br />
-                                  &nbsp;{" "}
-                                  {tree.comment[2] ? tree.comment[3] : ""}{" "}
-                                  <br />
-                                  &nbsp;{" "}
-                                  <span className="seeMoreComments">
-                                    All{" "}
-                                    {tree.comment.length >= 2 ? (
-                                      <>{tree.comment.length / 2}</>
-                                    ) : (
-                                      ""
-                                    )}
-                                    &nbsp;comments
-                                  </span>{" "}
-                                </div>
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            {tree &&
-                              tree.comment.map((comment, i) => (
-                                <div className="individualComment" key={i}>
-                                  <div>{comment}</div>
-                                </div>
-                              ))}
-                            {tree.user.name}
-                            <br />
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>
+                      {tree.comment.length >= 3 ? (
+                        <Accordion flush>
+                          {" "}
+                          <Accordion.Item eventKey="0">
+                            <Accordion.Header onClick={handleCommentDiv}>
+                              <div>
+                                {!commentDivShown ? (
+                                  <div className="firstComment">
+                                    &nbsp;{" "}
+                                    {tree.comment[2] ? tree.comment[2] : ""}{" "}
+                                    <br />
+                                    &nbsp;{" "}
+                                    {tree.comment[2]
+                                      ? tree.comment[3]
+                                      : ""}{" "}
+                                    <br />
+                                    &nbsp;{" "}
+                                    <span className="seeMoreComments">
+                                      {tree.comment.length >= 2 ? (
+                                        <>
+                                          {" "}
+                                          All {tree.comment.length / 2} comments
+                                        </>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </span>{" "}
+                                  </div>
+                                ) : (
+                                  ""
+                                )}
+                              </div>
+                            </Accordion.Header>
+                            <Accordion.Body>
+                              {tree &&
+                                tree.comment.map((comment, i) => (
+                                  <div className="individualComment" key={i}>
+                                    <div>{comment}</div>
+                                  </div>
+                                ))}
+                              {tree.user.name}
+                              <br />
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        </Accordion>
+                      ) : (
+                        ""
+                      )}
                     </Card.Text>
 
                     {tree.user[0].email !== user.email ? (

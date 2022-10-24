@@ -63,6 +63,7 @@ const updateUserPicture = async (req, res) => {
 const getAllUsers = async (req, res) => {
   console.log("getAllUsers");
   const allUsers = await usersModel.find({}).populate({ path: "tree" });
+  console.log("allUsers>>>>>>", allUsers[1].tree[0]);
   try {
     res.status(200).json({
       allUsers,
@@ -208,13 +209,18 @@ const login = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  console.log("req.user", req.user);
+  const requestedUser = await usersModel
+    .findOne({ email: req.user.email })
+    .populate({ path: "tree" })
+    .exec();
+  console.log("user en getProfile>>>>", requestedUser);
   res.status(201).json({
     userName: req.user.userName,
     email: req.user.email,
     id: req.user.id,
     avatarPicture: req.user.avatarPicture,
     likes: req.user.likes,
+    createdTrees: requestedUser.tree,
   });
 };
 

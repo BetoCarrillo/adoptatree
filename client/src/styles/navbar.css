@@ -42,6 +42,8 @@ display: flex;
     color: white;
 
 }
+
+
 .helloText{
     font-size: 1.3rem;
     font-weight: bold; padding-top: 7px;
@@ -84,6 +86,11 @@ padding-top: 0.3rem;
 .colorGreen{
     color: #71C080;
 }
+.navbarTree {
+   
+    font-variation-settings:
+        'FILL' 1 !important;
+}
 
 
 
@@ -112,6 +119,11 @@ padding-top: 0.3rem;
     padding-top: 7px;
     font-size: 1rem;
     color: #71C080;
+}
+.navbarTree {
+    font-size: 12px;
+    font-variation-settings:
+            'FILL' 1 !important;
 }
 
 }

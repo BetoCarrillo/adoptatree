@@ -168,9 +168,9 @@ function UserInfo() {
         />
         <br /> <br />
         {user.userName !== undefined ? (
-          <h2 className="profileNameTitle">{user.email}</h2>
+          <div className="profileNameTitle">Hi! {user.userName}</div>
         ) : (
-          <h2 className="profileNameTitle">{user.userName}</h2>
+          <div className="profileNameTitle">Hi!</div>
         )}
         {!isShown ? (
           <Button

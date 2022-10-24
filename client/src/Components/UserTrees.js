@@ -4,26 +4,8 @@ import { TreeContext } from "../Context/TreeContext";
 
 function UserTrees() {
   const { user } = useContext(AuthContext);
-  // const {
-  //   photo,
-  //   trees,
-  //   setTrees,
-  //   loading,
-  //   setLoading,
-  //   error,
-  //   setError,
-  //   comments,
-  //   newComment,
-  //   decrementPhoto,
-  //   incrementPhoto,
-  //   likes,
-  //   unlikes,
-  //   removeTree,
-  //   handleChangeHandler,
-  // } = useContext(TreeContext);
-  const [myTrees, setMyTrees] = useState();
 
-  // console.log("user", user);
+  const [myTrees, setMyTrees] = useState();
 
   const fetchUserTrees = async () => {
     let myHeaders = new Headers();

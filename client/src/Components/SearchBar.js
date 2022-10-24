@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 
 function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
@@ -19,11 +20,11 @@ function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
 
   return (
     <div className="searchBarDiv">
-      <label className="searchBarLabel" for="searchbar">
+      <Button className="searchBarLabel" for="searchbar">
         {" "}
-        &nbsp; &nbsp; &nbsp;
-        <span class="material-symbols-outlined">search</span>
-      </label>
+        &nbsp; &nbsp;
+        <span class="material-symbols-outlined">search</span> &nbsp; &nbsp;
+      </Button>
       <input
         className="searchBarInput"
         placeholder=" search"

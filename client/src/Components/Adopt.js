@@ -74,6 +74,7 @@ function Profile() {
     }
   };
 
+  console.log("userID", user._id);
   const adopt = async () => {
     let urlencoded = new URLSearchParams();
     urlencoded.append("name", newTree.name);

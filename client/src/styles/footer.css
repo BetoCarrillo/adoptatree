@@ -6,6 +6,7 @@ position: fixed;
 padding: 1rem;
 padding-bottom: 0rem;
 flex-direction: row;
+z-index: 4;
 
 
 background-color: #71C080;
