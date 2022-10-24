@@ -9,8 +9,7 @@ function UserInfo() {
   const [isShown, setIsShown] = useState(false);
   const [modifyNameShown, setModifyNameShown] = useState(false);
   const [modifyEmailShown, setModifyEmailShown] = useState(false);
-  const { user, setUser, logged, setLogged, userProfile } =
-    useContext(AuthContext);
+  const { user, logged, setLogged } = useContext(AuthContext);
   const redirectLogin = useNavigate();
   const [newInfo, setNewInfo] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -31,12 +30,12 @@ function UserInfo() {
     setModifyEmailShown((current) => !current);
   };
 
-  const changeEmail = async (e, userProfile, req, res) => {
+  const changeEmail = async (e) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("_id", userProfile._id);
+    urlencoded.append("_id", user._id);
     urlencoded.append("email", newInfo);
 
     var requestOptions = {
@@ -63,12 +62,12 @@ function UserInfo() {
       }
     }
   };
-  const changeUserName = async (e, userProfile, req, res) => {
+  const changeUserName = async (e) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("_id", userProfile._id);
+    urlencoded.append("_id", user._id);
     urlencoded.append("userName", newInfo);
 
     var requestOptions = {
@@ -94,12 +93,12 @@ function UserInfo() {
     }
   };
 
-  const removeProfile = async (e, req, res) => {
+  const removeProfile = async (e) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("_id", userProfile.id);
+    urlencoded.append("_id", user.id);
 
     var requestOptions = {
       method: "DELETE",
@@ -132,16 +131,15 @@ function UserInfo() {
 
   const attachFileHandler = (e) => {
     setSelectedFile(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   const updatePicture = async (e) => {
     e.preventDefault();
     console.log("selectedfile", selectedFile);
-    console.log("userProfile", userProfile);
+    console.log("user", user);
     let formdata = new FormData();
-    formdata.append("_id", userProfile._id);
     formdata.append("image", selectedFile);
+    formdata.append("_id", user._id);
 
     var requestOptions = {
       method: "PUT",
@@ -164,15 +162,15 @@ function UserInfo() {
     <div>
       <div className="profileInfoDiv">
         <img
-          src={userProfile.avatarPicture}
-          alt={userProfile.userName}
+          src={user.avatarPicture}
+          alt={user.userName}
           className="profilePic"
         />
         <br /> <br />
-        {userProfile.userName !== undefined ? (
-          <h2 className="profileNameTitle">{userProfile.email}</h2>
+        {user.userName !== undefined ? (
+          <h2 className="profileNameTitle">{user.email}</h2>
         ) : (
-          <h2 className="profileNameTitle">{userProfile.userName}</h2>
+          <h2 className="profileNameTitle">{user.userName}</h2>
         )}
         {!isShown ? (
           <Button
@@ -195,14 +193,14 @@ function UserInfo() {
         )}
         {isShown && (
           <div>
-            {userProfile && (
+            {user && (
               <div>
                 <div>
                   {" "}
                   <span className="boldText underlinedText">
                     Username:
                   </span>{" "}
-                  {userProfile.userName}{" "}
+                  {user.userName}{" "}
                   <span
                     class="material-symbols-outlined editProfileLogo"
                     onClick={handleModifyName}
@@ -222,7 +220,7 @@ function UserInfo() {
                         className="editProfileButton"
                         color="success"
                         type=""
-                        onClick={(e) => changeUserName(e, userProfile)}
+                        onClick={(e) => changeUserName(e, user)}
                       >
                         done
                       </Button>
@@ -233,7 +231,7 @@ function UserInfo() {
                   <br />
                 </div>
                 <span className="boldText underlinedText">Email:</span>{" "}
-                {userProfile.email}{" "}
+                {user.email}{" "}
                 <span
                   class="material-symbols-outlined editProfileLogo"
                   onClick={handleModifyEmail}
@@ -254,7 +252,7 @@ function UserInfo() {
                       className="editProfileButton"
                       color="success"
                       type=""
-                      onClick={(e) => changeEmail(e, userProfile)}
+                      onClick={(e) => changeEmail(e)}
                     >
                       done
                     </Button>
@@ -282,7 +280,7 @@ function UserInfo() {
                   className="deleteProfileButton"
                   color="success"
                   type=""
-                  onClick={(e) => removeProfile(e, userProfile)}
+                  onClick={(e) => removeProfile(e)}
                 >
                   <span class="material-symbols-outlined deleteProfileButton">
                     delete

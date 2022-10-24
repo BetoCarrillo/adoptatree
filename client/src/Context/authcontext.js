@@ -10,7 +10,7 @@ export const AuthContextProvider = (props) => {
   const [logged, setLogged] = useState(null);
   // const [like, setLike] = useState(false);
   // const [foo, setFoo] = useState(false);
-  const [userProfile, setUserProfile] = useState({});
+
   const [loading, setLoading] = useState({});
 
   const checkUserStatus = () => {
@@ -42,13 +42,13 @@ export const AuthContextProvider = (props) => {
           requestOptionsOne
         );
         const result = await response.json();
+        // console.log(result);
         setUser({
           _id: result.id,
           userName: result.userName,
           email: result.email,
           avatarPicture: result.avatar,
         });
-        setUserProfile(result);
 
         /// Aqui se pierde el result. except email
       } catch (error) {
@@ -64,6 +64,7 @@ export const AuthContextProvider = (props) => {
   // };
   useEffect(() => {
     checkUserStatus();
+    getToken();
   }, [logged]);
 
   return (
@@ -77,7 +78,6 @@ export const AuthContextProvider = (props) => {
         error,
         setError,
         checkUserStatus,
-        userProfile,
         loading,
       }}
     >

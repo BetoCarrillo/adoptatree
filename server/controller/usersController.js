@@ -29,14 +29,14 @@ const updateUserPicture = async (req, res) => {
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
       folder: "adoptatree",
     });
-    console.log("uploadResult", uploadResult);
+    console.log("uploadResult????", uploadResult);
     if (uploadResult) {
-      console.log("first");
+      console.log("HERE IT GETS");
       try {
         const userPhoto = await usersModel.findByIdAndUpdate(
           req.body._id,
           {
-            avatarPicture: auploadResult.url,
+            avatarPicture: uploadResult.url,
           },
           { returnOriginal: false }
         );
@@ -219,10 +219,12 @@ const getProfile = async (req, res) => {
 };
 
 const getMyTrees = async (req, res) => {
-  const requestedUser = await usersModel.find({ email: req.body.email }).exec();
-  console.log("requestedUser", requestedUser);
   try {
-    if (requestedUser.lenght === 0) {
+    const requestedUser = await usersModel
+      .find({ email: req.body.email })
+      .exec();
+    console.log("requestedUser", requestedUser);
+    if (requestedUser.length === 0) {
       res.status(200).json({
         msg: "no user",
       });

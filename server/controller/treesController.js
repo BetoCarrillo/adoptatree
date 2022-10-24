@@ -201,12 +201,16 @@ const getAllTrees = async (req, res) => {
 };
 
 const getTreesById = async (req, res) => {
-  const requestedIdTree = await treeModel
-    .findById({ _id: req.body._id })
-    .exec();
-  console.log("requestedIdTree", requestedIdTree);
   try {
-    if (requestedIdTree.lenght === 0) {
+    const requestedIdTree = await treeModel
+      .find({
+        _id: {
+          $in: [req.body._id],
+        },
+      })
+      .exec();
+    console.log("requestedIdTree", requestedIdTree);
+    if (requestedIdTree.length === 0) {
       res.status(200).json({
         msg: "no trees with this ID",
       });
@@ -214,6 +218,62 @@ const getTreesById = async (req, res) => {
       res.status(200).json({
         requestedIdTree,
         allTrees: requestedIdTree.length,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      msg: "something went wrong",
+      erorr,
+    });
+  }
+};
+
+// const getTreesByUserId = async (req, res) => {
+//   try {
+//     const requestedUser = await usersModel
+//       .find({ email: req.body.email })
+//       .exec();
+//     console.log("requestedUser", requestedUser);
+//     if (requestedUser.length === 0) {
+//       res.status(200).json({
+//         msg: "no user",
+//       });
+//     } else {
+//       res.status(200).json({
+//         requestedUser,
+//         mytrees: requestedUser.length,
+//       });
+//     }
+//   } catch (error) {
+//     res.status(500).json({
+//       msg: "something went wrong",
+//       erorr,
+//     });
+//   }
+// };
+
+const getTreesByUser = async (req, res) => {
+  const user_id = req.body.user_id;
+  const findUser = await usersModel.findOne({
+    user_id,
+  });
+  try {
+    const requestedTree = await treeModel
+      .find({
+        user: {
+          $in: [findUser._id],
+        },
+      })
+      .exec();
+    console.log("requestedIdTree", requestedTree);
+    if (requestedTree.length === 0) {
+      res.status(200).json({
+        msg: "no trees with this user",
+      });
+    } else {
+      res.status(200).json({
+        allTrees: requestedTree,
+        Numer: requestedTree.length,
       });
     }
   } catch (error) {
@@ -311,23 +371,26 @@ const getTreesById = async (req, res) => {
 // };
 
 const adopt = async (req, res) => {
-  console.log("req.body", req.body);
+  const user_id = req.body.user_id;
+  const userThatAdopt = await usersModel.findOne({
+    user_id,
+  });
+  console.log("user_id", user_id);
   try {
     const existingName = await treeModel.findOne({ name: req.body.name });
     if (existingName) {
       res.status(409).json({ msg: "name already exists" });
     } else {
-      // good place to use express validator middleware, to validate email/password/any other fields.
       const newTree = new treeModel({
         name: req.body.name,
         type: req.body.type,
         location: req.body.location,
-        img: req.body.img,
-        date: req.body.date,
-        likes: req.body.likes,
         comment: req.body.comment,
-        user: req.body.user,
+        date: req.body.date,
+        img: req.body.img,
+        user: userThatAdopt._id,
       });
+      console.log("newTree", newTree);
       try {
         const savedTree = await newTree.save();
         res.status(201).json({
@@ -337,19 +400,21 @@ const adopt = async (req, res) => {
             location: savedTree.location,
             img: savedTree.img,
             date: savedTree.date,
-            likes: savedTree.likes,
             comment: savedTree.comment,
             user: savedTree.user,
           },
           msg: "Tree adopted successfully",
         });
+        console.log("savedTree>>>>>", savedTree);
       } catch (error) {
         res
           .status(409)
           .json({ message: "error while saving adopted tree", error: error });
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log("error", error);
+  }
 };
 
 const comment = async (req, res) => {
@@ -382,11 +447,17 @@ const comment = async (req, res) => {
 
 const removeTree = async (req, res) => {
   try {
-    const remove = await treeModel.deleteOne(req.body_id);
-    console.log("remove????", remove);
-    res.status(201).json({
-      msg: "Tree deleted successfully",
-    });
+    const requestedIdTree = await treeModel
+      .findById({ _id: req.body._id })
+      .exec();
+    console.log("requestedIdTree", requestedIdTree);
+    if (requestedIdTree) {
+      const remove = await treeModel.deleteOne(requestedIdTree);
+      console.log("remove????", remove);
+      res.status(201).json({
+        msg: "Tree deleted successfully",
+      });
+    }
   } catch (error) {
     res.status(409).json({ message: "error while deleting", error: error });
     console.log("error", error);
@@ -404,4 +475,5 @@ export {
   removeTree,
   getAllTreeSearch,
   getTreesById,
+  getTreesByUser,
 };

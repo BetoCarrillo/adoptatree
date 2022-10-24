@@ -5,15 +5,13 @@ import "../styles/trees.css";
 import linkedin from "../styles/images/linkedin.png";
 import Accordion from "react-bootstrap/Accordion";
 import { AuthContext } from "../Context/AuthContext";
-// import Search from "../Components/Search";
-import Filters from "../Components/Filters";
+
 import { TreeContext } from "../Context/TreeContext";
 import TreeCards from "../Components/TreeCards";
 import SearchBar from "../Components/SearchBar";
 import Carousel from "react-bootstrap/Carousel";
 import github from "../styles/images/github.png";
 import { Button } from "@mui/material";
-// import SearchBar from "../Components/SearchBar";
 
 function Trees() {
   const { user, setUser } = useContext(AuthContext);

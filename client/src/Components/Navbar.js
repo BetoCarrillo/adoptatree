@@ -8,7 +8,7 @@ import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
 
 function NavBar() {
-  const { user, logged, userProfile } = useContext(AuthContext);
+  const { user, logged } = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
@@ -31,9 +31,7 @@ function NavBar() {
           ) : (
             <div className="helloText">
               <span className="useremail">
-                {userProfile.userName === undefined
-                  ? userProfile.userName
-                  : user.email}
+                {user.userName === undefined ? user.userName : user.email}
                 &nbsp;
               </span>
               |

@@ -81,6 +81,7 @@ function Profile() {
     urlencoded.append("location", newTree.location);
     urlencoded.append("comment", newTree.comment);
     urlencoded.append("date", newTree.date);
+    urlencoded.append("user", user._id);
     urlencoded.append(
       "img",
       newTree.img
@@ -88,7 +89,6 @@ function Profile() {
         : "http://res.cloudinary.com/dc9ff1idq/image/upload/v1666012775/adoptedtrees/mm8midda6ld9ppn1pheo.png"
     );
     urlencoded.append("likes", 0);
-    urlencoded.append("user", Id);
 
     var requestOptions = {
       method: "POST",
@@ -118,7 +118,7 @@ function Profile() {
   };
 
   useEffect(() => {
-    getToken();
+    // getToken();
   }, []);
 
   return (

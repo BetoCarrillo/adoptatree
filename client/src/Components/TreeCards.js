@@ -16,7 +16,6 @@ function TreeCards() {
     comments,
     handleChangeHandler,
     commentStyle,
-    loading,
     like,
     setLike,
     likes,
@@ -25,6 +24,7 @@ function TreeCards() {
     changeLike,
     functionChangeLikes,
   } = useContext(TreeContext);
+  const [loading, setloading] = useState(false);
 
   const [error, setError] = useState(null);
   const { user, setUser } = useContext(AuthContext);

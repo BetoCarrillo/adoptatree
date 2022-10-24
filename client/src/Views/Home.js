@@ -4,6 +4,7 @@ import "../App.css";
 import ModalHome from "../Components/ModalHome";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import MyTrees from "../Components/MyTrees";
 
 function Home() {
   const redirectAdopt = useNavigate();
@@ -27,7 +28,7 @@ function Home() {
       <div className="homeLearnMore">
         <ModalHome />
       </div>
-      <div className="homeMyTrees">My Trees</div>
+      <MyTrees />
       <div className="homeTitleBer">
         <Button
           className="adoptHomeButton"

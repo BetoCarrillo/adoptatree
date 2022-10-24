@@ -23,7 +23,7 @@ function UserTrees() {
   // } = useContext(TreeContext);
   const [myTrees, setMyTrees] = useState();
 
-  console.log("user", user);
+  // console.log("user", user);
 
   const fetchUserTrees = async () => {
     let myHeaders = new Headers();
@@ -54,10 +54,10 @@ function UserTrees() {
     }
   };
 
-  console.log("trees", myTrees);
+  // console.log("trees", myTrees);
   // fetchUserTrees();
   useEffect(() => {
-    fetchUserTrees();
+    // fetchUserTrees();
   }, []);
 
   return (
