@@ -74,15 +74,18 @@ function Profile() {
     }
   };
 
-  console.log("userID", user._id);
   const adopt = async () => {
-    let urlencoded = new URLSearchParams();
+    console.log("userID", user._id);
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
     urlencoded.append("name", newTree.name);
     urlencoded.append("type", newTree.type);
     urlencoded.append("location", newTree.location);
     urlencoded.append("comment", newTree.comment);
     urlencoded.append("date", newTree.date);
-    urlencoded.append("user", user._id);
+    urlencoded.append("_id", user._id);
     urlencoded.append(
       "img",
       newTree.img
@@ -93,9 +96,9 @@ function Profile() {
 
     var requestOptions = {
       method: "POST",
+      headers: myHeaders,
       body: urlencoded,
     };
-
     try {
       const response = await fetch(
         "http://localhost:5005/api/trees/adopt",

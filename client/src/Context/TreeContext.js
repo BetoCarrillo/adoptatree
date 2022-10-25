@@ -11,10 +11,10 @@ export const TreeContextProvider = (props) => {
   const [newComment, setNewComment] = useState("");
   const { user, setUser } = useContext(AuthContext);
   // const [changeLike, setChangeLike] = useState(false);
-  const [like, setLike] = useState(false);
+  // const [like, setLike] = useState(false);
   // const [checklike, setCheckLike] = useState(false);
-  // const [foo, setFoo] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const [foo, setFoo] = useState(false);
+  // const [liked, setLiked] = useState(false);
   // const [myTrees, setMyTrees] = useState();
 
   const fetchTrees = async () => {
@@ -29,57 +29,57 @@ export const TreeContextProvider = (props) => {
       setError(error);
     }
   };
-  const likes = async (e, tree) => {
-    console.log("run like funct", like);
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  // const likes = async (e, tree) => {
+  //   console.log("run like funct", like);
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("user_id", user._id);
-    urlencoded.append("tree_id", tree._id);
+  //   var urlencoded = new URLSearchParams();
+  //   urlencoded.append("user_id", user._id);
+  //   urlencoded.append("tree_id", tree._id);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
-    try {
-      const response = await fetch(
-        "http://localhost:5005/api/users/likes",
-        requestOptions
-      );
-      const results = await response.json();
-      console.log("results liked", results);
-      setLike(true);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:5005/api/users/likes",
+  //       requestOptions
+  //     );
+  //     const results = await response.json();
+  //     console.log("results liked", results);
+  //     setLike(true);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
-  const unlikes = async (e, tree) => {
-    console.log("run unlike funct", like);
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  // const unlikes = async (e, tree) => {
+  //   console.log("run unlike funct", like);
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("user_id", user._id);
-    urlencoded.append("tree_id", tree._id);
+  //   var urlencoded = new URLSearchParams();
+  //   urlencoded.append("user_id", user._id);
+  //   urlencoded.append("tree_id", tree._id);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
-    try {
-      const response = await fetch(
-        "http://localhost:5005/api/users/unlikes",
-        requestOptions
-      );
-      const results = await response.json();
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:5005/api/users/unlikes",
+  //       requestOptions
+  //     );
+  //     const results = await response.json();
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
   const handleChangeHandler = (e) => {
     setNewComment(e.target.value);
@@ -175,10 +175,29 @@ export const TreeContextProvider = (props) => {
   //   console.log("functionChangeLikes", like);
   // };
 
+  // const checkIfLiked = () => {
+  //   trees &&
+  //     trees.allTrees.map((tree, i) => {
+  //       console.log("comparison ", tree, like, user._id);
+  //       // like === user._id ? setCheckLike(true) : setCheckLike(false);
+  //       // eslint-disable-next-line no-lone-blocks
+  //       {
+  //         tree.likes.map((like) => {
+  //           console.log("LIKE", like);
+  //           console.log("comparison ", like, user._id);
+  //           if (like === user._id) {
+  //             // setLike(!like);
+  //           }
+  //           // console.log("checkinglike", checklike);
+  //         });
+  //       }
+  //     });
+  // };
+
   useEffect(() => {
     console.log("treecontext refresh");
     // changeLike();
-  }, []);
+  }, [foo]);
 
   return (
     <TreeContext.Provider
@@ -192,20 +211,20 @@ export const TreeContextProvider = (props) => {
         comments,
         handleChangeHandler,
         setLoading,
-        like,
-        setLike,
-        likes,
-        unlikes,
-        setLiked,
-        liked,
+        // like,
+        // setLike,
+        // likes,
+        // unlikes,
+        // setLiked,
+        // liked,
         // setChangeLike,
         // changeLike,
         // functionChangeLikes,
         // checkIfLiked,
         // setCheckLike,
         // checklike,
-        // setFoo,
-        // foo,
+        setFoo,
+        foo,
         // setMyTrees,
         // myTrees,
       }}

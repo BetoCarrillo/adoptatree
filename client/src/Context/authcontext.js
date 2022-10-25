@@ -47,7 +47,7 @@ export const AuthContextProvider = (props) => {
           _id: result.id,
           userName: result.userName,
           email: result.email,
-          avatarPicture: result.avatar,
+          avatarPicture: result.avatarPicture,
         });
 
         /// Aqui se pierde el result. except email

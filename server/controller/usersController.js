@@ -213,7 +213,7 @@ const getProfile = async (req, res) => {
     .findOne({ email: req.user.email })
     .populate({ path: "tree" })
     .exec();
-  console.log("user en getProfile>>>>", requestedUser);
+  // console.log("user en getProfile>>>>", requestedUser);
   res.status(201).json({
     userName: req.user.userName,
     email: req.user.email,

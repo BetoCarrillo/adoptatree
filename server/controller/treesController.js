@@ -130,9 +130,12 @@ const uploadMoreTreePicture = async (req, res) => {
 
 const getAllTreeSearch = async (req, res) => {
   // console.log("req.query", req);
-  const requestedSearch = await treeModel.find({
-    $text: { $search: req.body.$text },
-  });
+  const requestedSearch = await treeModel
+    .find({
+      $text: { $search: req.body.$text },
+    })
+    .sort({ date: "desc" });
+
   try {
     if (requestedSearch.lenght === 0) {
       res.status(200).json({
@@ -152,14 +155,16 @@ const getAllTreeSearch = async (req, res) => {
 };
 
 const getAllTrees = async (req, res) => {
-  console.log("req.query", req.query);
-  console.log("req.params", req.params);
-  console.log("All trees");
   const { location, name } = req.query;
   if (name) {
-    const requestedName = await treeModel.find({
-      name: { $eq: name },
-    });
+    const requestedName = await treeModel
+      .find({
+        name: { $eq: name },
+      })
+      .sort({ date: "desc" });
+    // .sort({ createdAt: -1 })
+    // .sort({ date: -1 });
+
     console.log("requestedTypes", requestedName);
     try {
       if (requestedName.lenght === 0) {
@@ -178,9 +183,11 @@ const getAllTrees = async (req, res) => {
       });
     }
   } else {
-    const allTrees = await treeModel.find({}).populate({
+    const allTrees = await treeModel.find({}).sort({ date: "desc" }).populate({
       path: "user",
     });
+    console.log("allTrees", allTrees);
+
     // console.log("allTress >>>>", allTrees[0].user);
     try {
       if (allTrees.length === 0) {
@@ -372,11 +379,13 @@ const getTreesByUser = async (req, res) => {
 // };
 
 const adopt = async (req, res) => {
+  console.log("ADOPT RUNNING...");
+
   const user_id = req.body._id;
   const userThatAdopt = await usersModel.findOne({
-    user_id,
+    _id: user_id,
   });
-  console.log("user_id////", user_id);
+  // console.log("user_id////", user_id);
   console.log("userThatAdopt???", userThatAdopt);
 
   try {
@@ -388,7 +397,7 @@ const adopt = async (req, res) => {
         name: req.body.name,
         type: req.body.type,
         location: req.body.location,
-        comment: [req.body.comment, userThatAdopt.email],
+        comment: req.body.comment,
         date: req.body.date,
         img: req.body.img,
         user: userThatAdopt._id,

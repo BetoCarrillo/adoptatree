@@ -82,6 +82,7 @@ function NavBar() {
               |
             </div>
           )}
+
           <div className="footerList">
             <div className="githubLogo">
               <a

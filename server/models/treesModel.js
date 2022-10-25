@@ -13,9 +13,7 @@ const treesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // likes: {
-  //   type: Number,
-  // },
+
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
 
   comment: {
@@ -25,7 +23,6 @@ const treesSchema = new mongoose.Schema({
 
   date: {
     type: Date,
-    default: Date.now,
   },
   img: {
     type: Array,

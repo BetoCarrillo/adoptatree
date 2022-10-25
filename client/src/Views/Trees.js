@@ -16,23 +16,23 @@ function Trees() {
   const { user, setUser } = useContext(AuthContext);
   const {
     // checkIfLiked,
-    liked,
-    setLiked,
+    // liked,
+    // setLiked,
     trees,
     setTrees,
-    changeLike,
-    setChangeLike,
-    likes,
-    unlikes,
-    like,
-    setLike,
-    functionChangeLikes,
+    // changeLike,
+    // setChangeLike,
+    // likes,
+    // unlikes,
+    // like,
+    // setLike,
+    // functionChangeLikes,
     newComment,
     setNewComment,
     // setCheckLike,
     // checklike,
-    // /setFoo,
-    //  foo,
+    setFoo,
+    foo,
   } = useContext(TreeContext);
   const [commentDivShown, setCommentDivShown] = useState(false);
   const [commentInputShown, setCommentInputShown] = useState(false);
@@ -41,7 +41,9 @@ function Trees() {
   // const [data, setData] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [search, setSearch] = useState(false);
-  const [searchName, setSearchName] = useState();
+  const [like, setLike] = useState(false);
+  const [alreadyLiked, setAlreadyLiked] = useState(null);
+  const [searchName, setSearchName] = useState(false);
 
   // CUSTOM FETCH HOOK
   // const { setData, data, loading, error } = useFetch(
@@ -52,7 +54,6 @@ function Trees() {
     try {
       const response = await fetch(`http://localhost:5005/api/trees/all/`);
       const result = await response.json();
-      console.log("result", result);
       setLoading(false);
       setTrees(result);
     } catch (error) {
@@ -178,32 +179,85 @@ function Trees() {
       }
     }
   };
+  const likes = async (e, tree) => {
+    console.log("run like funct", like);
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("user_id", user._id);
+    urlencoded.append("tree_id", tree._id);
+
+    var requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:5005/api/users/likes",
+        requestOptions
+      );
+      const results = await response.json();
+      console.log("results liked", results);
+      setLike(true);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const unlikes = async (e, tree) => {
+    console.log("run unlike funct", like);
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("user_id", user._id);
+    urlencoded.append("tree_id", tree._id);
+
+    var requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: urlencoded,
+    };
+    try {
+      const response = await fetch(
+        "http://localhost:5005/api/users/unlikes",
+        requestOptions
+      );
+      const results = await response.json();
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   const checkIfLiked = () => {
-    setLiked(!liked);
-    trees &&
-      trees.allTrees.map((tree, i) => {
-        console.log("comparison ", tree, like, user._id);
-        // like === user._id ? setCheckLike(true) : setCheckLike(false);
-        // eslint-disable-next-line no-lone-blocks
-        {
-          tree.likes.map((like) => {
-            console.log("LIKE", like);
-            console.log("comparison ", like, user._id);
-            if (like === user._id) {
-              setLiked(!liked);
-            }
-            // console.log("checkinglike", checklike);
-          });
-        }
-      });
+    console.log("checkIfLiked runs");
+    trees[0]?.allTrees.map((tree, i) => {
+      // console.log("comparison ", tree, like, user._id);
+      // like === user._id ? setCheckLike(true) : setCheckLike(false);
+      // eslint-disable-next-line no-lone-blocks
+      {
+        tree.likes.map((like) => {
+          // console.log("LIKE", like);
+          // console.log("comparison ", like, user._id);
+          if (like === user._id) {
+            setAlreadyLiked(true);
+            // setLike(true);
+          } else {
+            setAlreadyLiked(false);
+          }
+          // console.log("checkinglike", checklike);
+        });
+      }
+    });
   };
 
   useEffect(() => {
     console.log("trees refresh");
     fetchTrees();
-    // checkIfLiked();
-  }, [changeLike]);
+    checkIfLiked();
+  }, [foo, alreadyLiked]);
 
   return (
     <div>
@@ -262,24 +316,26 @@ function Trees() {
                               ""
                             )}
                           </span>
-                          {!liked ? (
+                          {alreadyLiked ? (
                             <span
-                              class="material-symbols-outlined liked"
+                              class="material-symbols-outlined unliked"
                               onClick={(e) => {
-                                setLiked(!liked);
-                                likes(e, tree);
-                                checkIfLiked();
+                                setAlreadyLiked(!alreadyLiked);
+                                // setLike(!like);
+                                unlikes(e, tree);
+                                // checkIfLiked();
                               }}
                             >
                               park
                             </span>
                           ) : (
                             <span
-                              class="material-symbols-outlined unliked"
+                              class="material-symbols-outlined liked"
                               onClick={(e) => {
-                                setLiked(!liked);
-                                unlikes(e, tree);
-                                checkIfLiked();
+                                setAlreadyLiked(!alreadyLiked);
+                                // setLike(!like);
+                                likes(e, tree);
+                                // checkIfLiked();
                               }}
                             >
                               park
