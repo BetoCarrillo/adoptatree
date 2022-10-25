@@ -81,13 +81,13 @@ function MyTrees() {
     }
   };
 
-  const updatePicture = async (e) => {
+  const updatePicture = async (e, tree) => {
     e.preventDefault();
     console.log("selectedfile", selectedFile);
     console.log("user", user);
     let formdata = new FormData();
     formdata.append("images", selectedFile);
-    formdata.append("_id", user._id);
+    formdata.append("_id", tree._id);
 
     var requestOptions = {
       method: "PUT",
@@ -169,7 +169,9 @@ function MyTrees() {
                         className="myTreesdeleteTreeButton"
                         color="success"
                         type=""
-                        onClick={updatePicture}
+                        onClick={(e) => {
+                          updatePicture(e, tree);
+                        }}
                       >
                         <span class="material-symbols-outlined myTreesdeleteTreeButton">
                           upload

@@ -158,6 +158,7 @@ function UserInfo() {
     }
   };
 
+  console.log(user);
   return (
     <div>
       <div className="profileInfoDiv">

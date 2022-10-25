@@ -27,18 +27,18 @@ const uploadMoreTreePicture = async (req, res) => {
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
       folder: "adoptedtrees",
     });
-    console.log("uploadResult", uploadResult);
+    console.log("uploadResult>>>>", uploadResult);
     if (uploadResult) {
-      console.log("req.body._id", req.body._id);
+      console.log("IF UPLOADHERE IT GETS");
       try {
         const treePhoto = await treeModel.findByIdAndUpdate(
           req.body._id,
-          {
-            $push: { img: uploadResult.url },
-          },
+
+          { $push: { img: uploadResult.url } },
+
           { returnOriginal: false }
         );
-        console.log("treePhoto", treePhoto);
+        console.log("treePhoto>>>>", treePhoto);
 
         res.status(200).json({
           msg: "new picture saved",
