@@ -38,13 +38,13 @@ function MyTrees() {
           requestOptionsOne
         );
         const result = await response.json();
-        console.log("result", result);
+        // console.log("result", result);
         setMyTrees(result);
       } catch (error) {
         console.log("error getting user's profile", error);
       }
     } else {
-      console.log("no token for this user");
+      // console.log("no token for this user");
     }
   };
 

@@ -38,7 +38,7 @@ function NavBar() {
         console.log("error getting user's profile", error);
       }
     } else {
-      console.log("no token for this user");
+      // console.log("no token for this user");
     }
   };
 

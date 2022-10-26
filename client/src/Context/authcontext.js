@@ -56,7 +56,7 @@ export const AuthContextProvider = (props) => {
       }
     } else {
       setError(true);
-      console.log("no token for this user");
+      // console.log("no token for this user");
     }
   };
   // const changeLike = () => {

@@ -17,6 +17,9 @@
 
   
 }
+.adoptImg{
+    height: 8rem;
+}
 .typeImage{
     height: 30rem;
     width: 30rem;
@@ -69,16 +72,19 @@
 @media screen and (max-width: 700px) {
     .adopt {
         padding-top: 3rem;
+        padding-bottom: 20rem;
     }
 
     .adoptButton {
         font-size: 25px !important;
         font-family: Cairo !important;
+      
     }
 
     .adoptDiv {
         border: solid 3px #71C080;
-        height:40rem !important;
+        height:52rem !important;
+    
      
 
     }

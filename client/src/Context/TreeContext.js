@@ -7,7 +7,7 @@ export const TreeContextProvider = (props) => {
   // console.log("%ctrees context run", "color:red");
   const [trees, setTrees] = useState({});
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState({});
+  // const [loading, setLoading] = useState({});
   const [newComment, setNewComment] = useState("");
   const { user, setUser } = useContext(AuthContext);
   // const [changeLike, setChangeLike] = useState(false);
@@ -17,18 +17,18 @@ export const TreeContextProvider = (props) => {
   // const [liked, setLiked] = useState(false);
   // const [myTrees, setMyTrees] = useState();
 
-  const fetchTrees = async () => {
-    try {
-      const response = await fetch(`http://localhost:5005/api/trees/all/`);
-      const result = await response.json();
-      console.log("result", result);
-      setLoading(false);
-      setTrees(result);
-    } catch (error) {
-      setLoading(false);
-      setError(error);
-    }
-  };
+  // const fetchTrees = async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:5005/api/trees/all/`);
+  //     const result = await response.json();
+  //     console.log("result", result);
+  //     // setLoading(false);
+  //     setTrees(result);
+  //   } catch (error) {
+  //     // setLoading(false);
+  //     setError(error);
+  //   }
+  // };
   // const likes = async (e, tree) => {
   //   console.log("run like funct", like);
   //   let myHeaders = new Headers();
@@ -195,7 +195,7 @@ export const TreeContextProvider = (props) => {
   // };
 
   useEffect(() => {
-    console.log("treecontext refresh");
+    // console.log("treecontext refresh");
     // changeLike();
   }, [foo]);
 
@@ -204,13 +204,13 @@ export const TreeContextProvider = (props) => {
       value={{
         trees,
         setTrees,
-        fetchTrees,
+        // fetchTrees,
         removeTree,
         newComment,
         setNewComment,
         comments,
         handleChangeHandler,
-        setLoading,
+        // setLoading,
         // like,
         // setLike,
         // likes,

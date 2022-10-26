@@ -280,10 +280,13 @@ const likes = async (req, res) => {
   const user_id = req.body.user_id;
   const tree_id = req.body.tree_id;
 
-  const alreadyLiked = await treeModel.findOne(
-    { _id: tree_id },
-    { exists: { $in: [user_id, ["likes"]] } }
-  );
+  const alreadyLiked = await treeModel
+    .findOne({ _id: tree_id })
+    .where("likes")
+    .equals(`${user_id}`);
+
+  // { exists: { $in: [user_id, ["likes"]] } }
+  // );
   // .where("likes")
   // .equals(user_id);
   console.log("treeliked?>>>>>", alreadyLiked);

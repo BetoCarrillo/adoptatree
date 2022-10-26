@@ -259,7 +259,9 @@ function Profile() {
             </div>
             <br />
             <div className="userPictureDiv">
-              {newTree.img && <img src={newTree.img} alt="userTreePic" />}
+              {newTree.img && (
+                <img src={newTree.img} alt="userTreePic" className="adoptImg" />
+              )}
             </div>
             <div>
               <Button

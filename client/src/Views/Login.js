@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import "../styles/login.css";
 
 function Login() {
-  console.log("first");
+  // console.log("first");
   const [userLogin, setuserLogin] = useState({});
   const { user, setUser, logged, setLogged, checkUserStatus } =
     useContext(AuthContext);
@@ -47,7 +47,7 @@ function Login() {
         localStorage.setItem("token", token);
         checkUserStatus();
       }
-      console.log("result:", result);
+      // console.log("result:", result);
       if (result.msg === "user is logged in") {
         alert("login successful");
         redirectLogin("/", { replace: true });

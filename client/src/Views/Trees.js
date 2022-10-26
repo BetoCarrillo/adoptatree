@@ -9,7 +9,7 @@ import Carousel from "react-bootstrap/Carousel";
 import { Button } from "@mui/material";
 
 function Trees() {
-  console.log("%cComponent run", "color:red");
+  // console.log("%cComponent run", "color:red");
   const { user, setUser } = useContext(AuthContext);
   const { trees, setTrees, newComment, setNewComment } =
     useContext(TreeContext);
@@ -29,7 +29,7 @@ function Trees() {
         signal,
       });
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setLoading(false);
       setTrees(result);
     } catch (error) {
@@ -167,7 +167,10 @@ function Trees() {
       );
       const results = await response.json();
       console.log("results liked", results);
-      setLiked(true);
+      // fetchTrees();
+      if (results) {
+        setLiked(true);
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -212,7 +215,7 @@ function Trees() {
   // };
 
   useEffect(() => {
-    console.log("useEffect trees refresh");
+    // console.log("useEffect trees refresh");
     fetchTrees();
     // return () => {
     //   controller.abort();
@@ -268,7 +271,7 @@ function Trees() {
                               ""
                             )}
                           </span>
-                          {console.log("JSX re-rendered")}
+                          {/* {console.log("JSX re-rendered")} */}
                           {tree.likes.includes(user._id) ? (
                             <span
                               class="material-symbols-outlined liked"
@@ -276,7 +279,6 @@ function Trees() {
                                 setLiked(!liked);
 
                                 likes(e, tree);
-
                                 console.log(
                                   "LIKE tree.likes.length",
                                   tree.likes.length
@@ -291,7 +293,6 @@ function Trees() {
                               onClick={(e) => {
                                 setLiked(!liked);
                                 likes(e, tree);
-
                                 console.log(
                                   "UNLIKE tree.likes.length",
                                   tree.likes.length
@@ -365,14 +366,14 @@ function Trees() {
                         </Accordion.Item>
                       </Accordion>{" "}
                       &nbsp; &nbsp;
-                      {tree.user[0].name ? (
+                      {/* {tree.user[0].name ? (
                         <>
                           {" "}
                           <span className="boldText">{tree.user[0].name}</span>
                         </>
                       ) : (
                         <span className="boldText"> {tree.user[0].email}</span>
-                      )}
+                      )} */}
                       <span> {tree.comment[0]}</span> &nbsp; &nbsp;
                       {tree.comment.length >= 3 ? (
                         <Accordion flush>
@@ -382,8 +383,12 @@ function Trees() {
                               <div>
                                 {!commentDivShown ? (
                                   <div className="firstComment">
+                                    {" "}
+                                    <span className="boldText"> Comments:</span>
                                     &nbsp;{" "}
-                                    {tree.comment[2] ? tree.comment[2] : ""}{" "}
+                                    {tree.comment[1]
+                                      ? tree.comment[1]
+                                      : ""}{" "}
                                     <br />
                                     &nbsp;{" "}
                                     {tree.comment[2]
