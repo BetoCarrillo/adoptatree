@@ -162,136 +162,147 @@ function UserInfo() {
   return (
     <div>
       <div className="profileInfoDiv">
-        <img
-          src={user.avatarPicture}
-          alt={user.userName}
-          className="profilePic"
-        />
-        <br /> <br />
-        {user.userName !== undefined ? (
-          <div className="profileNameTitle">Hi! {user.userName}</div>
-        ) : (
-          <div className="profileNameTitle">Hi!</div>
-        )}
-        {!isShown ? (
-          <Button
-            className="editProfileButton"
-            color="success"
-            type=""
-            onClick={handleClick}
-          >
-            Edit profile
-          </Button>
-        ) : (
-          <Button
-            className="editProfileButton"
-            color="success"
-            type=""
-            onClick={handleClick}
-          >
-            Cancel
-          </Button>
-        )}
-        {isShown && (
+        <div className="userInfoDiv">
           <div>
-            {user && (
+            <img
+              src={user.avatarPicture}
+              alt={user.userName}
+              className="profilePic"
+            />
+          </div>{" "}
+          <div>
+            {" "}
+            {isShown && (
               <div>
-                <div>
-                  {" "}
-                  <span className="boldText underlinedText">
-                    Username:
-                  </span>{" "}
-                  {user.userName}{" "}
-                  <span
-                    class="material-symbols-outlined editProfileLogo"
-                    onClick={handleModifyName}
-                  >
-                    edit
-                  </span>{" "}
-                  {modifyNameShown ? (
+                <div></div>
+                {user && (
+                  <div>
                     <div>
+                      {" "}
+                      <span className="boldText underlinedText">
+                        Username:
+                      </span>{" "}
+                      {user.userName}{" "}
+                      <span
+                        class="material-symbols-outlined editProfileLogo"
+                        onClick={handleModifyName}
+                      >
+                        edit
+                      </span>{" "}
+                      {modifyNameShown ? (
+                        <div>
+                          <input
+                            id="newInfo"
+                            type="text"
+                            value={newInfo}
+                            name="newInfo"
+                            onChange={handleChangeHandler}
+                          />
+                          <Button
+                            className="editProfileButton"
+                            color="success"
+                            type=""
+                            onClick={(e) => changeUserName(e, user)}
+                          >
+                            done
+                          </Button>
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                      <br />
+                    </div>
+                    <span className="boldText underlinedText">Email:</span>{" "}
+                    {user.email}{" "}
+                    <span
+                      class="material-symbols-outlined editProfileLogo"
+                      onClick={handleModifyEmail}
+                    >
+                      edit
+                    </span>
+                    {modifyEmailShown ? (
+                      <div>
+                        {" "}
+                        <input
+                          id="newInfo"
+                          type="text"
+                          value={newInfo}
+                          name="newInfo"
+                          onChange={handleChangeHandler}
+                        />
+                        <Button
+                          className="editProfileButton"
+                          color="success"
+                          type=""
+                          onClick={(e) => changeEmail(e)}
+                        >
+                          done
+                        </Button>
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}{" "}
+                    <br />
+                    <form>
                       <input
-                        id="newInfo"
-                        type="text"
-                        value={newInfo}
-                        name="newInfo"
-                        onChange={handleChangeHandler}
+                        className="uploadUsePic"
+                        type="file"
+                        onChange={attachFileHandler}
                       />
                       <Button
                         className="editProfileButton"
                         color="success"
                         type=""
-                        onClick={(e) => changeUserName(e, user)}
+                        onClick={updatePicture}
                       >
-                        done
+                        <span class="material-symbols-outlined">upload</span>
+                      </Button>{" "}
+                    </form>
+                    <div>
+                      <Button
+                        className="deleteProfileButton"
+                        color="success"
+                        type=""
+                        onClick={(e) => removeProfile(e)}
+                      >
+                        <span class="material-symbols-outlined deleteProfileButton">
+                          delete
+                        </span>
                       </Button>
                     </div>
-                  ) : (
-                    <div></div>
-                  )}
-                  <br />
-                </div>
-                <span className="boldText underlinedText">Email:</span>{" "}
-                {user.email}{" "}
-                <span
-                  class="material-symbols-outlined editProfileLogo"
-                  onClick={handleModifyEmail}
-                >
-                  edit
-                </span>
-                {modifyEmailShown ? (
-                  <div>
-                    {" "}
-                    <input
-                      id="newInfo"
-                      type="text"
-                      value={newInfo}
-                      name="newInfo"
-                      onChange={handleChangeHandler}
-                    />
-                    <Button
-                      className="editProfileButton"
-                      color="success"
-                      type=""
-                      onClick={(e) => changeEmail(e)}
-                    >
-                      done
-                    </Button>
                   </div>
-                ) : (
-                  <div></div>
-                )}{" "}
-                <br />
-                <form>
-                  <input
-                    className="uploadUsePic"
-                    type="file"
-                    onChange={attachFileHandler}
-                  />
-                  <Button
-                    className="editProfileButton"
-                    color="success"
-                    type=""
-                    onClick={updatePicture}
-                  >
-                    <span class="material-symbols-outlined">upload</span>
-                  </Button>
-                </form>
-                <Button
-                  className="deleteProfileButton"
-                  color="success"
-                  type=""
-                  onClick={(e) => removeProfile(e)}
-                >
-                  <span class="material-symbols-outlined deleteProfileButton">
-                    delete
-                  </span>
-                </Button>
+                )}
               </div>
             )}
-            {error && <p>you have to login first</p>}
           </div>
-        )}
+        </div>
+        <br /> <br />
+        <div className="emailDiv">
+          {user.userName !== undefined ? (
+            <div className="profileNameTitle">Hi! {user.userName}</div>
+          ) : (
+            <div className="profileNameTitle">Hi!</div>
+          )}
+          {!isShown ? (
+            <Button
+              className="editProfileButton"
+              color="success"
+              type=""
+              onClick={handleClick}
+            >
+              Edit profile
+            </Button>
+          ) : (
+            <Button
+              className="editProfileButton"
+              color="success"
+              type=""
+              onClick={handleClick}
+            >
+              Cancel
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

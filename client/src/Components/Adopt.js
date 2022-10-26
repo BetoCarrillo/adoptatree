@@ -4,15 +4,22 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import "../styles/adopt.css";
 import { Button } from "@mui/material";
+import berlintrees from "../styles/images/berlintrees.png";
+import Modal from "react-bootstrap/Modal";
 
 function Profile() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [newTree, setNewTree] = useState({});
+
   const [Id, setId] = useState({});
   const [error, setError] = useState(null);
   const redirectProfile = useNavigate();
   const redirectTrees = useNavigate();
   const { user } = useContext(AuthContext);
+  const [show, setShow] = useState(false);
+
+  const handleCloseBoot = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleChangeHandler = (e) => {
     setNewTree({ ...newTree, [e.target.name]: e.target.value });
@@ -167,15 +174,27 @@ function Profile() {
                 value={newTree.type ? newTree.type : ""}
                 name="type"
                 onChange={handleChangeHandler}
-              />
+              />{" "}
+            </div>
+            <div>
+              <Button
+                variant="primary"
+                className="registerPhotoButton"
+                color="success"
+                onClick={handleShow}
+              >
+                Learn more
+              </Button>
+              <Modal size="lg" show={show} onHide={handleCloseBoot}>
+                <Modal.Body>
+                  <img src={berlintrees} className="typeImage" alt=""></img>
+                </Modal.Body>
+              </Modal>
             </div>
             <br />
-            <div>
-              {" "}
-              <label htmlFor="location" className="adoptText">
-                Tree location
-              </label>
-            </div>
+            <label htmlFor="comment" className="adoptText">
+              Location
+            </label>
             <div>
               <input
                 className="adoptInput"

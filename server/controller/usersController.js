@@ -109,37 +109,6 @@ const signUp = async (req, res) => {
         msg: "user already exists",
       });
     } else {
-      /*     app.post(
-        "/users",
-        body("email").isEmail(),
-        body("password").isLength({ min: 4 }),
-        (req, res) => {
-          const errors = validationResult(req);
-          if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-          } */
-
-      /*    User.create({
-            username: req.body.username,
-            password: req.body.password,
-          }).then((user) => res.json(user)); 
-        }
-      );*/
-
-      /*      app.post(
-        "/users",
-        body("email").isEmail(),
-        body("password").isLength({ min: 4 }),
-        (req, res) => {  
-          
-        }
-      ); */
-
-      /* body('email').isEmail(), body('password').isLength({ min: 4 }), (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    } */
       // good place to use express validator middleware, to validate email/password/any other fields.
       const hashedPassword = await encryptPassword(req.body.password);
       const newUser = new usersModel({
@@ -248,83 +217,6 @@ const getMyTrees = async (req, res) => {
   }
 };
 
-// const getMyTrees = async (req, res) => {
-//   console.log("user by email");
-//   //   console.log("req.params.email)>>>>", req.params.email);
-//   //   try {
-//   //     const requestedTrees = await usersModel
-//   //       .find({ email: req.params.email })
-//   //       .exec();
-//   //     console.log("requestedLocation", requestedTrees);
-//   //     if (requestedTrees.lenght === 0) {
-//   //       res.status(200).json({
-//   //         msg: "no trees in this user",
-//   //       });
-//   //     } else {
-//   //       res.status(200).json({
-//   //         mytrees: requestedTrees,
-//   //         number: requestedLocation.length,
-//   //       });
-//   //     }
-//   //   } catch (error) {
-//   //     res.status(500).json({
-//   //       msg: "something went wrong",
-//   //       erorr,
-//   //     });
-//   //   }
-//   // };
-
-//   try {
-//     const existingUser = await usersModel
-//       .find({ email: req.params.email })
-//       .populate({
-//         path: "tree",
-//         select: ["name", "type", "location", "comment", "date", "img", "likes"],
-//       })
-//       .exec();
-//     console.log("Get my profile:", existingUser);
-//     if (existingUser.lenght === 0) {
-//       res.status(200).json({
-//         msg: "no users",
-//       });
-//     } else {
-//       res.status(200).json({
-//         myTrees: existingUser,
-//       });
-//     }
-//   } catch (error) {
-//     res.status(500).json({
-//       msg: "something went wrong",
-//       erorr,
-//     });
-//   }
-// };
-// const myProfile = await usersModel
-//   .findOne({ _id: userId })
-//   .populate({
-//     path: "trees",
-//     select: ["name", "type", "location", "comment", "date", "img", "likes"],
-//   })
-// .populate({
-//   path: "likes",
-//   select: ["name", "type", "location", "comment", "date", "img", "likes"],
-// })
-//   .exec();
-// console.log("Get my profile:", myProfile);
-// try {
-//   if (myProfile === null || myProfile === undefined) {
-//     res.status(200).json({ msg: "Nothing found" });
-//   } else {
-//     res.status(200).json(myProfile);
-//   }
-// } catch (error) {
-//   res.status(500).json({
-//     msg: "Server failed",
-//     error: error,
-//   });
-// }
-// };
-
 const removeProfile = async (req, res) => {
   try {
     const remove = await usersModel.deleteOne(req.body_id);
@@ -385,136 +277,54 @@ const changeUserName = async (req, res) => {
 };
 
 const likes = async (req, res) => {
-  console.log("req.body????", req.body);
   const user_id = req.body.user_id;
   const tree_id = req.body.tree_id;
 
-  const userThatLiked = await usersModel.findOne({
-    _id: user_id,
-  });
+  const alreadyLiked = await treeModel.findOne(
+    { _id: tree_id },
+    { exists: { $in: [user_id, ["likes"]] } }
+  );
+  // .where("likes")
+  // .equals(user_id);
+  console.log("treeliked?>>>>>", alreadyLiked);
 
-  const alreadyLiked = await treeModel
-    .findOne({ _id: tree_id })
-    .where("likes")
-    .equals(`${userThatLiked._id}`);
-  console.log("Likedby?", userThatLiked);
-  // likes: { $elemMatch: { tree_id } },
-
-  // user_id,
-  // { likes: tree_id }
-  // { $getField: user_id.likes },
-  // { $exists: tree_id }
-  // });
   if (!alreadyLiked) {
     try {
-      await usersModel.findOneAndUpdate(
-        { _id: userThatLiked._id },
-        { $push: { likes: tree_id } },
-        // { returnOriginal: false },
-        { new: true }
-      );
-    } catch (error) {
-      res.status(409).json({ message: "Couldn't save" });
-      console.log(" error in like tree:", error);
-    }
-    try {
-      await treeModel.findOneAndUpdate(
+      const updatedTree = await treeModel.findByIdAndUpdate(
         { _id: tree_id },
-        { $push: { likes: userThatLiked._id } },
-        // { returnOriginal: false },
+        { $push: { likes: user_id } },
         { new: true }
       );
+      await usersModel.findByIdAndUpdate(
+        { _id: user_id },
+        { $push: { likes: tree_id } },
+        { new: true }
+      );
+      res.status(200).json({ message: "like added", updatedTree });
     } catch (error) {
-      res.status(409).json({ message: "tree couldn't be liked" });
-      console.log("error in like tree:", error);
+      res.status(409).json({ message: "Couldn't save like" });
+      console.log(" error liking the tree:", error);
     }
-    res.status(200).json({ message: "like added" });
   } else {
-    res.status(400).json({ message: "Already added" });
-    // console.log("already added:", error);
-  }
-};
-
-//   try {
-//     const treeLike = await treeModel.findOneAndUpdate(
-//       req.body,
-//       {
-//         $inc: { likes: 1 },
-//       },
-//       { returnOriginal: false }
-//     );
-//     console.log("treeLike????", treeLike);
-//   } catch (error) {
-//     res.status(409).json({ message: "error while liking", error: error });
-//     console.log("error", error);
-//   }
-// };
-
-const unlikes = async (req, res) => {
-  console.log("req.body????", req.body);
-  const user_id = req.body.user_id;
-  const tree_id = req.body.tree_id;
-
-  const userThatLiked = await usersModel.findOne({
-    _id: user_id,
-  });
-
-  const alreadyLiked = await treeModel
-    .findOne({ _id: user_id })
-    .where("likes")
-    .equals(`${userThatLiked._id}`);
-  console.log("Likedby?", userThatLiked);
-  // likes: { $elemMatch: { tree_id } },
-
-  // user_id,
-  // { likes: tree_id }
-  // { $getField: user_id.likes },
-  // { $exists: tree_id }
-  // });
-  if (!alreadyLiked) {
     try {
       await usersModel.findByIdAndUpdate(
-        { _id: userThatLiked._id },
+        { _id: user_id },
         { $pull: { likes: tree_id } },
-        // { returnOriginal: false },
         { new: true }
       );
+
+      const updatedTree = await treeModel.findByIdAndUpdate(
+        { _id: tree_id },
+        { $pull: { likes: user_id } },
+        { new: true }
+      );
+      res.status(200).json({ message: "liked removed", updatedTree });
     } catch (error) {
-      res.status(409).json({ message: "Couldn't save" });
+      res.status(409).json({ message: "Couldn't remove the like", error });
       console.log("remove tree like:", error);
     }
-    try {
-      await treeModel.findByIdAndUpdate(
-        { _id: tree_id },
-        { $pull: { likes: userThatLiked._id } },
-        // { returnOriginal: false },
-        { new: true }
-      );
-    } catch (error) {
-      res.status(409).json({ message: "tree couldn't be unliked" });
-      console.log("error unliking tree:", error);
-    }
-    res.status(200).json({ message: "removed" });
-  } else {
-    res.status(400).json({ message: "no liked to remove" });
-    // console.log("already added:", error);
   }
 };
-
-//   try {
-//     const treeLike = await treeModel.findOneAndUpdate(
-//       req.body,
-//       {
-//         $inc: { likes: -1 },
-//       },
-//       { returnOriginal: false }
-//     );
-//     console.log("treeLike????", treeLike);
-//   } catch (error) {
-//     res.status(409).json({ message: "error while liking", error: error });
-//     console.log("error", error);
-//   }
-// };
 
 export {
   removeProfile,
@@ -529,5 +339,4 @@ export {
   updateUserPicture,
   getMyTrees,
   likes,
-  unlikes,
 };

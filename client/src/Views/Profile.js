@@ -20,6 +20,7 @@ function Profile() {
       <UserInfo />
       <UsersProfileInfo />
       <UserTrees />
+
       <div className="adoptButtonDiv">
         <Button
           className="adoptButton"

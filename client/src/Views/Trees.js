@@ -1,59 +1,35 @@
-import React, { useContext, useEffect, useState, useMemo } from "react";
-import useFetch from "../hooks/useFetch";
+import React, { useContext, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import "../styles/trees.css";
-
 import Accordion from "react-bootstrap/Accordion";
 import { AuthContext } from "../Context/AuthContext";
 import { TreeContext } from "../Context/TreeContext";
-import TreeCards from "../Components/TreeCards";
 import SearchBar from "../Components/SearchBar";
 import Carousel from "react-bootstrap/Carousel";
-
 import { Button } from "@mui/material";
 
 function Trees() {
+  console.log("%cComponent run", "color:red");
   const { user, setUser } = useContext(AuthContext);
-  const {
-    // checkIfLiked,
-    // liked,
-    // setLiked,
-    trees,
-    setTrees,
-    // changeLike,
-    // setChangeLike,
-    // likes,
-    // unlikes,
-    // like,
-    // setLike,
-    // functionChangeLikes,
-    newComment,
-    setNewComment,
-    // setCheckLike,
-    // checklike,
-    setFoo,
-    foo,
-  } = useContext(TreeContext);
+  const { trees, setTrees, newComment, setNewComment } =
+    useContext(TreeContext);
   const [commentDivShown, setCommentDivShown] = useState(false);
   const [commentInputShown, setCommentInputShown] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const [data, setData] = useState(null);
-  const [selectedId, setSelectedId] = useState(null);
-  const [search, setSearch] = useState(false);
-  const [like, setLike] = useState(false);
-  const [alreadyLiked, setAlreadyLiked] = useState(null);
-  const [searchName, setSearchName] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [change, setChange] = useState(true);
 
-  // CUSTOM FETCH HOOK
-  // const { setData, data, loading, error } = useFetch(
-  //   "http://localhost:5005/api/trees/all/"
-  // );
+  const controller = new AbortController();
 
   const fetchTrees = async () => {
+    const signal = controller.signal;
     try {
-      const response = await fetch(`http://localhost:5005/api/trees/all/`);
+      const response = await fetch(`http://localhost:5005/api/trees/all/`, {
+        signal,
+      });
       const result = await response.json();
+      console.log("result", result);
       setLoading(false);
       setTrees(result);
     } catch (error) {
@@ -95,7 +71,6 @@ function Trees() {
         requestOptions
       );
       const results = await response.json();
-      // setCommentStyle((current) => !current);
     } catch (error) {
       console.log("error", error);
     }
@@ -155,12 +130,8 @@ function Trees() {
         const response = await fetch(`http://localhost:5005/api/trees/all/`);
         const result = await response.json();
         console.log("result", result);
-        setLoading(false);
         setTrees(result);
-      } catch (error) {
-        setLoading(false);
-        setError(error);
-      }
+      } catch (error) {}
     } else {
       try {
         const response = await fetch(
@@ -169,18 +140,14 @@ function Trees() {
         );
         const results = await response.json();
         console.log("result", results);
-        setLoading(false);
-
         setTrees(results);
       } catch (error) {
         console.log("error", error);
-        setLoading(false);
-        setError(error);
       }
     }
   };
+
   const likes = async (e, tree) => {
-    console.log("run like funct", like);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -200,64 +167,57 @@ function Trees() {
       );
       const results = await response.json();
       console.log("results liked", results);
-      setLike(true);
+      setLiked(true);
     } catch (error) {
       console.log("error", error);
     }
   };
 
-  const unlikes = async (e, tree) => {
-    console.log("run unlike funct", like);
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  // const unlikes = async (e, tree) => {
+  //   console.log("run unlike funct", like);
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("user_id", user._id);
-    urlencoded.append("tree_id", tree._id);
+  //   var urlencoded = new URLSearchParams();
+  //   urlencoded.append("user_id", user._id);
+  //   urlencoded.append("tree_id", tree._id);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
-    try {
-      const response = await fetch(
-        "http://localhost:5005/api/users/unlikes",
-        requestOptions
-      );
-      const results = await response.json();
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:5005/api/users/unlikes",
+  //       requestOptions
+  //     );
+  //     const results = await response.json();
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
-  const checkIfLiked = () => {
-    console.log("checkIfLiked runs");
-    trees[0]?.allTrees.map((tree, i) => {
-      // console.log("comparison ", tree, like, user._id);
-      // like === user._id ? setCheckLike(true) : setCheckLike(false);
-      // eslint-disable-next-line no-lone-blocks
-      {
-        tree.likes.map((like) => {
-          // console.log("LIKE", like);
-          // console.log("comparison ", like, user._id);
-          if (like === user._id) {
-            setAlreadyLiked(true);
-            // setLike(true);
-          } else {
-            setAlreadyLiked(false);
-          }
-          // console.log("checkinglike", checklike);
-        });
-      }
-    });
-  };
+  // const checkIfLiked = () => {
+  //   trees[0]?.allTrees.map((tree, i) => {
+  //     // eslint-disable-next-line no-lone-blocks
+  //     {
+  //       tree.likes.map((like) => {
+  //         if (like === user._id) {
+  //           setLiked(true);
+  //         }
+  //       });
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
-    console.log("trees refresh");
+    console.log("useEffect trees refresh");
     fetchTrees();
-    checkIfLiked();
-  }, [foo, alreadyLiked]);
+    // return () => {
+    //   controller.abort();
+    // };
+  }, [liked, change]);
 
   return (
     <div>
@@ -273,11 +233,6 @@ function Trees() {
             <div key={i}>
               <div className="cardsDiv">
                 <Card className="cardDiv">
-                  {/* <Card.Img
-                    variant="top"
-                    src={tree.img[photo]}
-                    height="280rem"
-                  /> */}
                   <Card.Body>
                     <Carousel variant="dark" interval={null}>
                       {tree &&
@@ -299,10 +254,7 @@ function Trees() {
                             local_florist
                           </span>
                           {tree.user[0].name ? (
-                            <>
-                              {/* {tree.user[0].name} */}
-                              {tree.user[0].name}
-                            </>
+                            <>{tree.user[0].name}</>
                           ) : (
                             tree.user[0].email
                           )}
@@ -316,60 +268,46 @@ function Trees() {
                               ""
                             )}
                           </span>
-                          {alreadyLiked ? (
+                          {console.log("JSX re-rendered")}
+                          {tree.likes.includes(user._id) ? (
                             <span
-                              class="material-symbols-outlined unliked"
+                              class="material-symbols-outlined liked"
                               onClick={(e) => {
-                                setAlreadyLiked(!alreadyLiked);
-                                // setLike(!like);
-                                unlikes(e, tree);
-                                // checkIfLiked();
+                                setLiked(!liked);
+
+                                likes(e, tree);
+
+                                console.log(
+                                  "LIKE tree.likes.length",
+                                  tree.likes.length
+                                );
                               }}
                             >
                               park
                             </span>
                           ) : (
                             <span
-                              class="material-symbols-outlined liked"
+                              class="material-symbols-outlined unliked"
                               onClick={(e) => {
-                                setAlreadyLiked(!alreadyLiked);
-                                // setLike(!like);
+                                setLiked(!liked);
                                 likes(e, tree);
-                                // checkIfLiked();
+
+                                console.log(
+                                  "UNLIKE tree.likes.length",
+                                  tree.likes.length
+                                );
                               }}
                             >
                               park
                             </span>
                           )}{" "}
                           &nbsp;{" "}
-                          {/* <button onClick={() => setFoo(!foo)}>
-                            change Foo
-                          </button> */}
                           <span
                             class="material-symbols-outlined commentAddLogo"
                             onClick={handleClick}
                           >
                             maps_ugc
                           </span>{" "}
-                          {/* <span
-                            class="material-symbols-outlined liked"
-                            onClick={(e) => {
-                              console.log("liked");
-                              likes(e, tree);
-                              checkIfLiked();
-                            }}
-                          >
-                            favorite
-                          </span>
-                          <span
-                            class="material-symbols-outlined unliked"
-                            onClick={(e) => {
-                              unlikes(e, tree);
-                              checkIfLiked();
-                            }}
-                          > 
-                            favorite
-                          </span>*/}
                         </div>
                       </div>
                       <div>
@@ -388,7 +326,11 @@ function Trees() {
                               className="editProfileButton"
                               color="success"
                               type=""
-                              onClick={(e) => comments(e, tree)}
+                              onClick={(e) => {
+                                comments(e, tree);
+
+                                setChange(!change);
+                              }}
                             >
                               <span class="material-symbols-outlined">add</span>
                             </Button>
@@ -453,7 +395,9 @@ function Trees() {
                                       {tree.comment.length >= 2 ? (
                                         <>
                                           {" "}
-                                          All {tree.comment.length / 2} comments
+                                          All {tree.comment.length / 2 -
+                                            0.5}{" "}
+                                          comments
                                         </>
                                       ) : (
                                         ""

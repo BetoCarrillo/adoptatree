@@ -54,10 +54,9 @@ function NavBar() {
       <div className="navbarDiv">
         <NavLink className="navbarLogo" to="/home">
           ADOPT{" "}
-          <span className="material-symbols-outlined treeLogoNavbar animation ">
-            {" "}
+          <span class="material-symbols-outlined treeLogoNavbar animation">
             park
-          </span>{" "}
+          </span>
           TREE<span className="colorGreen">:</span>
         </NavLink>
         <div className="navbarList">
@@ -65,20 +64,25 @@ function NavBar() {
             <div></div>
           ) : (
             <div className="helloText">
-              {myTrees &&
-                myTrees.createdTrees.map((tree, i) => (
-                  <span
-                    className="material-symbols-outlined navbarTree"
-                    key={i}
-                  >
-                    park
-                  </span>
-                ))}
-              &nbsp;
-              <span className="useremail">
-                {user.userName === undefined ? user.userName : user.email}
+              <div>
+                {myTrees &&
+                  myTrees.createdTrees.map((tree, i) => (
+                    <span
+                      className="material-symbols-outlined navbarTree"
+                      key={i}
+                    >
+                      star
+                    </span>
+                  ))}
                 &nbsp;
-              </span>
+              </div>
+              <div>
+                {" "}
+                <span className="useremail">
+                  {user.userName === undefined ? user.userName : user.email}
+                  &nbsp;
+                </span>
+              </div>
               |
             </div>
           )}

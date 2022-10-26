@@ -16,6 +16,7 @@ import ProtectedRoute from "./Components/ProtectedRoute.js";
 import Profiles from "./Views/Profiles";
 
 import { TreeContextProvider } from "./Context/TreeContext";
+import Favorites from "./Views/Favorites";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -48,6 +49,7 @@ function App() {
               <Route path="/profiles" element={<Profiles />} />
               <Route path="/register" element={<Register />} />
               <Route path="/about" element={<About />} />
+              <Route path="/favorites" element={<Favorites />} />
               <Route
                 path="/profile"
                 element={

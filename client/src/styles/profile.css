@@ -5,7 +5,7 @@
 }
 .profileInfoDiv{
     padding-top: 2.5rem;
-    padding-left: 1rem;
+    padding-left: 4rem;
 }
 
 .profileNameTitle{
@@ -96,6 +96,14 @@ padding-top: 10px;
   
     color:black;
 }
+
+.userInfoDiv{
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+ 
+}
+
 
 @media screen and (max-width: 700px) {
 
