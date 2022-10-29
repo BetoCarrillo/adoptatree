@@ -30,38 +30,38 @@ function UserInfo() {
     setModifyEmailShown((current) => !current);
   };
 
-  const changeEmail = async (e) => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  // const changeEmail = async (e) => {
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("_id", user._id);
-    urlencoded.append("email", newInfo);
+  //   var urlencoded = new URLSearchParams();
+  //   urlencoded.append("_id", user._id);
+  //   urlencoded.append("email", newInfo);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
 
-    if (
-      window.confirm("Are you sure you want to modify your email?") === true
-    ) {
-      try {
-        const response = await fetch(
-          "http://localhost:5005/api/users/email",
-          requestOptions
-        );
-        const results = await response.json();
-        console.log("results", results);
-        if (results.msg === "email changed") {
-          alert("email changed satisfactory");
-        }
-      } catch (error) {
-        console.log("error", error);
-      }
-    }
-  };
+  //   if (
+  //     window.confirm("Are you sure you want to modify your email?") === true
+  //   ) {
+  //     try {
+  //       const response = await fetch(
+  //         "http://localhost:5005/api/users/email",
+  //         requestOptions
+  //       );
+  //       const results = await response.json();
+  //       console.log("results", results);
+  //       if (results.msg === "email changed") {
+  //         alert("email changed satisfactory");
+  //       }
+  //     } catch (error) {
+  //       console.log("error", error);
+  //     }
+  //   }
+  // };
   const changeUserName = async (e) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -170,6 +170,33 @@ function UserInfo() {
               className="profilePic"
             />
           </div>{" "}
+        </div>
+        <br /> <br />
+        <div className="emailDiv">
+          {user.userName !== undefined ? (
+            <div className="profileNameTitle">Hi! {user.userName}</div>
+          ) : (
+            <div className="profileNameTitle">Hi!</div>
+          )}
+          {!isShown ? (
+            <Button
+              className="editProfileButton"
+              color="success"
+              type=""
+              onClick={handleClick}
+            >
+              Edit profile
+            </Button>
+          ) : (
+            <Button
+              className="editProfileButton"
+              color="success"
+              type=""
+              onClick={handleClick}
+            >
+              Cancel
+            </Button>
+          )}
           <div>
             {" "}
             {isShown && (
@@ -210,17 +237,16 @@ function UserInfo() {
                       ) : (
                         <div></div>
                       )}
-                      <br />
                     </div>
                     <span className="boldText underlinedText">Email:</span>{" "}
                     {user.email}{" "}
-                    <span
+                    {/* <span
                       class="material-symbols-outlined editProfileLogo"
                       onClick={handleModifyEmail}
                     >
                       edit
-                    </span>
-                    {modifyEmailShown ? (
+                    </span> */}
+                    {/* {modifyEmailShown ? (
                       <div>
                         {" "}
                         <input
@@ -241,7 +267,7 @@ function UserInfo() {
                       </div>
                     ) : (
                       <div></div>
-                    )}{" "}
+                    )}{" "} */}
                     <br />
                     <form>
                       <input
@@ -275,33 +301,6 @@ function UserInfo() {
               </div>
             )}
           </div>
-        </div>
-        <br /> <br />
-        <div className="emailDiv">
-          {user.userName !== undefined ? (
-            <div className="profileNameTitle">Hi! {user.userName}</div>
-          ) : (
-            <div className="profileNameTitle">Hi!</div>
-          )}
-          {!isShown ? (
-            <Button
-              className="editProfileButton"
-              color="success"
-              type=""
-              onClick={handleClick}
-            >
-              Edit profile
-            </Button>
-          ) : (
-            <Button
-              className="editProfileButton"
-              color="success"
-              type=""
-              onClick={handleClick}
-            >
-              Cancel
-            </Button>
-          )}
         </div>
       </div>
     </div>

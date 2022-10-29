@@ -18,6 +18,7 @@ border: none;
 
 .myTreescardImg{
 height: 15rem;
+border-radius: 2rem;
 }
 
 .myTreesCardTextDiv {display: flex;
@@ -52,8 +53,14 @@ color: #71c080 !important;
         flex-direction: column;
         justify-content: center;
         gap: 3rem;
+     
         padding-bottom: 3rem;
     }
+
+        .myTreescardImg {
+            height: 15rem;
+            border-radius: 2rem;
+        }
 }
 
 

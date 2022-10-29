@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import tree from "../styles/images/tree.png";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import "../styles/adopt.css";

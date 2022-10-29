@@ -1,7 +1,7 @@
 .profilePic{
-    border-radius: 4rem;
-    height: 7rem;
-    width: 7rem;
+    border-radius: 8rem;
+    height: 14rem;
+    width: 14rem;
 }
 .profileInfoDiv{
     padding-top: 2.5rem;
@@ -114,5 +114,13 @@ padding-top: 10px;
         .userSearchInputDiv {
             padding-top: 0px;
         }
+
+
+                .userInfoDiv {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+        
+                }
 
 }

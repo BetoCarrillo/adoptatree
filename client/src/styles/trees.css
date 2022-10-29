@@ -193,5 +193,10 @@ color: black;
 .cardDiv {
     width: 25rem;
 }
+.cardImg {
+    height: 26rem;
+    border-radius: 1rem;
+
+}
 
 }

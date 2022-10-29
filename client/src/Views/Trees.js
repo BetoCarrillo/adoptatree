@@ -167,7 +167,7 @@ function Trees() {
       );
       const results = await response.json();
       console.log("results liked", results);
-      // fetchTrees();
+      fetchTrees();
       if (results) {
         setLiked(true);
       }
@@ -175,44 +175,6 @@ function Trees() {
       console.log("error", error);
     }
   };
-
-  // const unlikes = async (e, tree) => {
-  //   console.log("run unlike funct", like);
-  //   let myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  //   var urlencoded = new URLSearchParams();
-  //   urlencoded.append("user_id", user._id);
-  //   urlencoded.append("tree_id", tree._id);
-
-  //   var requestOptions = {
-  //     method: "PUT",
-  //     headers: myHeaders,
-  //     body: urlencoded,
-  //   };
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:5005/api/users/unlikes",
-  //       requestOptions
-  //     );
-  //     const results = await response.json();
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
-
-  // const checkIfLiked = () => {
-  //   trees[0]?.allTrees.map((tree, i) => {
-  //     // eslint-disable-next-line no-lone-blocks
-  //     {
-  //       tree.likes.map((like) => {
-  //         if (like === user._id) {
-  //           setLiked(true);
-  //         }
-  //       });
-  //     }
-  //   });
-  // };
 
   useEffect(() => {
     // console.log("useEffect trees refresh");
@@ -271,7 +233,6 @@ function Trees() {
                               ""
                             )}
                           </span>
-                          {/* {console.log("JSX re-rendered")} */}
                           {tree.likes.includes(user._id) ? (
                             <span
                               class="material-symbols-outlined liked"

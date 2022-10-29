@@ -9,10 +9,12 @@ function Register() {
   const [newUser, setNewUser] = useState({});
   const [emailError, setEmailError] = useState(null);
   const redirectProfile = useNavigate();
+  const redirectHome = useNavigate();
   const [passError, setPassError] = useState(null);
   const redirectLogin = useNavigate();
   const { user, setUser, checkUserStatus } = useContext(AuthContext);
   const [passwordChange, setPasswordChange] = useState("password");
+
   const handleClose = () => {
     redirectProfile(-1);
   };
@@ -116,6 +118,7 @@ function Register() {
         if (results.msg === "User Registered successfully") {
           alert("User registered");
         }
+        redirectProfile("/home");
       } catch (error) {
         console.log("error fetching", error);
       }

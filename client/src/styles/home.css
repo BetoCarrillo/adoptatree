@@ -10,7 +10,7 @@ padding-bottom: 5rem;
 
 .homeTitle{
     align-self: center;
-    font-size: 70px;
+    font-size: 120px;
     font-family: Cairo Play ;
  
 
@@ -74,14 +74,13 @@ justify-content: center;
 }
 .aboutText{
     font-family: Cairo;
-
  font-size: 25px;
     width: 70%;
+    height: 50rem;
 }
 .aboutTextHead {
     font-family: Cairo;
     font-size: 35px;
- 
     text-decoration: underline;
 }
 .aboutTextDiv {
@@ -91,10 +90,11 @@ align-items: center;
 flex-direction: column;
 gap: 2rem;
 
+
 }
 
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
 .homeTitle {
         font-size: 40px;
     }

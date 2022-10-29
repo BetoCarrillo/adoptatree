@@ -7,7 +7,7 @@ import {
   getProfile,
   removeProfile,
   changeUserName,
-  changeEmail,
+  // changeEmail,
   updateUserPicture,
   getAllUserSearch,
   getMyTrees,
@@ -32,7 +32,7 @@ router.get("/profile", jwtAuth, getProfile);
 router.get("/mytrees", getMyTrees);
 router.delete("/delete", removeProfile);
 router.put("/userName", changeUserName);
-router.put("/email", changeEmail);
+// router.put("/email", changeEmail);
 router.put("/likes", likes);
 
 export default router;

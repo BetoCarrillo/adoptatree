@@ -232,27 +232,28 @@ const removeProfile = async (req, res) => {
   }
 };
 
-const changeEmail = async (req, res) => {
-  console.log("req.body????", req.body._id);
-  try {
-    const changeEmail = await usersModel.findOneAndUpdate(
-      req.body_id,
-      {
-        email: req.body.email,
-      },
-      { returnOriginal: false }
-    );
-    res.status(201).json({
-      msg: "email changed",
-    });
-    console.log("changeEmail????", changeEmail);
-  } catch (error) {
-    res
-      .status(409)
-      .json({ message: "error while changing email", error: error });
-    console.log("error", error);
-  }
-};
+// EMAIL FUNCTION DISABLE
+// const changeEmail = async (req, res) => {
+//   console.log("req.body????", req.body._id);
+//   try {
+//     const changeEmail = await usersModel.findOneAndUpdate(
+//       req.body_id,
+//       {
+//         email: req.body.email,
+//       },
+//       { returnOriginal: false }
+//     );
+//     res.status(201).json({
+//       msg: "email changed",
+//     });
+//     console.log("changeEmail????", changeEmail);
+//   } catch (error) {
+//     res
+//       .status(409)
+//       .json({ message: "error while changing email", error: error });
+//     console.log("error", error);
+//   }
+// };
 
 const changeUserName = async (req, res) => {
   console.log("req.body????", req.body._id);
@@ -336,7 +337,7 @@ export {
   signUp,
   login,
   getProfile,
-  changeEmail,
+  // changeEmail,
   changeUserName,
   getAllUserSearch,
   updateUserPicture,

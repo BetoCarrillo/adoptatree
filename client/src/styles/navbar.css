@@ -89,7 +89,8 @@ padding-top: 0.3rem;
 }
 .navbarTree {
    color: gold;
-   font-size: 2rem !important;
+
+   font-size: 3rem !important;
     font-variation-settings:
         'FILL' 1 !important;
 }
@@ -123,7 +124,7 @@ padding-top: 0.3rem;
     color: #71C080;
 }
 .navbarTree {
-    font-size: 12px;
+    font-size: 0.8rem !important;
     font-variation-settings:
             'FILL' 1 !important;
 }
