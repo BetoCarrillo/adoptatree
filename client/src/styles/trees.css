@@ -16,6 +16,9 @@ border-radius: 1rem;
 
     
 }
+.treesDiv{
+    padding-bottom: 8rem;
+}
 
 .searchBarLabel{
 background-color: #71C080;
@@ -36,7 +39,7 @@ border-color: black;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-bottom: 6rem;
+    padding-bottom: 1rem;
    
 }
 .cardDiv {
@@ -59,7 +62,7 @@ border-color: black;
 }
 
 .firstComment{
-    font-size: 15px;
+    font-size: 14px;
 }
 .seeMoreComments{
     font-size: 10px;
@@ -163,6 +166,9 @@ color: black;
     color: black;
     border: none !important;
 }
+.description{
+font-size: 20px;
+}
 
 
 /* @import url("https://use.fontawesome.com/releases/v5.15.0/css/all.css");
@@ -187,7 +193,7 @@ color: black;
         display: flex;
         flex-flow: row;
         justify-content: center;
-        padding-bottom: 5rem;
+        padding-bottom: 1rem;
     }
 
 .cardDiv {

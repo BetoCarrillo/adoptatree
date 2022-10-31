@@ -191,143 +191,150 @@ function Trees() {
       <br />
 
       <br />
-      {!loading ? (
-        trees &&
-        trees.allTrees.map((tree, i) => {
-          return (
-            <div key={i}>
-              <div className="cardsDiv">
-                <Card className="cardDiv">
-                  <Card.Body>
-                    <Carousel variant="dark" interval={null}>
-                      {tree &&
-                        tree.img.map((image, i) => (
-                          <Carousel.Item>
-                            <img
-                              className="d-block w-100 cardImg"
-                              src={tree.img[i]}
-                              alt="First slide"
-                            />
-                          </Carousel.Item>
-                        ))}{" "}
-                    </Carousel>
-                    <Card.Text>
-                      <div className="cardTitleText">
+      <div className="treesDiv">
+        {!loading ? (
+          trees &&
+          trees.allTrees.map((tree, i) => {
+            return (
+              <div key={i}>
+                <div className="cardsDiv">
+                  <Card className="cardDiv">
+                    <Card.Body>
+                      <Carousel variant="dark" interval={null}>
+                        {tree &&
+                          tree.img.map((image, i) => (
+                            <Carousel.Item>
+                              <img
+                                className="d-block w-100 cardImg"
+                                src={tree.img[i]}
+                                alt="First slide"
+                              />
+                            </Carousel.Item>
+                          ))}{" "}
+                      </Carousel>
+                      <Card.Text>
+                        <div className="cardTitleText">
+                          <div>
+                            {" "}
+                            <span class="material-symbols-outlined parentLogo">
+                              local_florist
+                            </span>
+                            {tree.user[0].name ? (
+                              <>{tree.user[0].name}</>
+                            ) : (
+                              tree.user[0].email
+                            )}
+                          </div>
+                          <div className="likesDiv">
+                            <span className="likesCount">
+                              {" "}
+                              {tree.likes.length !== 0 ? (
+                                <>{tree.likes.length}</>
+                              ) : (
+                                ""
+                              )}
+                            </span>
+                            {tree.likes.includes(user._id) ? (
+                              <span
+                                class="material-symbols-outlined liked"
+                                onClick={(e) => {
+                                  setLiked(!liked);
+
+                                  likes(e, tree);
+                                  console.log(
+                                    "LIKE tree.likes.length",
+                                    tree.likes.length
+                                  );
+                                }}
+                              >
+                                park
+                              </span>
+                            ) : (
+                              <span
+                                class="material-symbols-outlined unliked"
+                                onClick={(e) => {
+                                  setLiked(!liked);
+                                  likes(e, tree);
+                                  console.log(
+                                    "UNLIKE tree.likes.length",
+                                    tree.likes.length
+                                  );
+                                }}
+                              >
+                                park
+                              </span>
+                            )}{" "}
+                            &nbsp;{" "}
+                            <span
+                              class="material-symbols-outlined commentAddLogo"
+                              onClick={handleClick}
+                            >
+                              maps_ugc
+                            </span>{" "}
+                          </div>
+                        </div>
                         <div>
                           {" "}
-                          <span class="material-symbols-outlined parentLogo">
-                            local_florist
-                          </span>
-                          {tree.user[0].name ? (
-                            <>{tree.user[0].name}</>
+                          {commentInputShown ? (
+                            <div className="commentDiv">
+                              <label htmlFor="comment"></label>
+                              <input
+                                className="inputComment"
+                                id="comment"
+                                type="text"
+                                name="comment"
+                                onChange={handleChangeHandler}
+                              />
+                              <Button
+                                className="editProfileButton"
+                                color="success"
+                                type=""
+                                onClick={(e) => {
+                                  comments(e, tree);
+
+                                  setChange(!change);
+                                }}
+                              >
+                                <span class="material-symbols-outlined">
+                                  add
+                                </span>
+                              </Button>
+                            </div>
                           ) : (
-                            tree.user[0].email
+                            ""
                           )}
                         </div>
-                        <div className="likesDiv">
-                          <span className="likesCount">
-                            {" "}
-                            {tree.likes.length !== 0 ? (
-                              <>{tree.likes.length}</>
-                            ) : (
-                              ""
-                            )}
-                          </span>
-                          {tree.likes.includes(user._id) ? (
-                            <span
-                              class="material-symbols-outlined liked"
-                              onClick={(e) => {
-                                setLiked(!liked);
-
-                                likes(e, tree);
-                                console.log(
-                                  "LIKE tree.likes.length",
-                                  tree.likes.length
-                                );
-                              }}
-                            >
-                              park
-                            </span>
-                          ) : (
-                            <span
-                              class="material-symbols-outlined unliked"
-                              onClick={(e) => {
-                                setLiked(!liked);
-                                likes(e, tree);
-                                console.log(
-                                  "UNLIKE tree.likes.length",
-                                  tree.likes.length
-                                );
-                              }}
-                            >
-                              park
-                            </span>
-                          )}{" "}
-                          &nbsp;{" "}
-                          <span
-                            class="material-symbols-outlined commentAddLogo"
-                            onClick={handleClick}
-                          >
-                            maps_ugc
-                          </span>{" "}
-                        </div>
-                      </div>
-                      <div>
-                        {" "}
-                        {commentInputShown ? (
-                          <div className="commentDiv">
-                            <label htmlFor="comment"></label>
-                            <input
-                              className="inputComment"
-                              id="comment"
-                              type="text"
-                              name="comment"
-                              onChange={handleChangeHandler}
-                            />
-                            <Button
-                              className="editProfileButton"
-                              color="success"
-                              type=""
-                              onClick={(e) => {
-                                comments(e, tree);
-
-                                setChange(!change);
-                              }}
-                            >
-                              <span class="material-symbols-outlined">add</span>
-                            </Button>
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <Accordion flush>
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>
-                            {" "}
-                            <span class="material-symbols-outlined">park</span>
-                            &nbsp;{" "}
-                            <span className="boldText cardsTreeName">
-                              {tree.name}
-                            </span>
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <span className="boldText">Location:</span>{" "}
-                            {tree.location}
-                            <br /> <span className="boldText">Type:</span>{" "}
-                            {tree.type} <br />{" "}
-                            <span className="boldText">Date:</span>
-                            {new Date(tree.date).toLocaleString("de-DE", {
-                              day: "2-digit",
-                              month: "2-digit",
-                              year: "2-digit",
-                            })}
-                            <br />
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      </Accordion>{" "}
-                      &nbsp; &nbsp;
-                      {/* {tree.user[0].name ? (
+                        <Accordion flush>
+                          <Accordion.Item eventKey="0">
+                            <Accordion.Header>
+                              {" "}
+                              <span class="material-symbols-outlined">
+                                park
+                              </span>
+                              &nbsp;{" "}
+                              <span className="boldText cardsTreeName">
+                                {tree.name}
+                              </span>
+                            </Accordion.Header>
+                            <Accordion.Body>
+                              <span className="boldText">Location:</span>{" "}
+                              {tree.location}
+                              <br /> <span className="boldText">
+                                Type:
+                              </span>{" "}
+                              {tree.type} <br />{" "}
+                              <span className="boldText">Date:</span>
+                              {new Date(tree.date).toLocaleString("de-DE", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "2-digit",
+                              })}
+                              <br />
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        </Accordion>{" "}
+                        &nbsp; &nbsp;
+                        {/* {tree.user[0].name ? (
                         <>
                           {" "}
                           <span className="boldText">{tree.user[0].name}</span>
@@ -335,93 +342,97 @@ function Trees() {
                       ) : (
                         <span className="boldText"> {tree.user[0].email}</span>
                       )} */}
-                      <span> {tree.comment[0]}</span> &nbsp; &nbsp;
-                      {tree.comment.length >= 3 ? (
-                        <Accordion flush>
-                          {" "}
-                          <Accordion.Item eventKey="0">
-                            <Accordion.Header onClick={handleCommentDiv}>
-                              <div>
-                                {!commentDivShown ? (
-                                  <div className="firstComment">
-                                    {" "}
-                                    <span className="boldText"> Comments:</span>
-                                    &nbsp;{" "}
-                                    {tree.comment[1]
-                                      ? tree.comment[1]
-                                      : ""}{" "}
-                                    <br />
-                                    &nbsp;{" "}
-                                    {tree.comment[2]
+                        <span className="description"> {tree.comment[0]}</span>{" "}
+                        &nbsp; &nbsp;
+                        {tree.comment.length >= 3 ? (
+                          <Accordion flush>
+                            {" "}
+                            <Accordion.Item eventKey="0">
+                              <Accordion.Header onClick={handleCommentDiv}>
+                                <div>
+                                  {!commentDivShown ? (
+                                    <div className="firstComment">
+                                      {" "}
+                                      {tree.comment[1]
+                                        ? tree.comment[1]
+                                        : ""}{" "}
+                                      <br />
+                                      <span className="boldText">
+                                        {tree.comment[2] ? tree.comment[2] : ""}
+                                      </span>
+                                      &nbsp;{" "}
+                                      {/* {tree.comment[2]
                                       ? tree.comment[3]
-                                      : ""}{" "}
-                                    <br />
-                                    &nbsp;{" "}
-                                    <span className="seeMoreComments">
-                                      {tree.comment.length >= 2 ? (
-                                        <>
-                                          {" "}
-                                          All {tree.comment.length / 2 -
-                                            0.5}{" "}
-                                          comments
-                                        </>
-                                      ) : (
-                                        ""
-                                      )}
-                                    </span>{" "}
-                                  </div>
-                                ) : (
-                                  ""
-                                )}
-                              </div>
-                            </Accordion.Header>
-                            <Accordion.Body>
-                              {tree &&
-                                tree.comment.map((comment, i) => (
-                                  <div className="individualComment" key={i}>
-                                    <div>{comment}</div>
-                                  </div>
-                                ))}
-                              {tree.user.name}
-                              <br />
-                            </Accordion.Body>
-                          </Accordion.Item>
-                        </Accordion>
-                      ) : (
-                        ""
-                      )}
-                    </Card.Text>
+                                      : ""}{" "} */}{" "}
+                                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                      &nbsp; &nbsp;
+                                      <span className="seeMoreComments">
+                                        {tree.comment.length >= 2 ? (
+                                          <>
+                                            {" "}
+                                            see all{" "}
+                                            {tree.comment.length / 2 - 0.5}{" "}
+                                            comments
+                                          </>
+                                        ) : (
+                                          ""
+                                        )}
+                                      </span>{" "}
+                                    </div>
+                                  ) : (
+                                    ""
+                                  )}
+                                </div>
+                              </Accordion.Header>
+                              <Accordion.Body>
+                                {tree &&
+                                  tree.comment.map((comment, i) => (
+                                    <div className="individualComment" key={i}>
+                                      <div>{comment}</div>
+                                    </div>
+                                  ))}
+                                {tree.user.name}
+                                <br />
+                              </Accordion.Body>
+                            </Accordion.Item>
+                          </Accordion>
+                        ) : (
+                          ""
+                        )}
+                      </Card.Text>
 
-                    {tree.user[0].email !== user.email ? (
-                      ""
-                    ) : (
-                      <div className="deleteTreeButtonDiv">
-                        <Button
-                          className="deleteTreeButton"
-                          color="success"
-                          type=""
-                          onClick={(e) => removeTree(e, tree)}
-                        >
-                          <span class="material-symbols-outlined deleteTreeButton">
-                            delete
-                          </span>
-                        </Button>
-                      </div>
-                    )}
-                  </Card.Body>
-                </Card>
+                      {tree.user[0].email !== user.email ? (
+                        ""
+                      ) : (
+                        <div className="deleteTreeButtonDiv">
+                          <Button
+                            className="deleteTreeButton"
+                            color="success"
+                            type=""
+                            onClick={(e) => removeTree(e, tree)}
+                          >
+                            <span class="material-symbols-outlined deleteTreeButton">
+                              delete
+                            </span>
+                          </Button>
+                        </div>
+                      )}
+                    </Card.Body>
+                  </Card>
+                </div>
               </div>
-            </div>
-          );
-        })
-      ) : (
-        <div className="loadingDiv">
-          ...<span class="material-symbols-outlined loadingTree">park</span>
-          <span class="material-symbols-outlined loadingTree">park</span>loading
-          <span class="material-symbols-outlined loadingTree">park</span>
-          <span class="material-symbols-outlined loadingTree">park</span>...
-        </div>
-      )}
+            );
+          })
+        ) : (
+          <div className="loadingDiv">
+            ...<span class="material-symbols-outlined loadingTree">park</span>
+            <span class="material-symbols-outlined loadingTree">park</span>
+            loading
+            <span class="material-symbols-outlined loadingTree">park</span>
+            <span class="material-symbols-outlined loadingTree">park</span>...
+          </div>
+        )}
+      </div>
     </div>
   );
 }
