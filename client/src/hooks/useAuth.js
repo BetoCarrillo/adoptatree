@@ -1,3 +1,5 @@
+import { baseURL } from "../utils/getServerUrl";
+
 function useAuth() {
   const token = localStorage.getItem("token");
 
@@ -9,14 +11,13 @@ function useAuth() {
     );
 
     var requestOptions = {
-      method: "GET",
       headers: myHeaders,
       redirect: "follow",
     };
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/users/profile",
+        baseURL + "/api/users/profile",
         requestOptions
       );
       const results = await response.json();

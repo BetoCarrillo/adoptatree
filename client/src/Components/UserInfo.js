@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import "../styles/profile.css";
+import { baseURL } from "../utils/getServerUrl";
 
 function UserInfo() {
   const [error, setError] = useState(null);
@@ -49,7 +50,7 @@ function UserInfo() {
   //   ) {
   //     try {
   //       const response = await fetch(
-  //         "http://localhost:5005/api/users/email",
+  //        baseURL + "/api/users/email",
   //         requestOptions
   //       );
   //       const results = await response.json();
@@ -79,7 +80,7 @@ function UserInfo() {
     if (window.confirm("Are you sure you want to modify your name?") === true) {
       try {
         const response = await fetch(
-          "http://localhost:5005/api/users/userName",
+          baseURL + "/api/users/userName",
           requestOptions
         );
         const results = await response.json();
@@ -112,7 +113,7 @@ function UserInfo() {
     ) {
       try {
         const response = await fetch(
-          "http://localhost:5005/api/users/delete",
+          baseURL + "/api/users/delete",
           requestOptions
         );
         const results = await response.json();
@@ -148,7 +149,7 @@ function UserInfo() {
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/users/moreImageUpload",
+        baseURL + "/api/users/moreImageUpload",
         requestOptions
       );
       const results = await response.json();

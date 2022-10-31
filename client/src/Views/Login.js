@@ -4,6 +4,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import "../styles/login.css";
+import { baseURL } from "../utils/getServerUrl";
 
 function Login() {
   // console.log("first");
@@ -37,7 +38,7 @@ function Login() {
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/users/login",
+        baseURL + "/api/users/login",
         requestOptions
       );
       const result = await response.json();

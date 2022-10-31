@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { baseURL } from "../utils/getServerUrl";
 import { AuthContext } from "./AuthContext";
 
 export const TreeContext = createContext();
@@ -45,7 +46,7 @@ export const TreeContextProvider = (props) => {
   //   };
   //   try {
   //     const response = await fetch(
-  //       "http://localhost:5005/api/users/likes",
+  //       baseURL + "/api/users/likes",
   //       requestOptions
   //     );
   //     const results = await response.json();
@@ -72,7 +73,7 @@ export const TreeContextProvider = (props) => {
   //   };
   //   try {
   //     const response = await fetch(
-  //       "http://localhost:5005/api/users/unlikes",
+  //       baseURL + "/api/users/unlikes",
   //       requestOptions
   //     );
   //     const results = await response.json();
@@ -100,7 +101,7 @@ export const TreeContextProvider = (props) => {
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/trees/comments",
+        baseURL + "/api/trees/comments",
         requestOptions
       );
       const results = await response.json();
@@ -130,7 +131,7 @@ export const TreeContextProvider = (props) => {
     ) {
       try {
         const response = await fetch(
-          "http://localhost:5005/api/trees/delete",
+          baseURL + "/api/trees/delete",
           requestOptions
         );
         const results = await response.json();
@@ -151,12 +152,12 @@ export const TreeContextProvider = (props) => {
   //     myHeaders.append("Authorization", `Bearer ${token}`);
 
   //     const requestOptionsOne = {
-  //       method: "GET",
+  //
   //       headers: myHeaders,
   //     };
   //     try {
   //       const response = await fetch(
-  //         "http://localhost:5005/api/users/profile",
+  //         baseURL + "/api/users/profile",
   //         requestOptionsOne
   //       );
   //       const result = await response.json();

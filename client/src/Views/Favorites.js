@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
+import { baseURL } from "../utils/getServerUrl";
 
 function Favorites() {
   const { user } = useContext(AuthContext);
@@ -17,12 +18,11 @@ function Favorites() {
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       const requestOptionsOne = {
-        method: "GET",
         headers: myHeaders,
       };
       try {
         const response = await fetch(
-          "http://localhost:5005/api/users/profile",
+          baseURL + "/api/users/profile",
           requestOptionsOne
         );
         const result = await response.json();
@@ -39,7 +39,7 @@ function Favorites() {
   const fetchTrees = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5005/api/trees/all/?_id=${myFavoritesID}`
+        baseURL + `/api/trees/all/?_id=${myFavoritesID}`
       );
       const result = await response.json();
       console.log("result", result);

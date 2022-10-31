@@ -7,6 +7,7 @@ import { TreeContext } from "../Context/TreeContext";
 import SearchBar from "../Components/SearchBar";
 import Carousel from "react-bootstrap/Carousel";
 import { Button } from "@mui/material";
+import { baseURL } from "../utils/getServerUrl";
 
 function Trees() {
   // console.log("%cComponent run", "color:red");
@@ -25,7 +26,7 @@ function Trees() {
   const fetchTrees = async () => {
     const signal = controller.signal;
     try {
-      const response = await fetch(`http://localhost:5005/api/trees/all/`, {
+      const response = await fetch(baseURL + `/api/trees/all/`, {
         signal,
       });
       const result = await response.json();
@@ -67,7 +68,7 @@ function Trees() {
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/trees/comments",
+        baseURL + "/api/trees/comments",
         requestOptions
       );
       const results = await response.json();
@@ -97,7 +98,7 @@ function Trees() {
     ) {
       try {
         const response = await fetch(
-          "http://localhost:5005/api/trees/delete",
+          baseURL + "/api/trees/delete",
           requestOptions
         );
         const results = await response.json();
@@ -127,7 +128,7 @@ function Trees() {
 
     if (e.target.value === "") {
       try {
-        const response = await fetch(`http://localhost:5005/api/trees/all/`);
+        const response = await fetch(baseURL + `/api/trees/all/`);
         const result = await response.json();
         console.log("result", result);
         setTrees(result);
@@ -135,7 +136,7 @@ function Trees() {
     } else {
       try {
         const response = await fetch(
-          "http://localhost:5005/api/trees/search",
+          baseURL + "/api/trees/search",
           requestOptions
         );
         const results = await response.json();
@@ -162,7 +163,7 @@ function Trees() {
     };
     try {
       const response = await fetch(
-        "http://localhost:5005/api/users/likes",
+        baseURL + "/api/users/likes",
         requestOptions
       );
       const results = await response.json();

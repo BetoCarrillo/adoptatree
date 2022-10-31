@@ -6,8 +6,10 @@ import "../styles/adopt.css";
 import { Button } from "@mui/material";
 import berlintrees from "../styles/images/berlintrees.png";
 import Modal from "react-bootstrap/Modal";
+import { baseURL } from "../utils/getServerUrl";
 
 function Profile() {
+  console.log("baseURL", baseURL);
   const [selectedFile, setSelectedFile] = useState(null);
   const [newTree, setNewTree] = useState({});
 
@@ -37,14 +39,14 @@ function Profile() {
     console.log("formData :>> ", formData);
 
     const requestOptions = {
-      method: "Post",
+      method: "POST",
       body: formData,
       enctype: "multipart/form-data",
     };
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/trees/imgUpload",
+        baseURL + "/api/trees/imgUpload",
         requestOptions
       );
       const result = await response.json();
@@ -60,12 +62,11 @@ function Profile() {
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       const requestOptionsOne = {
-        method: "GET",
         headers: myHeaders,
       };
       try {
         const response = await fetch(
-          "http://localhost:5005/api/users/profile",
+          baseURL + "/api/users/profile",
           requestOptionsOne
         );
         const result = await response.json();
@@ -108,7 +109,7 @@ function Profile() {
     };
     try {
       const response = await fetch(
-        "http://localhost:5005/api/trees/adopt",
+        baseURL + "/api/trees/adopt",
         requestOptions
       );
       const results = await response.json();

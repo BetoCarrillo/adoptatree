@@ -5,6 +5,7 @@ import "../styles/mytrees.css";
 
 import { AuthContext } from "../Context/AuthContext";
 import { Button } from "@mui/material";
+import { baseURL } from "../utils/getServerUrl";
 
 function MyTrees() {
   const { user } = useContext(AuthContext);
@@ -29,12 +30,11 @@ function MyTrees() {
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       const requestOptionsOne = {
-        method: "GET",
         headers: myHeaders,
       };
       try {
         const response = await fetch(
-          "http://localhost:5005/api/users/profile",
+          baseURL + "/api/users/profile",
           requestOptionsOne
         );
         const result = await response.json();
@@ -67,7 +67,7 @@ function MyTrees() {
     ) {
       try {
         const response = await fetch(
-          "http://localhost:5005/api/trees/delete",
+          baseURL + "/api/trees/delete",
           requestOptions
         );
         const results = await response.json();
@@ -96,7 +96,7 @@ function MyTrees() {
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/trees/moreImageUpload",
+        baseURL + "/api/trees/moreImageUpload",
         requestOptions
       );
       const results = await response.json();

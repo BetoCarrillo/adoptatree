@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import "../styles/register.css";
+import { baseURL } from "../utils/getServerUrl";
 
 function Register() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -61,13 +62,13 @@ function Register() {
     formData.append("image", selectedFile);
     console.log("formData :>> ", formData);
     var requestOptions = {
-      method: "Post",
+      method: "POST",
       body: formData,
     };
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/users/imageUpload",
+        baseURL + "/api/users/imageUpload",
         requestOptions
       );
       const result = await response.json();
@@ -92,14 +93,14 @@ function Register() {
           : "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png"
       );
       var requestOptions = {
-        method: "Post",
+        method: "POST",
         headers: myHeaders,
         body: urlencoded,
       };
 
       try {
         const response = await fetch(
-          "http://localhost:5005/api/users/signup",
+          baseURL + "/api/users/signup",
           requestOptions
         );
         const results = await response.json();

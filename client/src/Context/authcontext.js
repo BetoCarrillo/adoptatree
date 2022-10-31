@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { baseURL } from "../utils/getServerUrl.js";
 import getToken from "../utils/getToken.js";
 import { TreeContext } from "./TreeContext.js";
 
@@ -33,12 +34,11 @@ export const AuthContextProvider = (props) => {
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       const requestOptionsOne = {
-        method: "GET",
         headers: myHeaders,
       };
       try {
         const response = await fetch(
-          "http://localhost:5005/api/users/profile",
+          baseURL + "/api/users/profile",
           requestOptionsOne
         );
         const result = await response.json();

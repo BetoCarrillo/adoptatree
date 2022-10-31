@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "../styles/profile.css";
+import { baseURL } from "../utils/getServerUrl";
 
 function UsersProfileInfo() {
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,7 @@ function UsersProfileInfo() {
 
     try {
       const response = await fetch(
-        "http://localhost:5005/api/users/search",
+        baseURL + "/api/users/search",
         requestOptions
       );
       const result = await response.json();

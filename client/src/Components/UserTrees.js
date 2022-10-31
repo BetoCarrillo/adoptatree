@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { TreeContext } from "../Context/TreeContext";
+import { baseURL } from "../utils/getServerUrl";
 
 function UserTrees() {
   const { user } = useContext(AuthContext);
@@ -15,12 +16,11 @@ function UserTrees() {
     var urlencoded = new URLSearchParams();
 
     var requestOptions = {
-      method: "GET",
       headers: myHeaders,
     };
     try {
       const response = await fetch(
-        "http://localhost:5005/api/users/mytrees",
+        baseURL + "/api/users/mytrees",
         requestOptions
       );
       const result = await response.json();

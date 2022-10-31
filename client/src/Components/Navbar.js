@@ -6,6 +6,7 @@ import linkedin from "../styles/images/linkedin.png";
 import github from "../styles/images/github.png";
 import Overlay from "react-bootstrap/Overlay";
 import Tooltip from "react-bootstrap/Tooltip";
+import { baseURL } from "../utils/getServerUrl";
 // import { TreeContext } from "../Context/TreeContext";
 
 function NavBar() {
@@ -23,12 +24,11 @@ function NavBar() {
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       const requestOptionsOne = {
-        method: "GET",
         headers: myHeaders,
       };
       try {
         const response = await fetch(
-          "http://localhost:5005/api/users/profile",
+          baseURL + "/api/users/profile",
           requestOptionsOne
         );
         const result = await response.json();
