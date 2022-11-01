@@ -15,6 +15,7 @@ function NavBar() {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   const [myTrees, setMyTrees] = useState();
+  const [change, setChange] = useState(false);
 
   const getProfile = async () => {
     const token = localStorage.getItem("token");
@@ -34,6 +35,9 @@ function NavBar() {
         const result = await response.json();
         // console.log("result", result);
         setMyTrees(result);
+        if (result) {
+          setChange(!change);
+        }
       } catch (error) {
         console.log("error getting user's profile", error);
       }
@@ -44,7 +48,8 @@ function NavBar() {
 
   useEffect(() => {
     getProfile();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [change]);
 
   // console.log("user", myTrees);
   // useEffect(() => {}, [logged]);

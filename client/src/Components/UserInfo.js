@@ -83,7 +83,7 @@ function UserInfo() {
           requestOptions
         );
         const results = await response.json();
-        console.log("results", results);
+        // console.log("results", results);
         if (results.msg === "name changed") {
           alert("name changed satisfactory");
         }
@@ -116,7 +116,7 @@ function UserInfo() {
           requestOptions
         );
         const results = await response.json();
-        console.log("results", results);
+        // console.log("results", results);
         if (results.msg === "User deleted successfully") {
           alert("Sad to see you go!");
           localStorage.removeItem("token");
@@ -136,7 +136,7 @@ function UserInfo() {
   const updatePicture = async (e) => {
     e.preventDefault();
     console.log("selectedfile", selectedFile);
-    console.log("user", user);
+    // console.log("user", user);
     let formdata = new FormData();
     formdata.append("image", selectedFile);
     formdata.append("_id", user._id);
@@ -152,7 +152,7 @@ function UserInfo() {
         requestOptions
       );
       const results = await response.json();
-      console.log("results", results);
+      // console.log("results", results);
     } catch (error) {
       console.log("error", error);
     }

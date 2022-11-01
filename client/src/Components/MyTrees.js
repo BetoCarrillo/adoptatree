@@ -12,6 +12,7 @@ function MyTrees() {
   const [myTrees, setMyTrees] = useState({});
   const [modifyPictureShown, setModifyPictureShown] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [change, setChange] = useState(false);
 
   const handleModifyPicture = (e) => {
     setModifyPictureShown((current) => !current);
@@ -20,8 +21,6 @@ function MyTrees() {
   const attachFileHandler = (e) => {
     setSelectedFile(e.target.files[0]);
   };
-
-  // console.log("user", user._id);
 
   const getProfile = async () => {
     const token = localStorage.getItem("token");
@@ -71,6 +70,9 @@ function MyTrees() {
           requestOptions
         );
         const results = await response.json();
+        if (results) {
+          setChange(!change);
+        }
 
         if (results.msg === "Tree deleted successfully") {
           alert("Tree given for adoption");
@@ -82,9 +84,10 @@ function MyTrees() {
   };
 
   const updatePicture = async (e, tree) => {
-    e.preventDefault();
-    console.log("selectedfile", selectedFile);
-    console.log("user", user);
+    // e.preventDefault();
+    console.log("works");
+    // console.log("selectedfile", selectedFile);
+    // console.log("user", user);
     let formdata = new FormData();
     formdata.append("images", selectedFile);
     formdata.append("_id", tree._id);
@@ -108,7 +111,7 @@ function MyTrees() {
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [change]);
 
   return (
     <div className="myTreesDiv">

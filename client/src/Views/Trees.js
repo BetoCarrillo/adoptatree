@@ -107,9 +107,10 @@ function Trees() {
           requestOptions
         );
         const results = await response.json();
-
+        setChange(!change);
         if (results.msg === "Tree deleted successfully") {
           alert("Tree given for adoption");
+          fetchTrees();
         }
       } catch (error) {
         console.log("error", error);

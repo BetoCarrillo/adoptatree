@@ -9,7 +9,7 @@ import Modal from "react-bootstrap/Modal";
 import { baseURL } from "../utils/getServerUrl";
 
 function Profile() {
-  console.log("baseURL", baseURL);
+  // console.log("baseURL", baseURL);
   const [selectedFile, setSelectedFile] = useState(null);
   const [newTree, setNewTree] = useState({});
   const redirectProfile = useNavigate();
@@ -31,9 +31,9 @@ function Profile() {
   const submitForm = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    console.log("selectedFile", selectedFile);
+    // console.log("selectedFile", selectedFile);
     formData.append("images", selectedFile);
-    console.log("formData :>> ", formData);
+    // console.log("formData :>> ", formData);
 
     const requestOptions = {
       method: "POST",
@@ -47,13 +47,13 @@ function Profile() {
         requestOptions
       );
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setNewTree({ ...newTree, img: result.imageUrl });
     } catch (error) {}
   };
 
   const adopt = async () => {
-    console.log("userID", user._id);
+    // console.log("userID", user._id);
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -89,7 +89,7 @@ function Profile() {
       if (results.msg === "Tree adopted successfully") {
         redirectTrees("/trees");
       }
-      console.log("results", results);
+      // console.log("results", results);
     } catch (error) {
       console.log("error fetching", error);
     }

@@ -257,7 +257,7 @@ const removeTree = async (req, res) => {
     console.log("requestedIdTree", requestedIdTree);
     if (requestedIdTree) {
       const remove = await treeModel.deleteOne(requestedIdTree);
-      console.log("remove????", remove);
+      // console.log("remove????", remove);
       res.status(201).json({
         msg: "Tree deleted successfully",
       });
