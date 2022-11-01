@@ -207,7 +207,7 @@ function Trees() {
                             </Carousel.Item>
                           ))}{" "}
                       </Carousel>
-                      <Card.Text>
+                      <div>
                         <div className="cardTitleText">
                           <div>
                             {" "}
@@ -392,7 +392,7 @@ function Trees() {
                         ) : (
                           ""
                         )}
-                      </Card.Text>
+                      </div>
 
                       {tree.user[0].email !== user.email ? (
                         ""

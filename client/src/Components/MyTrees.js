@@ -128,10 +128,9 @@ function MyTrees() {
                 ))}{" "}
             </Carousel>
             <Card.Body>
-              <Card.Text className="myTreesCardTextDiv">
+              <div className="myTreesCardTextDiv">
                 <div className="myTreesCardText">
                   <div className="myTreesCardName">{tree.name}</div>
-
                   <div className="myTreesdeleteTreeButtonDiv">
                     <Button
                       className="myTreesdeleteTreeButton"
@@ -182,7 +181,7 @@ function MyTrees() {
                 ) : (
                   <div></div>
                 )}
-              </Card.Text>
+              </div>
             </Card.Body>
           </Card>
         ))}
