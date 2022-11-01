@@ -1,22 +1,11 @@
 import { Button } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 
 function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
-  // const inputRef = useRef();
-  // const handleEnter = (e) => {
-  //   if (e.key === "Enter") {
-  //     fetchDataSearch(e);
-  //   }
-  // };
-
   const handleSearch = (e) => {
     console.log(e.target.value);
     fetchDataSearch(e);
   };
-
-  // useEffect(() => {
-  //   // inputRef.current.focus();
-  // }, []);
 
   return (
     <div className="searchBarDiv">

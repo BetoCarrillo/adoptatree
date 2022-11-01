@@ -9,29 +9,28 @@ import Register from "./Views/Register";
 import Trees from "./Views/Trees";
 import Adopt from "./Components/Adopt.js";
 import NaN from "./Views/NaN";
-import getToken from "./utils/getToken.js";
-import { useState } from "react";
+// import getToken from "./utils/getToken.js";
+// import { useState } from "react";
 import { AuthContextProvider } from "./Context/AuthContext";
 import ProtectedRoute from "./Components/ProtectedRoute.js";
 import Profiles from "./Views/Profiles";
-
 import { TreeContextProvider } from "./Context/TreeContext";
-import Favorites from "./Views/Favorites";
+// import Favorites from "./Views/Favorites";
 
 function App() {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
-  const isUserLoggedIn = () => {
-    const token = getToken();
-    if (token) {
-      setUser(true);
-      console.log("user is logged in");
-    }
-    if (!token) {
-      console.log("user is NOT logged in");
-      setUser(false);
-    }
-  };
+  // const isUserLoggedIn = () => {
+  //   const token = getToken();
+  //   if (token) {
+  //     setUser(true);
+  //     console.log("user is logged in");
+  //   }
+  //   if (!token) {
+  //     console.log("user is NOT logged in");
+  //     setUser(false);
+  //   }
+  // };
 
   return (
     <div className="App">
@@ -49,7 +48,7 @@ function App() {
               <Route path="/profiles" element={<Profiles />} />
               <Route path="/register" element={<Register />} />
               <Route path="/about" element={<About />} />
-              <Route path="/favorites" element={<Favorites />} />
+              {/* <Route path="/favorites" element={<Favorites />} /> */}
               <Route
                 path="/profile"
                 element={

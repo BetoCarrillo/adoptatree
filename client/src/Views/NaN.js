@@ -1,7 +1,7 @@
 import React from "react";
 import desert from "../styles/images/desert.png";
 
-function NaN() {
+function noTrees() {
   return (
     <div>
       <div className="desertTitle">
@@ -20,4 +20,4 @@ function NaN() {
   );
 }
 
-export default NaN;
+export default noTrees;

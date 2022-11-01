@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/profile.css";
 import { baseURL } from "../utils/getServerUrl";
 
 function UsersProfileInfo() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [usersInfo, setUsersInfo] = useState(null);
 
   const fetchDataUserSearch = async (e) => {
@@ -29,10 +27,8 @@ function UsersProfileInfo() {
       const result = await response.json();
       console.log("result", result);
       setUsersInfo(result);
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
-      setError(error);
+      console.log("error", error);
     }
   };
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { baseURL } from "../utils/getServerUrl";
 import { AuthContext } from "./AuthContext";
 
@@ -7,108 +7,36 @@ export const TreeContext = createContext();
 export const TreeContextProvider = (props) => {
   // console.log("%ctrees context run", "color:red");
   const [trees, setTrees] = useState({});
-  const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState({});
   const [newComment, setNewComment] = useState("");
-  const { user, setUser } = useContext(AuthContext);
-  // const [changeLike, setChangeLike] = useState(false);
-  // const [like, setLike] = useState(false);
-  // const [checklike, setCheckLike] = useState(false);
-  const [foo, setFoo] = useState(false);
-  // const [liked, setLiked] = useState(false);
-  // const [myTrees, setMyTrees] = useState();
-
-  // const fetchTrees = async () => {
-  //   try {
-  //     const response = await fetch(`http://localhost:5005/api/trees/all/`);
-  //     const result = await response.json();
-  //     console.log("result", result);
-  //     // setLoading(false);
-  //     setTrees(result);
-  //   } catch (error) {
-  //     // setLoading(false);
-  //     setError(error);
-  //   }
-  // };
-  // const likes = async (e, tree) => {
-  //   console.log("run like funct", like);
-  //   let myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  //   var urlencoded = new URLSearchParams();
-  //   urlencoded.append("user_id", user._id);
-  //   urlencoded.append("tree_id", tree._id);
-
-  //   var requestOptions = {
-  //     method: "PUT",
-  //     headers: myHeaders,
-  //     body: urlencoded,
-  //   };
-  //   try {
-  //     const response = await fetch(
-  //       baseURL + "/api/users/likes",
-  //       requestOptions
-  //     );
-  //     const results = await response.json();
-  //     console.log("results liked", results);
-  //     setLike(true);
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
-
-  // const unlikes = async (e, tree) => {
-  //   console.log("run unlike funct", like);
-  //   let myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-  //   var urlencoded = new URLSearchParams();
-  //   urlencoded.append("user_id", user._id);
-  //   urlencoded.append("tree_id", tree._id);
-
-  //   var requestOptions = {
-  //     method: "PUT",
-  //     headers: myHeaders,
-  //     body: urlencoded,
-  //   };
-  //   try {
-  //     const response = await fetch(
-  //       baseURL + "/api/users/unlikes",
-  //       requestOptions
-  //     );
-  //     const results = await response.json();
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // };
+  const { user } = useContext(AuthContext);
 
   const handleChangeHandler = (e) => {
     setNewComment(e.target.value);
   };
 
-  const comments = async (e, tree) => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  // const comments = async (e, tree) => {
+  //   let myHeaders = new Headers();
+  //   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("comment", newComment);
+  //   var urlencoded = new URLSearchParams();
+  //   urlencoded.append("comment", newComment);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
+  //   var requestOptions = {
+  //     method: "PUT",
+  //     headers: myHeaders,
+  //     body: urlencoded,
+  //   };
 
-    try {
-      const response = await fetch(
-        baseURL + "/api/trees/comments",
-        requestOptions
-      );
-      const results = await response.json();
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  //   try {
+  //     const response = await fetch(
+  //       baseURL + "/api/trees/comments",
+  //       requestOptions
+  //     );
+  //     const results = await response.json();
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
   const removeTree = async (e, tree) => {
     let myHeaders = new Headers();
@@ -145,37 +73,6 @@ export const TreeContextProvider = (props) => {
     }
   };
 
-  // const getProfile = async () => {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     const myHeaders = new Headers();
-  //     myHeaders.append("Authorization", `Bearer ${token}`);
-
-  //     const requestOptionsOne = {
-  //
-  //       headers: myHeaders,
-  //     };
-  //     try {
-  //       const response = await fetch(
-  //         baseURL + "/api/users/profile",
-  //         requestOptionsOne
-  //       );
-  //       const result = await response.json();
-  //       console.log("result", result.creater);
-  //       setMyTrees(result.createdTrees);
-  //     } catch (error) {
-  //       console.log("error getting user's profile", error);
-  //     }
-  //   } else {
-  //     console.log("no token for this user");
-  //   }
-  // };
-
-  // const functionChangeLikes = () => {
-  //   setLike(!like);
-  //   console.log("functionChangeLikes", like);
-  // };
-
   // const checkIfLiked = () => {
   //   trees &&
   //     trees.allTrees.map((tree, i) => {
@@ -195,39 +92,16 @@ export const TreeContextProvider = (props) => {
   //     });
   // };
 
-  useEffect(() => {
-    // console.log("treecontext refresh");
-    // changeLike();
-  }, [foo]);
-
   return (
     <TreeContext.Provider
       value={{
         trees,
         setTrees,
-        // fetchTrees,
         removeTree,
         newComment,
         setNewComment,
-        comments,
+        // comments,
         handleChangeHandler,
-        // setLoading,
-        // like,
-        // setLike,
-        // likes,
-        // unlikes,
-        // setLiked,
-        // liked,
-        // setChangeLike,
-        // changeLike,
-        // functionChangeLikes,
-        // checkIfLiked,
-        // setCheckLike,
-        // checklike,
-        setFoo,
-        foo,
-        // setMyTrees,
-        // myTrees,
       }}
     >
       {props.children}

@@ -9,8 +9,7 @@ import { baseURL } from "../utils/getServerUrl";
 function Login() {
   // console.log("first");
   const [userLogin, setuserLogin] = useState({});
-  const { user, setUser, logged, setLogged, checkUserStatus } =
-    useContext(AuthContext);
+  const { logged, setLogged, checkUserStatus } = useContext(AuthContext);
   const redirectLogin = useNavigate();
   const [passwordChange, setPasswordChange] = useState("password");
 

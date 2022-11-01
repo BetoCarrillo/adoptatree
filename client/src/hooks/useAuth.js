@@ -5,10 +5,7 @@ function useAuth() {
 
   const isLoggedIn = async (req, res) => {
     let myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzNjMjBiYWU1YWJjYmMzZTIyYTAwYjUiLCJpYXQiOjE2NjU3NTg2ODQsImV4cCI6MTY2NjM2MzQ4NH0.8cY2kLlAX5mEU7BJrkzOC8jtrnatCAyMbxQfEDlsWGw"
-    );
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     var requestOptions = {
       headers: myHeaders,

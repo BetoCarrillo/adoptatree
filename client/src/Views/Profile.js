@@ -1,14 +1,13 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import UserInfo from "../Components/UserInfo";
 
-import { NavLink, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 import UsersProfileInfo from "../Components/UsersProfileInfo";
-import UserTrees from "../Components/UserTrees";
+
 import { Button } from "@mui/material";
 
 function Profile() {
-  const { user } = useContext(AuthContext);
   const redirectAdopt = useNavigate();
 
   const handleRedirect = () => {
@@ -19,7 +18,6 @@ function Profile() {
     <div>
       <UserInfo />
       <UsersProfileInfo />
-      <UserTrees />
 
       <div className="adoptButtonDiv">
         <Button

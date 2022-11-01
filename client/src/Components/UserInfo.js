@@ -6,11 +6,10 @@ import "../styles/profile.css";
 import { baseURL } from "../utils/getServerUrl";
 
 function UserInfo() {
-  const [error, setError] = useState(null);
   const [isShown, setIsShown] = useState(false);
   const [modifyNameShown, setModifyNameShown] = useState(false);
-  const [modifyEmailShown, setModifyEmailShown] = useState(false);
-  const { user, logged, setLogged } = useContext(AuthContext);
+  // const [modifyEmailShown, setModifyEmailShown] = useState(false);
+  const { user, setLogged } = useContext(AuthContext);
   const redirectLogin = useNavigate();
   const [newInfo, setNewInfo] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -27,9 +26,9 @@ function UserInfo() {
     setModifyNameShown((current) => !current);
   };
 
-  const handleModifyEmail = (e) => {
-    setModifyEmailShown((current) => !current);
-  };
+  // const handleModifyEmail = (e) => {
+  //   setModifyEmailShown((current) => !current);
+  // };
 
   // const changeEmail = async (e) => {
   //   let myHeaders = new Headers();

@@ -11,12 +11,11 @@ import { baseURL } from "../utils/getServerUrl";
 
 function Trees() {
   // console.log("%cComponent run", "color:red");
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { trees, setTrees, newComment, setNewComment } =
     useContext(TreeContext);
   const [commentDivShown, setCommentDivShown] = useState(false);
   const [commentInputShown, setCommentInputShown] = useState(false);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
   const [change, setChange] = useState(true);
@@ -30,12 +29,11 @@ function Trees() {
         signal,
       });
       const result = await response.json();
-      // console.log("result", result);
       setLoading(false);
       setTrees(result);
     } catch (error) {
       setLoading(false);
-      setError(error);
+      console.log("error", error);
     }
   };
 
@@ -178,11 +176,8 @@ function Trees() {
   };
 
   useEffect(() => {
-    // console.log("useEffect trees refresh");
     fetchTrees();
-    // return () => {
-    //   controller.abort();
-    // };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [liked, change]);
 
   return (
@@ -190,7 +185,6 @@ function Trees() {
       <br />
       <SearchBar fetchDataSearch={fetchDataSearch} />
       <br />
-
       <br />
       <div className="treesDiv">
         {!loading ? (
@@ -240,7 +234,6 @@ function Trees() {
                                 className="material-symbols-outlined liked"
                                 onClick={(e) => {
                                   setLiked(!liked);
-
                                   likes(e, tree);
                                   console.log(
                                     "LIKE tree.likes.length",
@@ -292,7 +285,6 @@ function Trees() {
                                 type=""
                                 onClick={(e) => {
                                   comments(e, tree);
-
                                   setChange(!change);
                                 }}
                               >

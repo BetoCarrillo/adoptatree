@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { baseURL } from "../utils/getServerUrl.js";
 import getToken from "../utils/getToken.js";
-import { TreeContext } from "./TreeContext.js";
 
 export const AuthContext = createContext();
 
@@ -9,9 +8,6 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
   const [logged, setLogged] = useState(null);
-  // const [like, setLike] = useState(false);
-  // const [foo, setFoo] = useState(false);
-
   const [loading, setLoading] = useState({});
 
   const checkUserStatus = () => {
@@ -42,26 +38,21 @@ export const AuthContextProvider = (props) => {
           requestOptionsOne
         );
         const result = await response.json();
-        // console.log(result);
+
         setUser({
           _id: result.id,
           userName: result.userName,
           email: result.email,
           avatarPicture: result.avatarPicture,
         });
-
-        /// Aqui se pierde el result. except email
       } catch (error) {
         console.log("error getting user's profile", error);
       }
     } else {
       setError(true);
-      // console.log("no token for this user");
     }
   };
-  // const changeLike = () => {
-  //   setFoo(!like);
-  // };
+
   useEffect(() => {
     checkUserStatus();
     getToken();
