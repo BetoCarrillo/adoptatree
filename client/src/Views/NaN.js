@@ -8,9 +8,9 @@ function NaN() {
         <div className="noTreesText">Ups!.. No trees to adopt in here.</div>{" "}
         <br />
         <div className="protectionClimate">
-          <span class="material-symbols-outlined">public</span> Let's take
+          <span className="material-symbols-outlined">public</span> Let's take
           action for climate protection!{" "}
-          <span class="material-symbols-outlined">public</span>
+          <span className="material-symbols-outlined">public</span>
         </div>{" "}
       </div>
       <div>

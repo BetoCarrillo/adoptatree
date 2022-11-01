@@ -137,7 +137,7 @@ function Register() {
       <div className="register">
         <div className="registerDiv">
           <span
-            class="material-symbols-outlined backButton "
+            className="material-symbols-outlined backButton "
             onClick={handleClose}
           >
             arrow_back
@@ -198,7 +198,9 @@ function Register() {
                     visibility
                   </span>
                 ) : (
-                  <span class="material-symbols-outlined">visibility_off</span>
+                  <span className="material-symbols-outlined">
+                    visibility_off
+                  </span>
                 )}
               </span>
             </div>
@@ -217,7 +219,7 @@ function Register() {
                   type=""
                   onClick={submitForm}
                 >
-                  <span class="material-symbols-outlined">upload</span>
+                  <span className="material-symbols-outlined">upload</span>
                 </Button>
               </form>
             </div>

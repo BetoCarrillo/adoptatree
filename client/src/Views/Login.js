@@ -114,7 +114,7 @@ function Login() {
                       visibility
                     </span>
                   ) : (
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                       visibility_off
                     </span>
                   )}

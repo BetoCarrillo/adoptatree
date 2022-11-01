@@ -30,7 +30,7 @@ function ModalHome() {
             </a>{" "}
           </span>
           so you can share it with your friends for some{" "}
-          <span class="material-symbols-outlined goldenStar navbarTree">
+          <span className="material-symbols-outlined goldenStar navbarTree">
             star
           </span>
           ! <br /> <br />

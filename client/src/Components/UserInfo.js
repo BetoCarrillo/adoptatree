@@ -212,7 +212,7 @@ function UserInfo() {
                       </span>{" "}
                       {user.userName}{" "}
                       <span
-                        class="material-symbols-outlined editProfileLogo"
+                        className="material-symbols-outlined editProfileLogo"
                         onClick={handleModifyName}
                       >
                         edit
@@ -282,7 +282,9 @@ function UserInfo() {
                         type=""
                         onClick={updatePicture}
                       >
-                        <span class="material-symbols-outlined">upload</span>
+                        <span className="material-symbols-outlined">
+                          upload
+                        </span>
                       </Button>{" "}
                     </form>
                     <div>
@@ -292,7 +294,7 @@ function UserInfo() {
                         type=""
                         onClick={(e) => removeProfile(e)}
                       >
-                        <span class="material-symbols-outlined deleteProfileButton">
+                        <span className="material-symbols-outlined deleteProfileButton">
                           delete
                         </span>
                       </Button>

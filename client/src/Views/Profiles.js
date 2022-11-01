@@ -22,12 +22,12 @@ function Profiles() {
         {" "}
         <a className="usersEmailLink" href={`mailto:${user.email}`}>
           {" "}
-          <span class="material-symbols-outlined">mail</span>
+          <span className="material-symbols-outlined">mail</span>
         </a>
         <br /> <br />
       </div>
       <br /> <br /> <br /> <br />
-      <span class="material-symbols-outlined">park</span>
+      <span className="material-symbols-outlined">park</span>
       <span className="material-symbols-outlined usersTreesTitle">
         {" "}
         {user.userName !== undefined ? (

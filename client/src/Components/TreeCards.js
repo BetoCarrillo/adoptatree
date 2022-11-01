@@ -71,7 +71,7 @@ function TreeCards() {
                           ""
                         )}
                         <span
-                          class="material-symbols-outlined liked"
+                          className="material-symbols-outlined liked"
                           onClick={(e) => {
                             likes(e, tree);
                             // functionChangeLikes();
@@ -80,7 +80,7 @@ function TreeCards() {
                           favorite
                         </span>
                         <span
-                          class="material-symbols-outlined unliked"
+                          className="material-symbols-outlined unliked"
                           onClick={(e) => {
                             unlikes(e, tree);
                             // functionChangeLikes();

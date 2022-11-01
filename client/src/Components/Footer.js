@@ -23,7 +23,7 @@ function Footer() {
           <span className="material-symbols-outlined homeLogo">home</span>
         </NavLink>
         {/* <NavLink className="navbarLink" to="/search">
-              <span class="material-symbols-outlined">search</span>
+              <span className="material-symbols-outlined">search</span>
             </NavLink> */}
         <NavLink className="navbarLink" to="/trees">
           <span className="material-symbols-outlined treesLogo">forest</span>

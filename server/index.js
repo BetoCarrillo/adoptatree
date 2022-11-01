@@ -20,10 +20,21 @@ const addMiddlewares = () => {
       extended: true,
     })
   );
+
+  const allowedOrigins = [
+    "https://adoptatree2-mkdsojsl5-betocarrillo.vercel.app",
+    "http://localhost:3000",
+  ];
   const corsOptions = {
-    origin: "http://localhost:3000",
-    credentials: true,
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
   };
+
   app.use(cors(corsOptions));
   cloudinaryConfig();
   app.use(passport.initialize());

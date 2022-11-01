@@ -12,9 +12,6 @@ function Profile() {
   console.log("baseURL", baseURL);
   const [selectedFile, setSelectedFile] = useState(null);
   const [newTree, setNewTree] = useState({});
-
-  const [Id, setId] = useState({});
-  const [error, setError] = useState(null);
   const redirectProfile = useNavigate();
   const redirectTrees = useNavigate();
   const { user } = useContext(AuthContext);
@@ -53,33 +50,6 @@ function Profile() {
       console.log("result", result);
       setNewTree({ ...newTree, img: result.imageUrl });
     } catch (error) {}
-  };
-
-  const getToken = async () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const myHeaders = new Headers();
-      myHeaders.append("Authorization", `Bearer ${token}`);
-
-      const requestOptionsOne = {
-        headers: myHeaders,
-      };
-      try {
-        const response = await fetch(
-          baseURL + "/api/users/profile",
-          requestOptionsOne
-        );
-        const result = await response.json();
-        console.log("result", result.id);
-        setId(result.id);
-        return Id;
-      } catch (error) {
-        console.log("error getting user's profile", error);
-      }
-    } else {
-      setError(true);
-      console.log("no token for this user");
-    }
   };
 
   const adopt = async () => {
@@ -254,7 +224,7 @@ function Profile() {
                   type=""
                   onClick={submitForm}
                 >
-                  <span class="material-symbols-outlined">upload</span>
+                  <span className="material-symbols-outlined">upload</span>
                 </Button>
               </form>
             </div>

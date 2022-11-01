@@ -204,7 +204,7 @@ function Trees() {
                       <Carousel variant="dark" interval={null}>
                         {tree &&
                           tree.img.map((image, i) => (
-                            <Carousel.Item>
+                            <Carousel.Item key={i}>
                               <img
                                 className="d-block w-100 cardImg"
                                 src={tree.img[i]}
@@ -217,7 +217,7 @@ function Trees() {
                         <div className="cardTitleText">
                           <div>
                             {" "}
-                            <span class="material-symbols-outlined parentLogo">
+                            <span className="material-symbols-outlined parentLogo">
                               local_florist
                             </span>
                             {tree.user[0].name ? (
@@ -237,7 +237,7 @@ function Trees() {
                             </span>
                             {tree.likes.includes(user._id) ? (
                               <span
-                                class="material-symbols-outlined liked"
+                                className="material-symbols-outlined liked"
                                 onClick={(e) => {
                                   setLiked(!liked);
 
@@ -252,7 +252,7 @@ function Trees() {
                               </span>
                             ) : (
                               <span
-                                class="material-symbols-outlined unliked"
+                                className="material-symbols-outlined unliked"
                                 onClick={(e) => {
                                   setLiked(!liked);
                                   likes(e, tree);
@@ -267,7 +267,7 @@ function Trees() {
                             )}{" "}
                             &nbsp;{" "}
                             <span
-                              class="material-symbols-outlined commentAddLogo"
+                              className="material-symbols-outlined commentAddLogo"
                               onClick={handleClick}
                             >
                               maps_ugc
@@ -296,7 +296,7 @@ function Trees() {
                                   setChange(!change);
                                 }}
                               >
-                                <span class="material-symbols-outlined">
+                                <span className="material-symbols-outlined">
                                   add
                                 </span>
                               </Button>
@@ -309,7 +309,7 @@ function Trees() {
                           <Accordion.Item eventKey="0">
                             <Accordion.Header>
                               {" "}
-                              <span class="material-symbols-outlined">
+                              <span className="material-symbols-outlined">
                                 park
                               </span>
                               &nbsp;{" "}
@@ -412,7 +412,7 @@ function Trees() {
                             type=""
                             onClick={(e) => removeTree(e, tree)}
                           >
-                            <span class="material-symbols-outlined deleteTreeButton">
+                            <span className="material-symbols-outlined deleteTreeButton">
                               delete
                             </span>
                           </Button>
@@ -426,16 +426,18 @@ function Trees() {
           })
         ) : (
           <div className="loadingDiv">
-            ...<span class="material-symbols-outlined loadingTree">park</span>
-            <span class="material-symbols-outlined loadingTree">park</span>
+            ...
+            <span className="material-symbols-outlined loadingTree">park</span>
+            <span className="material-symbols-outlined loadingTree">park</span>
             loading
-            <span class="material-symbols-outlined loadingTree">park</span>
-            <span class="material-symbols-outlined loadingTree">park</span>...
+            <span className="material-symbols-outlined loadingTree">park</span>
+            <span className="material-symbols-outlined loadingTree">park</span>
+            ...
           </div>
         )}
       </div>
     </div>
   );
 }
-<span class="material-symbols-outlined">park</span>;
+<span className="material-symbols-outlined">park</span>;
 export default Trees;

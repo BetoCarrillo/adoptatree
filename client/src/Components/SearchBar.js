@@ -20,10 +20,10 @@ function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
 
   return (
     <div className="searchBarDiv">
-      <Button className="searchBarLabel" for="searchbar">
+      <Button className="searchBarLabel">
         {" "}
         &nbsp; &nbsp;
-        <span class="material-symbols-outlined">search</span> &nbsp; &nbsp;
+        <span className="material-symbols-outlined">search</span> &nbsp; &nbsp;
       </Button>
       <input
         className="searchBarInput"

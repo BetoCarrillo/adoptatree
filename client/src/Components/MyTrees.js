@@ -118,7 +118,7 @@ function MyTrees() {
             <Carousel variant="dark" interval={null}>
               {tree &&
                 tree.img.map((image, i) => (
-                  <Carousel.Item>
+                  <Carousel.Item key={i}>
                     <img
                       className="d-block w-100 myTreescardImg"
                       src={tree.img[i]}
@@ -139,7 +139,7 @@ function MyTrees() {
                       type=""
                       onClick={handleModifyPicture}
                     >
-                      <span class="material-symbols-outlined">
+                      <span className="material-symbols-outlined">
                         photo_camera
                       </span>
                     </Button>
@@ -151,7 +151,7 @@ function MyTrees() {
                       type=""
                       onClick={(e) => removeTree(e, tree)}
                     >
-                      <span class="material-symbols-outlined myTreesdeleteTreeButton">
+                      <span className="material-symbols-outlined myTreesdeleteTreeButton">
                         delete
                       </span>
                     </Button>
@@ -173,7 +173,7 @@ function MyTrees() {
                           updatePicture(e, tree);
                         }}
                       >
-                        <span class="material-symbols-outlined myTreesdeleteTreeButton">
+                        <span className="material-symbols-outlined myTreesdeleteTreeButton">
                           upload
                         </span>
                       </Button>

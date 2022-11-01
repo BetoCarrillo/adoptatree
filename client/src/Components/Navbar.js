@@ -54,7 +54,7 @@ function NavBar() {
       <div className="navbarDiv">
         <NavLink className="navbarLogo" to="/home">
           ADOPT{" "}
-          <span class="material-symbols-outlined treeLogoNavbar animation">
+          <span className="material-symbols-outlined treeLogoNavbar animation">
             park
           </span>
           TREE<span className="colorGreen">:</span>
@@ -94,9 +94,7 @@ function NavBar() {
                 href="https://github.com/BetoCarrillo"
                 target={"_blank"}
               >
-                <div>
-                  <img src={github} alt="" className="gitHubLogoDiv"></img>
-                </div>
+                <img src={github} alt="" className="gitHubLogoDiv"></img>
               </a>
             </div>
             <div className="LinkLogo">
@@ -105,9 +103,7 @@ function NavBar() {
                 href="https://www.linkedin.com/in/alberto-carrillo-ch/"
                 target={"_blank"}
               >
-                <div>
-                  <img src={linkedin} alt="" className="linkLogoDiv"></img>
-                </div>
+                <img src={linkedin} alt="" className="linkLogoDiv"></img>
               </a>
             </div>
             <div className="mailDiv">
