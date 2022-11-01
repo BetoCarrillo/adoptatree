@@ -84,8 +84,8 @@ function MyTrees() {
   };
 
   const updatePicture = async (e, tree) => {
-    // e.preventDefault();
-    console.log("works");
+    e.preventDefault();
+    console.log("works", tree);
     // console.log("selectedfile", selectedFile);
     // console.log("user", user);
     let formdata = new FormData();
@@ -104,6 +104,9 @@ function MyTrees() {
       );
       const results = await response.json();
       console.log("results", results);
+      if (results) {
+        setChange(!change);
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -111,6 +114,7 @@ function MyTrees() {
 
   useEffect(() => {
     getProfile();
+    console.log("mytrees use effect run");
   }, [change]);
 
   return (
@@ -167,6 +171,7 @@ function MyTrees() {
                         type="file"
                         onChange={attachFileHandler}
                       />
+
                       <Button
                         className="myTreesdeleteTreeButton"
                         color="success"

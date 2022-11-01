@@ -29,7 +29,6 @@ const uploadMoreTreePicture = async (req, res) => {
     });
     console.log("uploadResult>>>>", uploadResult);
     if (uploadResult) {
-      console.log("IF UPLOADHERE IT GETS");
       try {
         const treePhoto = await treeModel.findByIdAndUpdate(
           req.body._id,
@@ -43,6 +42,7 @@ const uploadMoreTreePicture = async (req, res) => {
         res.status(200).json({
           msg: "new picture saved",
           images: treePhoto.img,
+          tree: treePhoto,
         });
       } catch (error) {
         res
@@ -240,7 +240,7 @@ const comment = async (req, res) => {
 
         { returnOriginal: false }
       );
-      res.status(200).json({ message: "commented", treeComment });
+      res.status(200).json({ message: "like added", treeComment });
       // console.log("treecomment????", treeComment);
     } catch (error) {
       res.status(409).json({ message: "error while commenting", error: error });
@@ -257,7 +257,7 @@ const removeTree = async (req, res) => {
     console.log("requestedIdTree", requestedIdTree);
     if (requestedIdTree) {
       const remove = await treeModel.deleteOne(requestedIdTree);
-      // console.log("remove????", remove);
+      console.log("remove????", remove);
       res.status(201).json({
         msg: "Tree deleted successfully",
       });

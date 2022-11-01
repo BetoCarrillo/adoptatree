@@ -6,7 +6,7 @@ export const TreeContext = createContext();
 
 export const TreeContextProvider = (props) => {
   // console.log("%ctrees context run", "color:red");
-  const [trees, setTrees] = useState({});
+  const [trees, setTrees] = useState([]);
   const [newComment, setNewComment] = useState("");
   const { user } = useContext(AuthContext);
 

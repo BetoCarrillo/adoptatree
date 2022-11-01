@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import "../styles/profile.css";
@@ -9,10 +9,11 @@ function UserInfo() {
   const [isShown, setIsShown] = useState(false);
   const [modifyNameShown, setModifyNameShown] = useState(false);
   // const [modifyEmailShown, setModifyEmailShown] = useState(false);
-  const { user, setLogged } = useContext(AuthContext);
+  const { setUser, user, setLogged } = useContext(AuthContext);
   const redirectLogin = useNavigate();
   const [newInfo, setNewInfo] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const [change, setChange] = useState(false);
 
   const handleChangeHandler = (e) => {
     setNewInfo(e.target.value);
@@ -86,6 +87,7 @@ function UserInfo() {
         // console.log("results", results);
         if (results.msg === "name changed") {
           alert("name changed satisfactory");
+          setUser(results.changeUserName);
         }
       } catch (error) {
         console.log("error", error);
@@ -152,11 +154,18 @@ function UserInfo() {
         requestOptions
       );
       const results = await response.json();
-      // console.log("results", results);
+      if (results) {
+        setUser(results.user);
+      }
+      console.log("results", results);
     } catch (error) {
       console.log("error", error);
     }
   };
+
+  useEffect(() => {
+    console.log("use effect run user info");
+  }, [change]);
 
   return (
     <div>

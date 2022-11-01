@@ -58,9 +58,9 @@ function Register() {
   const submitForm = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    console.log("selectedFile", selectedFile);
+    // console.log("selectedFile", selectedFile);
     formData.append("image", selectedFile);
-    console.log("formData :>> ", formData);
+    // console.log("formData :>> ", formData);
     var requestOptions = {
       method: "POST",
       body: formData,
@@ -72,7 +72,7 @@ function Register() {
         requestOptions
       );
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       setNewUser({ ...newUser, avatarPicture: result.imageUrl });
     } catch (error) {}
   };
@@ -104,7 +104,7 @@ function Register() {
           requestOptions
         );
         const results = await response.json();
-        console.log("results", results);
+        // console.log("results", results);
         const token = results.token;
 
         if (token) {

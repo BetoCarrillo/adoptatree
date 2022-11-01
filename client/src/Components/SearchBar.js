@@ -3,7 +3,7 @@ import React from "react";
 
 function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
   const handleSearch = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     fetchDataSearch(e);
   };
 

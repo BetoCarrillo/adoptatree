@@ -12,6 +12,7 @@ import { baseURL } from "../utils/getServerUrl";
 function Trees() {
   // console.log("%cComponent run", "color:red");
   const { user } = useContext(AuthContext);
+
   const { trees, setTrees, newComment, setNewComment } =
     useContext(TreeContext);
   const [commentDivShown, setCommentDivShown] = useState(false);
@@ -20,19 +21,14 @@ function Trees() {
   const [liked, setLiked] = useState(false);
   const [change, setChange] = useState(false);
 
-  const controller = new AbortController();
-
   const fetchTrees = async () => {
-    console.log("fetchTrees run");
-    const signal = controller.signal;
     try {
-      const response = await fetch(baseURL + `/api/trees/all/`, {
-        signal,
-      });
+      const response = await fetch(baseURL + `/api/trees/all/`, {});
       const result = await response.json();
-      console.log("result", result);
+      const mytrees = result.allTrees;
+      setTrees(result.allTrees);
+
       setLoading(false);
-      setTrees(result);
     } catch (error) {
       setLoading(false);
       console.log("error", error);
@@ -52,33 +48,38 @@ function Trees() {
   };
 
   const comments = async (e, tree) => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    const token = localStorage.getItem("token");
+    if (token) {
+      let myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("tree_id", tree._id);
-    urlencoded.append("comment", newComment);
-    urlencoded.append("user_id", user._id);
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("tree_id", tree._id);
+      urlencoded.append("comment", newComment);
+      urlencoded.append("user_id", user._id);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
+      var requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: urlencoded,
+      };
 
-    try {
-      const response = await fetch(
-        baseURL + "/api/trees/comments",
-        requestOptions
-      );
-      const results = await response.json();
-      console.log("comment results", results);
-      fetchTrees();
-      if (results) {
-        setChange(!change);
+      try {
+        const response = await fetch(
+          baseURL + "/api/trees/comments",
+          requestOptions
+        );
+        const results = await response.json();
+
+        fetchTrees();
+        if (results) {
+          setChange(!change);
+        }
+      } catch (error) {
+        console.log("error", error);
       }
-    } catch (error) {
-      console.log("error", error);
+    } else {
+      alert("please login to comment");
     }
   };
 
@@ -136,8 +137,7 @@ function Trees() {
       try {
         const response = await fetch(baseURL + `/api/trees/all/`);
         const result = await response.json();
-        console.log("result", result);
-        setTrees(result);
+        setTrees(result.allTrees);
       } catch (error) {}
     } else {
       try {
@@ -147,7 +147,7 @@ function Trees() {
         );
         const results = await response.json();
         console.log("result", results);
-        setTrees(results);
+        setTrees(results.allTrees);
       } catch (error) {
         console.log("error", error);
       }
@@ -155,36 +155,40 @@ function Trees() {
   };
 
   const likes = async (e, tree) => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    const token = localStorage.getItem("token");
+    if (token) {
+      let myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("user_id", user._id);
-    urlencoded.append("tree_id", tree._id);
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("user_id", user._id);
+      urlencoded.append("tree_id", tree._id);
 
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: urlencoded,
-    };
-    try {
-      const response = await fetch(
-        baseURL + "/api/users/likes",
-        requestOptions
-      );
-      const results = await response.json();
-      console.log("results liked", results);
-      fetchTrees();
-      if (results) {
-        setLiked(true);
+      var requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: urlencoded,
+      };
+      try {
+        const response = await fetch(
+          baseURL + "/api/users/likes",
+          requestOptions
+        );
+        const results = await response.json();
+        console.log("results liked", results);
+        fetchTrees();
+        if (results) {
+          setLiked(true);
+        }
+      } catch (error) {
+        console.log("error", error);
       }
-    } catch (error) {
-      console.log("error", error);
+    } else {
+      alert("Please login to like");
     }
   };
 
   useEffect(() => {
-    console.log("trees use effect run");
     fetchTrees();
   }, [liked]);
 
@@ -197,7 +201,7 @@ function Trees() {
       <div className="treesDiv">
         {!loading ? (
           trees &&
-          trees.allTrees.map((tree, i) => {
+          trees?.map((tree, i) => {
             return (
               <div key={i}>
                 <div className="cardsDiv">
@@ -222,8 +226,8 @@ function Trees() {
                             <span className="material-symbols-outlined parentLogo">
                               local_florist
                             </span>
-                            {tree.user[0].name ? (
-                              <>{tree.user[0].name}</>
+                            {tree.user[0].userName ? (
+                              <>{tree.user[0].userName}</>
                             ) : (
                               tree.user[0].email
                             )}
@@ -243,10 +247,6 @@ function Trees() {
                                 onClick={(e) => {
                                   setLiked(!liked);
                                   likes(e, tree);
-                                  // console.log(
-                                  //   "LIKE tree.likes.length",
-                                  //   tree.likes.length
-                                  // );
                                 }}
                               >
                                 park
@@ -257,10 +257,6 @@ function Trees() {
                                 onClick={(e) => {
                                   setLiked(!liked);
                                   likes(e, tree);
-                                  // console.log(
-                                  //   "UNLIKE tree.likes.length",
-                                  //   tree.likes.length
-                                  // );
                                 }}
                               >
                                 park
@@ -335,15 +331,10 @@ function Trees() {
                           </Accordion.Item>
                         </Accordion>{" "}
                         &nbsp; &nbsp;
-                        {/* {tree.user[0].name ? (
-                        <>
+                        <span className="description">
                           {" "}
-                          <span className="boldText">{tree.user[0].name}</span>
-                        </>
-                      ) : (
-                        <span className="boldText"> {tree.user[0].email}</span>
-                      )} */}
-                        <span className="description"> {tree.comment[0]}</span>{" "}
+                          {tree.comment[0]}
+                        </span>{" "}
                         &nbsp; &nbsp;
                         {tree.comment.length >= 3 ? (
                           <Accordion flush>
@@ -361,12 +352,8 @@ function Trees() {
                                       <span className="boldText">
                                         {tree.comment[2] ? tree.comment[2] : ""}
                                       </span>
-                                      &nbsp;{" "}
-                                      {/* {tree.comment[2]
-                                      ? tree.comment[3]
-                                      : ""}{" "} */}{" "}
                                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                      &nbsp; &nbsp;
+                                      &nbsp; &nbsp; &nbsp;
                                       <span className="seeMoreComments">
                                         {tree.comment.length >= 2 ? (
                                           <>

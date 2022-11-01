@@ -31,7 +31,6 @@ const updateUserPicture = async (req, res) => {
     });
     console.log("uploadResult????", uploadResult);
     if (uploadResult) {
-      console.log("HERE IT GETS");
       try {
         const userPhoto = await usersModel.findByIdAndUpdate(
           req.body._id,
@@ -45,6 +44,7 @@ const updateUserPicture = async (req, res) => {
         res.status(200).json({
           msg: "new picture saved",
           images: userPhoto.avatarPicture,
+          user: userPhoto,
         });
       } catch (error) {
         res
@@ -264,9 +264,8 @@ const changeUserName = async (req, res) => {
       },
       { returnOriginal: false }
     );
-    res.status(201).json({
-      msg: "name changed",
-    });
+    res.status(201).json({ msg: "name changed", changeUserName });
+
     console.log("changeUserName????", changeUserName);
   } catch (error) {
     res
