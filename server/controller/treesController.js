@@ -224,10 +224,10 @@ const comment = async (req, res) => {
   const tree_id = req.body.tree_id;
   const user_id = req.body.user_id;
 
-  const userThatComment = await usersModel.findOne({
-    user_id,
+  const userThatComment = await usersModel.findById({
+    _id: user_id,
   });
-  console.log("userThatComment", userThatComment);
+  // console.log("userThatComment", userThatComment);
   if (userThatComment) {
     try {
       const treeComment = await treeModel.findByIdAndUpdate(
@@ -240,7 +240,8 @@ const comment = async (req, res) => {
 
         { returnOriginal: false }
       );
-      console.log("treecomment????", treeComment);
+      res.status(200).json({ message: "commented", treeComment });
+      // console.log("treecomment????", treeComment);
     } catch (error) {
       res.status(409).json({ message: "error while commenting", error: error });
       console.log("error", error);

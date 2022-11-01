@@ -18,17 +18,19 @@ function Trees() {
   const [commentInputShown, setCommentInputShown] = useState(false);
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
-  const [change, setChange] = useState(true);
+  const [change, setChange] = useState(false);
 
   const controller = new AbortController();
 
   const fetchTrees = async () => {
+    console.log("fetchTrees run");
     const signal = controller.signal;
     try {
       const response = await fetch(baseURL + `/api/trees/all/`, {
         signal,
       });
       const result = await response.json();
+      console.log("result", result);
       setLoading(false);
       setTrees(result);
     } catch (error) {
@@ -70,6 +72,11 @@ function Trees() {
         requestOptions
       );
       const results = await response.json();
+      console.log("comment results", results);
+      fetchTrees();
+      if (results) {
+        setChange(!change);
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -176,9 +183,9 @@ function Trees() {
   };
 
   useEffect(() => {
+    console.log("trees use effect run");
     fetchTrees();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [liked, change]);
+  }, [liked]);
 
   return (
     <div>
@@ -235,10 +242,10 @@ function Trees() {
                                 onClick={(e) => {
                                   setLiked(!liked);
                                   likes(e, tree);
-                                  console.log(
-                                    "LIKE tree.likes.length",
-                                    tree.likes.length
-                                  );
+                                  // console.log(
+                                  //   "LIKE tree.likes.length",
+                                  //   tree.likes.length
+                                  // );
                                 }}
                               >
                                 park
@@ -249,10 +256,10 @@ function Trees() {
                                 onClick={(e) => {
                                   setLiked(!liked);
                                   likes(e, tree);
-                                  console.log(
-                                    "UNLIKE tree.likes.length",
-                                    tree.likes.length
-                                  );
+                                  // console.log(
+                                  //   "UNLIKE tree.likes.length",
+                                  //   tree.likes.length
+                                  // );
                                 }}
                               >
                                 park
@@ -284,8 +291,8 @@ function Trees() {
                                 color="success"
                                 type=""
                                 onClick={(e) => {
-                                  comments(e, tree);
                                   setChange(!change);
+                                  comments(e, tree);
                                 }}
                               >
                                 <span className="material-symbols-outlined">
@@ -384,8 +391,6 @@ function Trees() {
                                       <div>{comment}</div>
                                     </div>
                                   ))}
-                                {tree.user.name}
-                                <br />
                               </Accordion.Body>
                             </Accordion.Item>
                           </Accordion>
@@ -393,7 +398,6 @@ function Trees() {
                           ""
                         )}
                       </div>
-
                       {tree.user[0].email !== user.email ? (
                         ""
                       ) : (

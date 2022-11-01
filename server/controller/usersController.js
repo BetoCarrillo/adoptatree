@@ -256,10 +256,9 @@ const removeProfile = async (req, res) => {
 // };
 
 const changeUserName = async (req, res) => {
-  console.log("req.body????", req.body._id);
   try {
-    const changeUserName = await usersModel.findOneAndUpdate(
-      req.body_id,
+    const changeUserName = await usersModel.findByIdAndUpdate(
+      { _id: req.body._id },
       {
         userName: req.body.userName,
       },

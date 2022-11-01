@@ -145,8 +145,7 @@ background-image: url(file:///Users/albertocarrillo/Downloads/remove_FILL0_wght4
 .individualComment:nth-child(2n){
     margin-left: 5px !important;
     font-weight: bold;
-    padding-bottom: 15px;
-
+    padding-top: 20px;
 }
 
 .accordion-button:focus {
