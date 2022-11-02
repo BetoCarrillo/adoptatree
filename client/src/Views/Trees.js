@@ -72,6 +72,7 @@ function Trees() {
         const results = await response.json();
 
         fetchTrees();
+
         if (results) {
           setChange(!change);
         }
@@ -79,7 +80,7 @@ function Trees() {
         console.log("error", error);
       }
     } else {
-      alert("please login to comment");
+      alert(`please login to comment`);
     }
   };
 

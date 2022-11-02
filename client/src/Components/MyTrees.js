@@ -85,7 +85,6 @@ function MyTrees() {
 
   const updatePicture = async (e, tree) => {
     e.preventDefault();
-    console.log("works", tree);
     // console.log("selectedfile", selectedFile);
     // console.log("user", user);
     let formdata = new FormData();
@@ -103,7 +102,7 @@ function MyTrees() {
         requestOptions
       );
       const results = await response.json();
-      console.log("results", results);
+
       if (results) {
         setChange(!change);
       }
@@ -114,7 +113,7 @@ function MyTrees() {
 
   useEffect(() => {
     getProfile();
-    console.log("mytrees use effect run");
+    // console.log("mytrees use effect run");
   }, [change]);
 
   return (

@@ -16,7 +16,7 @@ function SearchBar({ searchName, setSearchName, fetchTrees, fetchDataSearch }) {
       </Button>
       <input
         className="searchBarInput"
-        placeholder=" search"
+        placeholder=" search "
         // ref={inputRef}
         type="text"
         name="searchbar"

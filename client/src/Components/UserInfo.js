@@ -137,7 +137,7 @@ function UserInfo() {
 
   const updatePicture = async (e) => {
     e.preventDefault();
-    console.log("selectedfile", selectedFile);
+    // console.log("selectedfile", selectedFile);
     // console.log("user", user);
     let formdata = new FormData();
     formdata.append("image", selectedFile);
@@ -157,15 +157,13 @@ function UserInfo() {
       if (results) {
         setUser(results.user);
       }
-      console.log("results", results);
+      // console.log("results", results);
     } catch (error) {
       console.log("error", error);
     }
   };
 
-  useEffect(() => {
-    console.log("use effect run user info");
-  }, [change]);
+  useEffect(() => {}, [change]);
 
   return (
     <div>

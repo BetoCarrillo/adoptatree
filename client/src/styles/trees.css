@@ -2,6 +2,7 @@
   margin: 0%;
     display: flex;
     justify-content: center;
+    padding-right: 1rem !important;
    
 }
 .searchBarInput {
