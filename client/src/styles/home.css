@@ -11,7 +11,7 @@ padding-bottom: 5rem;
 .homeTitle{
     align-self: center;
     font-size: 120px;
-    font-family: Cairo Play ;
+    font-family: Cairo, Helvetica;
  
 
 }
@@ -90,7 +90,6 @@ align-items: center;
 flex-direction: column;
 gap: 2rem;
 
-
 }
 
 
@@ -103,6 +102,16 @@ gap: 2rem;
         font-size: 35px;
 
     }
+    .aboutText{
+        font-family: Cairo, sans-serif;
+     font-size: 20px;
+        width: 70%;
+    
+    }
 
+    .modalText{
+        font-family: Cairo, sans-serif;
+        font-size: 20px;
+    }
 
 }

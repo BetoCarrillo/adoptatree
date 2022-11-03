@@ -125,7 +125,7 @@ function Register() {
       }
     }
     if (emailError === null && passError !== null) {
-      alert("please a choose 4 digit password");
+      alert("please a choose a 4 digit password at least");
     }
     if (emailError !== null && passError === null) {
       alert("please a use valid email");

@@ -22,9 +22,10 @@ const addMiddlewares = () => {
   );
 
   const allowedOrigins = [
-    "https://adoptatree2-mkdsojsl5-betocarrillo.vercel.app",
+    "https://adoptatree.vercel.app",
     "http://localhost:3000",
   ];
+
   const corsOptions = {
     origin: function (origin, callback) {
       if (allowedOrigins.indexOf(origin) !== -1) {

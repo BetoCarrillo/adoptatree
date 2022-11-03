@@ -53,8 +53,8 @@ function Profile() {
   };
 
   const adopt = async () => {
-    // console.log("userID", user._id);
-    let myHeaders = new Headers();
+    const token = localStorage.getItem("token");
+    if (token) {let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
@@ -93,6 +93,9 @@ function Profile() {
     } catch (error) {
       console.log("error fetching", error);
     }
+    } else { alert("please login to adopt")}
+    // console.log("userID", user._id);
+    
   };
 
   const handleClose = () => {
