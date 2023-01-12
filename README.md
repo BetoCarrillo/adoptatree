@@ -1,5 +1,7 @@
 # Adoptatree
 
+Deployed here: https://adoptatree.vercel.app/ 
+
 I developed this website as part of a project 4 in Code Academy Berlin. The app motivates users to take care of trees in the city with a possitive impact to our planet.
 
 The app was developed with MERN stack (MongoDB, Express.js, React and Node.js). The back-end interacts with a React front-end thought APIs of my own, providing the app with key features while ensuring the security of the exchanges using web tokens and access management rules (CRUD).
