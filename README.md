@@ -1,4 +1,4 @@
-# Adoptatree
+# Adopt ![park_FILL0_wght400_GRAD0_opsz48 (2)](https://user-images.githubusercontent.com/109080114/212047567-de669483-2053-4134-bc2e-bf114f9f8148.svg) Tree
 
 Deployed here: https://adoptatree.vercel.app/ 
 
@@ -16,4 +16,3 @@ Key features:
 - Delete comments, adopted trees and profile.  
 
 Anyone can use it to take care of the trees around the city.
-
